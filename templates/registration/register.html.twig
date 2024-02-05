@@ -10,53 +10,53 @@
 
 {% block body %}
 
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-5 offset-6">
+    <main class="container d-flex justify-content-around align-items-center">
+
+            <img class="w-50" src="{{ asset('images/register-picture.jpg') }}" alt="image personnes entrain d'apprendre">
+
+            <section>
                 <div class="card px-5 shadow bg-body-tertiary rounded">
 
-                    <h2 class="my-3">Créer votre compte</h2>
+                    <h2 class="my-3 fs-1 text-center text-decoration-underline">Créer votre compte</h2>
 
-
-                    {{ form_errors(registrationForm) }}
                     {{ form_start(registrationForm) }}
+                    {{ form_errors(registrationForm) }}
 
-                    <div class ="d-flex flex-column">
+                    <div class="d-flex flex-column">
                         {{ form_label(registrationForm.firstNameUser, 'Nom', { 'label_attr': {'class': 'form-label'} } ) }}
                         {{ form_widget(registrationForm.firstNameUser, { 'attr': {'class': 'form-control'} } ) }}
                         {{ form_errors(registrationForm.firstNameUser) }}
-                    </div>
 
-                    <div class ="d-flex flex-column">
                         {{ form_label(registrationForm.lastNameUser, 'Prénom', { 'label_attr': {'class': 'form-label'} }) }}
                         {{ form_widget(registrationForm.lastNameUser, { 'attr': {'class': 'form-control'} } ) }}
                         {{ form_errors(registrationForm.lastNameUser) }}
-                    </div>
 
-                    <div class ="d-flex flex-column">
                         {{ form_label(registrationForm.email, 'E-mail', { 'label_attr': {'class': 'form-label'} }) }}
                         {{ form_widget(registrationForm.email, { 'attr': {'class': 'form-control'} } ) }}
                         {{ form_errors(registrationForm.email) }}
-                    </div>
 
-                    <div class ="d-flex flex-column">
-                        {{ form_label(registrationForm.plainPassword, 'Mot de passe', { 'label_attr': {'class': 'form-label'} }) }}
-                        {{ form_widget(registrationForm.plainPassword, { 'attr': {'class': 'form-control'} } ) }}
-                        <p class ="m-0">Doit contenir plus de 8 caractères, dont au moins 1 lettre et 1 chiffre</p>
+                        {{ form_label(registrationForm.plainPassword.first, 'Mot de passe', { 'label_attr': {'class': 'form-label'} }) }}
+                        {{ form_widget(registrationForm.plainPassword.first, { 'attr': {'class': 'form-control'} } ) }}
+
+                        {{ form_label(registrationForm.plainPassword.second, 'Resaisir votre mot de passe', { 'label_attr': {'class': 'form-label d-none'} }) }}
+                        {{ form_widget(registrationForm.plainPassword.second, { 'attr': {'class': 'form-control d-none'} } ) }}
+
+                        <p class="m-0 sk-password">Doit contenir plus de 8 caractères, dont au moins 1 lettre et 1 chiffre</p>
 
                     </div>
 
                     <div class="my-3">
-                        {{ form_label(registrationForm.agreeTerms, 'Conditions d\'utilisation', { 'label_attr': {'class': 'form-check-label'} }) }}
                         {{ form_widget(registrationForm.agreeTerms, { 'attr': {'class': 'form-check-input'} } ) }}
+                        {{ form_label(registrationForm.agreeTerms, 'Conditions d\'utilisation', { 'label_attr': {'class': 'form-check-label'} }) }}
                     </div>
 
-                    <button type="submit" class="btn btn-primary w-100 mb-3">S'inscrire</button>
+                    <button type="submit" class="btn btn-success w-100 mb-5">S'inscrire</button>
+
+                    {{ form_end(registrationForm) }}
 
                 </div>
-            </div>
-        </div>
-    </div>
+            </section>
+    </main>
 
-    {{ form_end(registrationForm) }}
+    <script src={{ asset('js/register.js') }}></script>
 {% endblock %}

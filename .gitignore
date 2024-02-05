@@ -27,3 +27,6 @@
 
 ###< phpStorm files ###
 .idea
+
+###< macfiles ###
+.DS_Store
