@@ -1,1 +1,19 @@
+@font-face {
+    font-family: "Coolvetica";
+    src: url("coolvetica_compressed_hv.otf");
+}
 
+main{
+    min-height: 100vh;
+}
+
+h2{
+    font-family: "Coolvetica", sans-serif;
+}
+.sk-password{
+    font-size: 0.8rem;
+}
+
+.redBorder{
+    border: 1px solid red !important;
+}
