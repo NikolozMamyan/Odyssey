@@ -14,7 +14,7 @@ class Course
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $courseTitle = null;
+    private ?string $title = null;
 
     #[ORM\Column(length: 600, nullable: true)]
     private ?string $description = null;
@@ -31,14 +31,14 @@ class Course
         return $this->id;
     }
 
-    public function getCourseTitle(): ?string
+    public function getTitle(): ?string
     {
-        return $this->courseTitle;
+        return $this->title;
     }
 
-    public function setCourseTitle(string $courseTitle): static
+    public function setTitle(string $title): static
     {
-        $this->courseTitle = $courseTitle;
+        $this->title = $title;
 
         return $this;
     }
