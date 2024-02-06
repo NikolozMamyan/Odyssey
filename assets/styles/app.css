@@ -1,4 +1,23 @@
 
+@font-face {
+    font-family: "Coolvetica";
+    src: url("coolvetica_compressed_hv.otf");
+}
+
+main{
+    min-height: 100vh;
+}
+
+h2{
+    font-family: "Coolvetica", sans-serif;
+}
+.sk-password{
+    font-size: 0.8rem;
+}
+
+.redBorder{
+    border: 1px solid red !important;
+
 
 body {
     font-family:Arial,  sans-serif;
@@ -6,6 +25,7 @@ body {
     padding: 0;
     box-sizing: border-box;
     background-color: #f4f4f4;
+
 }
 
 .header{
