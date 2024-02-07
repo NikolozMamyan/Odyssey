@@ -15,20 +15,6 @@ class CoursesController extends AbstractController
     public function index(EntityManagerInterface $entityManager): Response
     {
         // exemple of teacher and course for testing
-        $teacher = new Teacher();
-        $teacher->setName('John Doe');
-        $teacher->setEmail('john.doe@gmail.com');
-
-        $course = new Course();
-        $course->setTitle('test course');
-        $course->setDescription('test description');
-        $course->setAuthor($teacher);
-        $course->setContent('test content');
-
-        $entityManager->persist($teacher);
-        $entityManager->persist($course);
-        $entityManager->flush();
-
 
         $coursesRepository = $entityManager->getRepository(Course::class);
         $courses = $coursesRepository->findAll();
