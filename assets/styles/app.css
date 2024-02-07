@@ -5,21 +5,43 @@
 }
 
 /* register page */
-main{
+.sk-main{
     min-height: 100vh;
 }
 
-h2{
+.sk-h2{
     font-family: "Coolvetica", sans-serif;
 }
 .sk-password{
     font-size: 0.8rem;
 }
 
-.redBorder {
-    border: 1px solid red !important;
+.sk-btn{
+    color: white;
+    background-color: #725AC1;
+    border: 2px solid #725AC1;
+    border-radius: 10px;
+    padding: 0.5em;
 }
 
+.sk-btn:hover {
+    background-color: #5B47A4;
+    border-color: #5B47A4;
+    color: #FFFFFF;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+.sk-redBorder {
+    border: 1px solid red !important;
+}
+.sk-.error-text {
+    color: red;
+    font-size: 12px;
+}
+
+/* home page */
+
+/*
 body {
     font-family:Arial,  sans-serif;
     margin: 0;
@@ -28,7 +50,7 @@ body {
     background-color: #f4f4f4;
 
 }
-
+*/
 .header{
     background-color: #EDEBD7;
     color: black;
@@ -96,7 +118,7 @@ box-shadow: inset 160px 0px 0 0 #725AC1;
     margin-bottom: 25px;
 }
 
-
+/*
 
 input[type="text"],
 input[type="email"],
@@ -106,12 +128,12 @@ textarea {
     box-sizing: border-box;
     border: none;
     background-color: transparent;
-    border-bottom: 2px solid black; /* Ajoutez cette ligne pour la bordure en bas */
-    border-radius: 0; /* Supprimez la bordure arrondie pour une apparence plus plate */
-    outline: none; /* Supprime la bordure de focus par défaut pour un style plus propre */
+    border-bottom: 2px solid black;  Ajoutez cette ligne pour la bordure en bas
+    border-radius: 0;  Supprimez la bordure arrondie pour une apparence plus plate
+    outline: none;  Supprime la bordure de focus par défaut pour un style plus propre
 }
 
-
+/*
 
 
   

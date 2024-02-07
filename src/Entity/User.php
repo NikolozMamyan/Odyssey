@@ -42,6 +42,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $pictureUser = null;
 
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Role $role = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -156,6 +160,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPictureUser(?string $pictureUser): static
     {
         $this->pictureUser = $pictureUser;
+
+        return $this;
+    }
+
+    public function getRole(): ?Role
+    {
+        return $this->role;
+    }
+
+    public function setRole(?Role $role): static
+    {
+        $this->role = $role;
 
         return $this;
     }
