@@ -23,10 +23,3 @@
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
-
-
-###< phpStorm files ###
-.idea
-
-###< macfiles ###
-.DS_Store
