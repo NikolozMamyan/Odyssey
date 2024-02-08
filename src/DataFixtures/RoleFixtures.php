@@ -13,12 +13,15 @@ class RoleFixtures extends Fixture
     {
         $roleStudent = new Role();
         $roleTeacher = new Role();
+        $roleAdmin = new Role();
 
         $roleStudent->setTypeRole('student');
         $roleTeacher->setTypeRole('teacher');
+        $roleAdmin->setTypeRole('admin');
 
         $manager->persist($roleStudent);
         $manager->persist($roleTeacher);
+        $manager->persist($roleAdmin);
 
         $manager->flush();
     }
