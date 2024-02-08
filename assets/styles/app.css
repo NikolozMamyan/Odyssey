@@ -1,23 +1,45 @@
-
+/* import police */
 @font-face {
     font-family: "Coolvetica";
     src: url("coolvetica_compressed_hv.otf");
 }
 
-main{
+/* register page */
+.sk-main{
     min-height: 100vh;
 }
 
-h2{
+.sk-h2{
     font-family: "Coolvetica", sans-serif;
 }
 .sk-password{
     font-size: 0.8rem;
 }
 
-.redBorder{
+.sk-btn{
+    color: white;
+    background-color: #725AC1;
+    border: 2px solid #725AC1;
+    border-radius: 10px;
+    padding: 0.5em;
+}
+
+.sk-btn:hover {
+    background-color: #5B47A4;
+    border-color: #5B47A4;
+    color: #FFFFFF;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+.sk-redBorder {
     border: 1px solid red !important;
 }
+.sk-error-text {
+    color: red;
+    font-size: 12px;
+}
+
+/* home page */
 
 
 .nm-header{
@@ -43,6 +65,7 @@ h2{
  box-shadow: 20px 20px 60px #bebebe,
                -20px -20px 60px #ffffff;
 }
+
 .nm-Button, .nm-Button__inscription {
 position: relative;
 display: inline-block;
@@ -65,10 +88,10 @@ box-shadow: inset 0 0 0 0 #725AC1;
 color: white;
 box-shadow: inset 0 -100px 0 0 #725AC1;
 }
-.nm-Button__inscription:hover {
 
+.nm-Button__inscription:hover {
 color: white;
-box-shadow: inset 160px 0px 0 0 #725AC1;
+box-shadow: inset 160px 0 0 0 #725AC1;
 }
 
 /*Form-Contact*/
@@ -88,30 +111,15 @@ box-shadow: inset 160px 0px 0 0 #725AC1;
 }
 
 
-
-.input__contact[type="text"],
-.input__contact[type="email"],
-textarea {
+.nm-input__contact[type="text"],
+.nm-input__contact[type="email"],
+.nm-textarea {
     width: 100%;
     padding: 8px;
     box-sizing: border-box;
     border: none;
     background-color: transparent;
-    border-bottom: 2px solid black; /* Ajoutez cette ligne pour la bordure en bas */
-    border-radius: 0; /* Supprimez la bordure arrondie pour une apparence plus plate */
-    outline: none; /* Supprime la bordure de focus par défaut pour un style plus propre */
+    border-bottom: 2px solid black;
+    border-radius: 0;
+    outline: none;
 }
-
-
-
-
-  
-
-  
-
-  
-  
-  
-  
-
-
