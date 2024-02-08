@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block title %}Détail
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h1 class="text-center">Détail cours </h1>
+		<div class="row">
+			<div
+				class="col-md-12">
+			</div>
+		</div>
+		<div class="row">
+	
+							<div class="card-body">
+								<h2 class="card-title">{{ course.title }}</h2>
+								<h3 class="card-subtitle text-body-secondary">{{ course.author.name }}</h3>
+								<p class="card-text">{{ course.description }}</p>
+							</div>
+						</div>
+					</a>
+				</div>
+			{% endfor %}
+		</div>
+
+	{% endblock %}
