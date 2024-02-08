@@ -2,7 +2,6 @@
 {% from 'macros/card.macro.twig' import card %}
 
 
-
 {% block body %}
 
     <!--Message-->
@@ -19,21 +18,22 @@
         <div class='container'>
             <h1>Soyez professionnel demain en apprenant dès aujourd'hui.</h1>
             <p>Bienvenue sur notre plateforme d'apprentissage. Acquérez de nouvelles compétences et progressez a votre rythme.</p>
-            <a href="{{ path('app_courses') }}" class="Button">Consulter les cours</a>
-            <a href="#" class="Button">Connexion</a>
+            <a href="{{ path('app_courses') }}" class="nm-Button">Consulter les cours</a>
+            <a href="#" class="nm-Button">Connexion</a>
         </div>
     </div>
-<section class='d-flex justify-content-center mt-5 container'>
-<div class='col-md-6 col-sm-12'>
 
-{{ card("Etudiant", "Rejoignez notre communauté d'apprenants passionnés.
- Inscrivez-vous maintenant pour des cours de qualité et une expérience interactive.") }}
-</div>
-<div class='col-md-6 col-sm-12 '>
-{{ card("Formateur", 
-" Partagez votre expertise en tant que formateur sur notre plateforme. 
-Rejoignez-nous aujourd'hui pour inspirer la prochaine génération de talents.") }}
-</div>
+<section class='d-flex justify-content-center mt-5 container'>
+    <div class='col-md-6 col-sm-12'>
+    {{ card("Etudiant", "Rejoignez notre communauté d'apprenants passionnés.
+     Inscrivez-vous maintenant pour des cours de qualité et une expérience interactive.") }}
+    </div>
+
+    <div class='col-md-6 col-sm-12 '>
+    {{ card("Formateur",
+    " Partagez votre expertise en tant que formateur sur notre plateforme.
+    Rejoignez-nous aujourd'hui pour inspirer la prochaine génération de talents.") }}
+    </div>
 </section>
 
 <section class="mt-5 container-fluid row contact__style">
@@ -41,7 +41,7 @@ Rejoignez-nous aujourd'hui pour inspirer la prochaine génération de talents.")
       <footer>
       <div class="col-12">Notre plateforme</div>
       <div class="col-12">A propos nos cours</div>
-      <div class="col-12">Mentions legales</div>
+      <div class="col-12">Mentions légales</div>
       {# <a  href="#">Odyssey</a> #}
       </footer>
     </div>
@@ -52,22 +52,21 @@ Rejoignez-nous aujourd'hui pour inspirer la prochaine génération de talents.")
             <form id="contactForm ">
                 <div class="form-group mt-5">
                     <label for="name">Nom</label>
-                    <input class="input__contact" type="text" id="name" placeholder='Votre nom' name="name" required >
+                    <input class="nm-input__contact" type="text" id="name" placeholder='Votre nom' name="name" required >
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input class="input__contact" type="email" id="email" name="email" placeholder='Votre adresse mail' required>
+                    <input class="nm-input__contact" type="email" id="email" name="email" placeholder='Votre adresse mail' required>
                 </div>
 
                 <div class="form-group">
                     <label for="message">Message</label>
-                    <textarea class="input__contact" id="message" name="message" placeholder='Posez vos questions, partagez vos découvertes.' rows="4" required></textarea>
+                    <textarea class="nm-textarea nm-input__contact" id="message" name="message" placeholder='Posez vos questions, partagez vos découvertes.' rows="4" required></textarea>
                 </div>
                 
                 <a type="submit" class="nm-Button d-flex justify-content-center mt-5">Envoyer</a>
-                
-                
+
             </form>
         </div>
     </div>
