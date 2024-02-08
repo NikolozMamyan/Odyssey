@@ -39,7 +39,9 @@
 }
 
 /* home page */
-
+nav{
+    background-color: #725AC1;
+}
 
 .nm-header{
     background-color: #EDEBD7;
