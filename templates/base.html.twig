@@ -13,6 +13,12 @@
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
+
+    <header>
+        {% include "component/nav.html.twig" %}
+    </header>
+
+
     <body>
         {% block body %}{% endblock %}
     </body>

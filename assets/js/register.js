@@ -1,6 +1,6 @@
 const form = document.querySelector('form[name="registration_form"]');
-const etudiant = form.elements["registration_form[etudiant]"]
-const formateur = form.elements["registration_form[formateur]"]
+const etudiant = form.elements["registration_form[student]"]
+const formateur = form.elements["registration_form[teacher]"]
 
 form.addEventListener('input', (e) => {
 

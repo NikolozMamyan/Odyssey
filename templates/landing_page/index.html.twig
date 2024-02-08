@@ -5,34 +5,28 @@
 
 {% block body %}
 
-    <nav class="navbar navbar-expand-lg">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Odyssey</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link active" aria-current="page" href="#">Home</a>
-        <a class="nav-link" href="#">A propos</a>
-        <a class="nav-link" href="#">Contact</a>
-      </div>
-    </div>
-  </div>
-</nav>
+    <!--Message-->
+    {% for category, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="w-50 container-sm alert alert-{{ category }}">
+                <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
 
-    <header class='header'>
+    <div class='header'>
         <div class='container'>
             <h1>Soyez professionnel demain en apprenant dès aujourd'hui.</h1>
             <p>Bienvenue sur notre plateforme d'apprentissage. Acquérez de nouvelles compétences et progressez a votre rythme.</p>
             <a href="{{ path('app_courses') }}" class="Button">Consulter les cours</a>
             <a href="#" class="Button">Connexion</a>
         </div>
-    </header>
+    </div>
 <section class='d-flex justify-content-center mt-5 container'>
 <div class='col-md-6 col-sm-12'>
 
-{{ card("Etudiat", "Rejoignez notre communauté d'apprenants passionnés.
+{{ card("Etudiant", "Rejoignez notre communauté d'apprenants passionnés.
  Inscrivez-vous maintenant pour des cours de qualité et une expérience interactive.") }}
 </div>
 <div class='col-md-6 col-sm-12 '>

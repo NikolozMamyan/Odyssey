@@ -38,19 +38,22 @@ class RegistrationController extends AbstractController
             $user->setDateRegisterUser(new \DateTime);
             $isStudent = $form->get('student')->getData();
 
-            if ($isStudent)
-            {
-               // todo: mettre à jour la table role
-                $role->setTypeRole('student');
+            if ($isStudent) {
                 $user->setRoles(['ROLE_USER']);
+                $role = $entityManager->getRepository(Role::class)->findOneBy(['typeRole' => 'student']);
+                $user->setRoleUser($role);
+
             } else {
-                $role->setTypeRole('teacher');
+
                 $user->setRoles(['ROLE_TEACHER']);
+                $role = $entityManager->getRepository(Role::class)->findOneBy(['typeRole' => 'teacher']);
+                $user->setRoleUser($role);
             }
 
-            $entityManager->persist($role);
             $entityManager->persist($user);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Votre compte a bien été crée.');
 
             return $this->redirectToRoute('app_landing_page');
         }

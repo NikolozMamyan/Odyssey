@@ -34,7 +34,7 @@
 .sk-redBorder {
     border: 1px solid red !important;
 }
-.sk-.error-text {
+.sk-error-text {
     color: red;
     font-size: 12px;
 }
