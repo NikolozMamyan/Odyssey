@@ -36,6 +36,8 @@ class RegistrationController extends AbstractController
             );
 
             $user->setDateRegisterUser(new \DateTime);
+
+            // check roles (student ou teacher)
             $isStudent = $form->get('student')->getData();
 
             if ($isStudent) {
@@ -53,6 +55,7 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
+            // display message
             $this->addFlash('success', 'Votre compte a bien été crée.');
 
             return $this->redirectToRoute('app_landing_page');
