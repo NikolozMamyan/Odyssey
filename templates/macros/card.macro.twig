@@ -4,9 +4,8 @@
 			<h5 class="card-title fw-bold">{{ title }}</h5>
 			<p class="card-text mt-4">{{ description }}</p>
 			<div class="d-flex justify-content-end">
-				<a class="nm-Button__inscription" href="#">S'inscrire</a>
+				<a class="nm-nm-Button__inscription" href="{{ path('app_register') }}">S'inscrire</a>
 			</div>
-
 		</div>
 	</div>
 {% endmacro %}
@@ -15,7 +14,6 @@
 	<a href="{{ path('app_course_show', {'id': course.id}) }}">
 		<div class="card mb-4 shadow-sm">
 			<img src="https://picsum.photos/200" class="card-img-top" alt="course picture">
-
 			<div class="card-body">
 				<h2 class="card-title">{{ course.title }}</h2>
 				<h3 class="card-subtitle text-body-secondary">{{ course.author.name }}</h3>
