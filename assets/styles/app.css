@@ -3,7 +3,6 @@
     font-family: "Coolvetica";
     src: url("coolvetica_compressed_hv.otf");
 }
-
 /* register page */
 .sk-main{
     min-height: 100vh;
@@ -95,10 +94,19 @@ box-shadow: inset 160px 0 0 0 #725AC1;
 }
 
 /*Form-Contact*/
-/* Ajoutez ces styles dans votre feuille de style CSS */
+.contact__img{
+    display: flex;
+    justify-content: center;
+}
+.rocket__img{
+    width: 60%;
+    border-radius: 10px;
+
+}
 
 .contact__style{
     background-color:#EDEBD7 ;
+    margin: 0px;
 }
 .nm-form-container {
     padding: 20px;
