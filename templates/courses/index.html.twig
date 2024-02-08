@@ -10,7 +10,8 @@
 
 {% block body %}
 	<div class="container">
-		<h1 class="text-center">Les cours d'Odyssey</h1>
+		<h2 class="text-center">LES COURS D'ODYSSEY</h2>
+		<P class="text-center">Bienvenue sur l'ensemble des cours offerts par nos formateurs</P>
 		<div class="row">
 			<div
 				class="col-md-12">{# <a href="{{ path('app_course_make') }}" class="btn btn-primary">Créer un cours</a> #}
@@ -19,9 +20,9 @@
 
 		<div class="row">
 			{% for course in courses %}
-				<div class="col-md-2">
+				<div class="col-md-3 mb-5">
 					<a href="{{ path('app_course_show', {'id': course.id}) }}">
-						<div class="card mb-4 shadow-sm">
+						<div class="card mb-6 shadow-sm h-100">
 							<img src="https://picsum.photos/200" class="card-img-top" alt="course picture">
 
 							<div class="card-body">

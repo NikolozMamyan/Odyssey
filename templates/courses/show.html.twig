@@ -1,29 +1,29 @@
 {% extends 'base.html.twig' %}
 
-
-
 {% block title %}Détail
 {% endblock %}
 
 {% block body %}
-	<div class="container">
-		<h1 class="text-center">Détail cours </h1>
-		<div class="row">
-			<div
-				class="col-md-12">
-			</div>
-		</div>
-		<div class="row">
-	
-							<div class="card-body">
-								<h2 class="card-title">{{ course.title }}</h2>
-								<h3 class="card-subtitle text-body-secondary">{{ course.author.name }}</h3>
-								<p class="card-text">{{ course.description }}</p>
-							</div>
-						</div>
-					</a>
-				</div>
-			{% endfor %}
-		</div>
 
-	{% endblock %}
+<div class="row justify-content-center mt-4">
+    <div class="col-md-8">
+        <div class="card bg-light">
+            <div class="card-header text-center">
+                <h5 class="card-title"><strong>{{ course.title }}</strong> </h5>
+            </div>
+            <div class="card-body">
+                {% if course %}
+					<li class="list-group-item"><strong>Formateur :</strong> {{ course.author.name }}</li>
+					<li class="list-group-item"> {{ course.content }}</li>
+                {% else %}
+                    <p>Le cours demandé n'existe pas.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+
