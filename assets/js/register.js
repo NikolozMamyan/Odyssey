@@ -1,62 +1,78 @@
-const form = document.querySelector('form[name="registration_form"]');
 
-form.addEventListener('input', () => {
+if (!window.form) {
 
-    const formFirstName = form.elements["registration_form[firstNameUser]"];
-    const formLastName = form.elements["registration_form[lastNameUser]"];
-    const formEmail = form.elements["registration_form[email]"].value;
-    const formPasswordFirst = form.elements["registration_form[plainPassword][first]"];
-    const formPasswordSecond = form.elements["registration_form[plainPassword][second]"];
-    const formPasswordLabel = document.querySelector('label[for="registration_form_plainPassword_second"]');
-    const formTerms = form.elements["registration_form[agreeTerms]"].value;
+    const form = document.querySelector('form[name="registration_form"]');
+    const etudiant = form.elements["registration_form[student]"]
+    const formateur = form.elements["registration_form[teacher]"]
 
-    if(formFirstName.value.length <= 2) {
-        //todo: ajouter classe bordure rouge
-        formFirstName.classList.add('redBorder');
-    } else {
-        formFirstName.classList.remove('redBorder');
-    }
+    form.addEventListener('input', (e) => {
 
-    if(formLastName.value.length <= 2) {
-        //todo: ajouter classe bordure rouge
-        formLastName.classList.add('redBorder');
-    } else {
-        formLastName.classList.remove('redBorder');
-    }
+        const formFirstName = form.elements["registration_form[firstNameUser]"];
+        const formLastName = form.elements["registration_form[lastNameUser]"];
+        const formEmail = form.elements["registration_form[email]"];
+        const formPasswordFirst = form.elements["registration_form[plainPassword][first]"];
+        const formPasswordSecond = form.elements["registration_form[plainPassword][second]"];
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (e.target === formFirstName) {
 
-    if(!emailRegex.test(formEmail)) {
-        //todo: ajouter classe bordure rouge
-        //formEmail.classList.add('redBorder');
-    } else {
-        //formEmail.classList.remove('redBorder');
-    }
+            if (formFirstName.value.length <= 2) {
+                formFirstName.classList.add('sk-redBorder');
+            } else {
+                formFirstName.classList.remove('sk-redBorder');
+            }
+        }
 
-    if(!formPasswordFirst.value) {
-        //todo: ajouter classe bordure rouge
-        //formPasswordFirst.classList.add('redBorder');
-    } else {
-        //formPasswordFirst.classList.remove('redBorder');
-        formPasswordFirst.addEventListener('input', function() {
-            formPasswordLabel.classList.add('d-block');
-            formPasswordLabel.classList.remove('d-none');
-            formPasswordSecond.classList.add('d-block');
-            formPasswordSecond.classList.remove('d-none');
-        });
+        if (e.target === formLastName) {
 
+            if (formLastName.value.length <= 2) {
+                formLastName.classList.add('sk-redBorder');
+            } else {
+                formLastName.classList.remove('sk-redBorder');
+            }
+        }
 
-        //formPasswordFirst.classList.remove('redBorder');
-    }
+        if (e.target === formEmail) {
 
-    if(!formTerms.checked) {
-        //todo: ajouter classe bordure rouge
-        //formTerms.classList.add('redBorder');
-    } else {
-        //formTerms.classList.remove('redBorder');
-    }
+            const emailRegex = /^[a-z0-9.-]+@[a-z0-9.-]+(\.[a-z]{2,4})$/;
 
+            if (!emailRegex.test(formEmail.value)) {
+                formEmail.classList.add('sk-redBorder');
+            } else {
+                formEmail.classList.remove('sk-redBorder');
+            }
+        }
 
+        if (e.target === formPasswordFirst) {
 
-});
+            const regexPwd = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]{8,12}/;
 
+            if (!regexPwd.test(formPasswordFirst.value)) {
+                formPasswordFirst.classList.add('sk-redBorder');
+            } else {
+                formPasswordFirst.classList.remove('sk-redBorder')
+            }
+        }
+
+        if (e.target === formPasswordSecond) {
+
+            if (formPasswordFirst.value !== formPasswordSecond.value) {
+                formPasswordSecond.classList.add('sk-redBorder');
+            } else {
+                formPasswordSecond.classList.remove('sk-redBorder')
+            }
+        }
+
+    });
+
+    etudiant.addEventListener('change', function () {
+        if (this.checked) {
+            formateur.checked = false;
+        }
+    });
+
+    formateur.addEventListener('change', function () {
+        if (this.checked) {
+            etudiant.checked = false;
+        }
+    });
+}
