@@ -14,9 +14,7 @@ class LandingPageController extends AbstractController
     #[Route('/', name: 'app_landing_page')]
     public function index(): Response
     {
-        return $this->render('landing_page/index.html.twig', [
-            'controller_name' => 'LandingPageController',
-        ]);
+        return $this->render('landing_page/index.html.twig');
     }
 
     #[Route('/contact', name: 'app_contact', methods:['POST'])]
@@ -38,6 +36,13 @@ class LandingPageController extends AbstractController
         }
 
         return $this->redirectToRoute('app_landing_page');
+    }
+
+
+    #[Route('/legals', name: 'app_legals_page')]
+    public function showLegals(): Response
+    {
+        return $this->render('legals/Legal_information.html.twig');
     }
 
 }
