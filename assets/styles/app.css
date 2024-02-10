@@ -39,9 +39,20 @@
     font-size: 12px;
 }
 
+.sk-link{
+    cursor: pointer;
+}
+
+/* page send mail to reset password */
+.sk-init-a-reset-password{
+    text-decoration: none;
+    text-align: center;
+}
+
 /* home page */
 nav{
     background-color: #725AC1;
+    height: 10vh;
 }
 
 .nm-header{
@@ -97,7 +108,6 @@ box-shadow: inset 160px 0 0 0 #725AC1;
 }
 
 /*Form-Contact*/
-/* Ajoutez ces styles dans votre feuille de style CSS */
 
 .contact__style{
     background-color:#EDEBD7 ;
