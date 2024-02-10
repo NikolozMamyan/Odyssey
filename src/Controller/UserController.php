@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,12 +13,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class UserController extends AbstractController
 {
     #[Route('/user', name: 'app_user')]
-    public function index(EntityManagerInterface $entityManager, UserRepository $userRepository, Request $request, int $id): Response
+    public function index(EntityManagerInterface $entityManager, UserRepository $userRepository, Request $request): Response
     {
-        $user= $userRepository->find($id);
+        $user= $userRepository->findAll();
+      
         
+
         return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
+            'user' => $user,
         ]);
     }
 }
