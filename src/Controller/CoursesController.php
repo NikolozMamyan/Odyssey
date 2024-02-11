@@ -3,18 +3,22 @@
 namespace App\Controller;
 
 use App\Entity\Course;
-use App\Entity\Teacher;
+use App\Model\SearchData;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\CourseRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Form\SearchType;
+
 
 class CoursesController extends AbstractController
 {
+   
     #[Route('/courses', name: 'app_courses')]
     public function index(EntityManagerInterface $entityManager): Response
     {
-        // exemple of teacher and course for testing
 
         $coursesRepository = $entityManager->getRepository(Course::class);
         $courses = $coursesRepository->findAll();

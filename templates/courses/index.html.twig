@@ -10,16 +10,17 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container">
+
+	<div class="container mb-5">
 		<h2 class="text-center">LES COURS D'ODYSSEY</h2>
 		<P class="text-center">Bienvenue sur l'ensemble des cours offerts par nos formateurs</P>
-		<div class="row">
-			<div
-				class="col-md-12">{# <a href="{{ path('app_course_make') }}" class="btn btn-primary">Créer un cours</a> #}
-			</div>
+		<div class="col-md-6">
+		{{ render(controller(
+			'App\\Controller\\SearchController::searchBar'
+	)) }}
 		</div>
-
 		<div class="row">
+		
 			{% for course in courses %}
 				<div class="col-md-3 mb-5">
 					<a href="{{ path('app_course_show', {'id': course.id}) }}">

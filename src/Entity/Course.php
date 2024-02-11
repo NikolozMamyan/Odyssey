@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CourseRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CourseRepository::class)]
@@ -25,6 +27,14 @@ class Course
 
     #[ORM\Column(length: 10000)]
     private ?string $content = null;
+
+    #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'courses')]
+    private Collection $categories;
+
+    public function __construct()
+    {
+        $this->categories = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -75,6 +85,30 @@ class Course
     public function setContent(string $content): static
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Category>
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Category $category): static
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories->add($category);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): static
+    {
+        $this->categories->removeElement($category);
 
         return $this;
     }
