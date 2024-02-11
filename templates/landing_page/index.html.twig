@@ -7,7 +7,7 @@
     <!--Message-->
     {% for category, messages in app.flashes %}
         {% for message in messages %}
-            <div class="w-50 container-sm alert alert-{{ category }}">
+            <div class="w-50 container-sm mt-5 alert alert-{{ category }}">
                 <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
                 {{ message }}
             </div>
@@ -19,7 +19,11 @@
             <h1>Soyez professionnel demain en apprenant dès aujourd'hui.</h1>
             <p>Bienvenue sur notre plateforme d'apprentissage. Acquérez de nouvelles compétences et progressez a votre rythme.</p>
             <a href="{{ path('app_courses') }}" class="nm-Button">Consulter les cours</a>
-            <a href="#" class="nm-Button">Connexion</a>
+            {% if app.user %}
+                <a href="{{ path('app_logout') }}" class="nm-Button"> Se déconnecter</a>
+            {% else %}
+                <a href="{{ path('app_login') }}" class="nm-Button">Connexion</a>
+            {% endif %}
         </div>
     </div>
 
@@ -38,6 +42,12 @@
 
 <section class="mt-5 container-fluid w-100 row contact__style">
     <div class="col-md-6 w-50">
+      <footer>
+      <div class="col-12">Notre plateforme</div>
+      <div class="col-12">A propos nos cours</div>
+      <a href="{{ path('app_legals_page') }}" class="col-12">Mentions légales</a>
+      </footer>
+
             <div class="contact__img mt-5">
                 <img class="rocket__img mt-5" src={{ asset('images/rocket.jpg') }}>
             </div>
@@ -46,7 +56,7 @@
     <div class="col-md-6 w-50">
         <div class="nm-form__container mt-5">
         <span class="fw-bold fs-3 text">Contactez nous</span>
-            <form id="contactForm ">
+            <form id="contactForm" action="{{ path('app_contact') }}" method="post">
                 <div class="form-group mt-5">
                     <label for="name">Nom</label>
                     <input class="nm-input__contact" type="text" id="name" placeholder='Votre nom' name="name" required >
@@ -62,7 +72,7 @@
                     <textarea class="nm-textarea nm-input__contact" id="message" name="message" placeholder='Posez vos questions, partagez vos découvertes.' rows="4" required></textarea>
                 </div>
                 
-                <a type="submit" class="nm-Button d-flex justify-content-center mt-5">Envoyer</a>
+                <button type="submit" class="nm-Button d-flex justify-content-center mt-5 w-100">Envoyer</button>
 
             </form>
         </div>
