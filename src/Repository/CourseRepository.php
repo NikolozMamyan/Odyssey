@@ -29,7 +29,7 @@ class CourseRepository extends ServiceEntityRepository
                 $qb->expr()->andX(
                     $qb->expr()->orX(
                         $qb->expr()->like('c.title', ':query'),
-                        $qb->expr()->like('c.description', ':query'),
+                        $qb->expr()->like('c.description', ':query')
                     ),
                     $qb->expr()->isNotNull('c.id')
                 )
@@ -40,6 +40,7 @@ class CourseRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    
 
 //    /**
 //     * @return Course[] Returns an array of Course objects

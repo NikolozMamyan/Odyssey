@@ -43,15 +43,20 @@ class SearchController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+    
     #[Route('/handleSearch', name: 'handleSearch')]
     public function handleSearch(Request $request, CourseRepository $repo)
     {
-        $query = $request->request->all('form')['query'];
+        $query = $request->request->get('form')['query'] ?? '';
+        $courses = [];
+    
         if ($query) {
             $courses = $repo->findCourseByName($query);
         }
+    
         return $this->render('search/index.html.twig', [
             'courses' => $courses
         ]);
     }
+    
 }

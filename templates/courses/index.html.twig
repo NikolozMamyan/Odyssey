@@ -1,24 +1,23 @@
 {% extends 'base.html.twig' %}
 {% import "macros/card.macro.twig" as cards %}
 
-{% block stylesheets %}
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-{% endblock %}
-
 
 {% block title %}Courses!
 {% endblock %}
 
 {% block body %}
 
-	<div class="container mb-5">
+	<div class="container">
 		<h2 class="text-center">LES COURS D'ODYSSEY</h2>
 		<P class="text-center">Bienvenue sur l'ensemble des cours offerts par nos formateurs</P>
-		<div class="col-md-6">
+		<div class="col-md-6 mb-5">
 		{{ render(controller(
 			'App\\Controller\\SearchController::searchBar'
 	)) }}
 		</div>
+		<div class="col-md-6 mb-5">
+		
+			</div>
 		<div class="row">
 		
 			{% for course in courses %}
@@ -37,5 +36,5 @@
 				</div>
 			{% endfor %}
 		</div>
-
+</div>
 	{% endblock %}

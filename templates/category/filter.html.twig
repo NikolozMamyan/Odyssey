@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container d-flex justify-content-center">
+        {{ form_start(form, {attr: {class: "row row-cols-lg-auto g-3 align-items-center"}}) }}
+        <div class="col-8">{{ form_widget(form.category) }}</div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
