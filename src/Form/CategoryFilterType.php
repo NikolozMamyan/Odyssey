@@ -14,16 +14,13 @@ class CategoryFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('categories', EntityType::class,[
+        ->add('name', EntityType::class, [
             'class' => Category::class,
-            'label' => false,
-            'required' => false,
-            'multiple' => true,
-            'attr' => [
-                'class' => 'js-categories-multiple'
-            ]
+            'choice_label' => 'name',
+            'placeholder' => 'Select a category', 
+            'required' => false, 
         ]);
-    }
+}
 
     public function configureOptions(OptionsResolver $resolver): void
     {

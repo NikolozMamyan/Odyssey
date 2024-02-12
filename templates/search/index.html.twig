@@ -18,7 +18,7 @@
                                         <img src="https://picsum.photos/200" class="card-img-top" alt="course picture">
                                         <div class="card-body">
                                             <h2 class="card-title">{{ course.title }}</h2>
-                                            {# Vérifiez si l'auteur existe avant d'accéder à son nom #}
+                                            
                                             {% if course.author %}
                                                 <h3 class="card-subtitle text-body-secondary">{{ course.author.name }}</h3>
                                             {% endif %}
