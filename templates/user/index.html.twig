@@ -4,7 +4,6 @@
 
 {% block body %}
 
-{% for u in user %}
 
 
 <div class="card  border border-success container w-50  mt-5">
@@ -13,8 +12,10 @@
       <div class="col-md-3">
         <div class="text-center border-end">
           <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-fluid avatar rounded-circle">
-          <h4 class="text-primary font-size-20 mt-3 mb-2">{{ u.firstNameUser }} {{ u.lastNameUser }}</h4>
-          <h5 class="text-muted font-size-13 mb-0">{Formateur}</h5>
+          <h4 class="text-primary font-size-20 mt-3 mb-2">{{ user.firstNameUser }} {{ user.lastNameUser }}</h4>
+          <h5 class="text-muted font-size-13 mb-0">{% for role in user.roles %}
+    <span class="badge badge-primary text-dark">{{ role }}</span>
+{% endfor %}</h5>
         </div>
       </div>
       
@@ -23,10 +24,10 @@
           <div>
             <h4 class="card-title mb-2">Information</h4>
             <i class="d-flex justify-content-end  fa-regular fa-pen-to-square fs-3"></i>
-            <p class="mb-0 text-muted">Nom: {{ u.firstNameUser }} </p>
-            <p class="mb-0 text-muted">Prenom:  {{ u.lastNameUser }} </p>
-            <p class="mb-0 text-muted">E-mail:  {{ u.email }} </p>
-            <p class="mb-0 text-muted">Date d'inscription:  {{ u.dateRegisterUser | date('d/m/Y') }} </p>
+            <p class="mb-0 text-muted">Nom: {{ user.firstNameUser }} </p>
+            <p class="mb-0 text-muted">Prenom:  {{ user.lastNameUser }} </p>
+            <p class="mb-0 text-muted">E-mail:  {{ user.email }} </p>
+            <p class="mb-0 text-muted">Date d'inscription:  {{ user.dateRegisterUser | date('d/m/Y') }} </p>
           </div>
           
           <ul class="nav nav-tabs nav-tabs-custom mt-5">
@@ -44,6 +45,5 @@
 </div>
 <script src={{ asset('js/CoursesTeacher.js') }}></script>
 
-{% endfor %}
 
 {% endblock %}
