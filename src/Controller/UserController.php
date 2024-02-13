@@ -15,10 +15,8 @@ class UserController extends AbstractController
     #[Route('/user', name: 'app_user')]
     public function index(EntityManagerInterface $entityManager, UserRepository $userRepository, Request $request): Response
     {
-        $user= $userRepository->findAll();
-      
-        
-
+        $user= $this->getUser();
+        // dd($user);
         return $this->render('user/index.html.twig', [
             'user' => $user,
         ]);
