@@ -1,20 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UserController!{% endblock %}
+{% block title %}{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+{% for u in user %}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/Admin/Desktop/Project2/Odyssey/src/Controller/UserController.php'|file_link(0) }}">src/Controller/UserController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/Admin/Desktop/Project2/Odyssey/templates/user/index.html.twig'|file_link(0) }}">templates/user/index.html.twig</a></code></li>
-    </ul>
+
+<div class="card  border border-success container w-50  mt-5">
+  <div class="card-body pb-0">
+    <div class="row align-items-center">
+      <div class="col-md-3">
+        <div class="text-center border-end">
+          <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-fluid avatar rounded-circle">
+          <h4 class="text-primary font-size-20 mt-3 mb-2">{{ u.firstNameUser }} {{ u.lastNameUser }}</h4>
+          <h5 class="text-muted font-size-13 mb-0">{Formateur}</h5>
+        </div>
+      </div>
+      
+      <div class="col-md-9 ">
+        <div class="ms-3">
+          <div>
+            <h4 class="card-title mb-2">Information</h4>
+            <i class="d-flex justify-content-end  fa-regular fa-pen-to-square fs-3"></i>
+            <p class="mb-0 text-muted">Nom: {{ u.firstNameUser }} </p>
+            <p class="mb-0 text-muted">Prenom:  {{ u.lastNameUser }} </p>
+            <p class="mb-0 text-muted">E-mail:  {{ u.email }} </p>
+            <p class="mb-0 text-muted">Date d'inscription:  {{ u.dateRegisterUser | date('d/m/Y') }} </p>
+          </div>
+          
+          <ul class="nav nav-tabs nav-tabs-custom mt-5">
+            <li class="btn">
+              <a class="nav-link">Mes Courses</a>
+            </li>
+            <li class="btn">
+              <a class="nav-link">Crée un cour</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+
+{% endfor %}
+
 {% endblock %}
