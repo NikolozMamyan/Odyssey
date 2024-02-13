@@ -10,13 +10,18 @@
 	<div class="container">
 		<h2 class="text-center">LES COURS D'ODYSSEY</h2>
 		<P class="text-center">Bienvenue sur l'ensemble des cours offerts par nos formateurs</P>
-		<div class="col-md-6 mb-5">
+		<div style="display: flex; justify-content: space-between;">
 		{{ render(controller(
 			'App\\Controller\\SearchController::searchBar'
 	)) }}
 		</div>
-		<div class="col-md-6 mb-5">
-		</div>
+	<div>
+		{{ form_start(form, {attr: { class: "row row-cols-lg-auto g-3 align-items-center"}}) }}
+		<div class="col-8">{{ form_widget(form.name) }}</div>
+		
+		{{ form_end(form) }}
+	</div>
+
 		<div class="row">
 		
 			{% for course in courses %}

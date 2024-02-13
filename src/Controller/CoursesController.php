@@ -3,12 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Course;
-use App\Entity\Category;
-use App\Form\SearchType;
-use App\Model\SearchData;
 use App\Form\CategoryFilterType;
-use App\Repository\CourseRepository;
-use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,20 +15,26 @@ class CoursesController extends AbstractController
 {
    
     #[Route('/courses', name: 'app_courses')]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(EntityManagerInterface $entityManager, Request $request): Response
     {
+        $form = $this->createForm(CategoryFilterType::class);
+        $form->handleRequest($request);
 
-        $coursesRepository = $entityManager->getRepository(Course::class);
-        $courses = $coursesRepository->findAll();
+        $courses = $entityManager->getRepository(Course::class)->findAll();
 
-        if (!$courses) {
-            throw $this->createNotFoundException('No courses found');
+        if ($form->isSubmitted() && $form->isValid()) {
+            $category = $form->get('name')->getData();
+            if ($category) {
+                $courses = $category->getCourses();
+            }
         }
 
         return $this->render('courses/index.html.twig', [
+            'form' => $form->createView(),
             'courses' => $courses,
         ]);
     }
+
 
     #[Route('/courses/{id}', name: 'app_course_show')]
     public function show($id, EntityManagerInterface $entityManager): Response
@@ -49,28 +50,5 @@ class CoursesController extends AbstractController
         ]);
     }
 
-    #[Route('/courses', name: 'app_courses_index')]
-    public function categoryList(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $form = $this->createForm(CategoryFilterType::class);
-        $form->handleRequest($request);
 
-        $courses = [];
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $selectedCategory = $form->get('category')->getData();
-
-            if ($selectedCategory) {
-                $courses = $selectedCategory->getCourses();
-            }
-        } else {
-            
-            $courses = $entityManager->getRepository(Course::class)->findAll();
-        }
-
-        return $this->render('courses/index.html.twig', [
-            'form' => $form->createView(),
-            'courses' => $courses,
-        ]);
-    }
 }
