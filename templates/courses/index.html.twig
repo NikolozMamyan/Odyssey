@@ -15,12 +15,19 @@
 			'App\\Controller\\SearchController::searchBar'
 	)) }}
 		</div>
-	<div>
-		{{ form_start(form, {attr: { class: "row row-cols-lg-auto g-3 align-items-center"}}) }}
-		<div class="col-8">{{ form_widget(form.name) }}</div>
 		
-		{{ form_end(form) }}
-	</div>
+		<div class="row align-items-center">
+			{{ form_start(form) }}
+			<div class="col-8">
+				{{ form_widget(form.name) }}
+			</div>
+			<div class="col">
+				<button type="submit" class="btn btn-outline-secondary">Filtrer</button>
+			</div>
+			{{ form_end(form) }}
+		</div>
+		
+		
 
 		<div class="row">
 		

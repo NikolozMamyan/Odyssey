@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Course;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\Category;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Course>
@@ -29,19 +30,27 @@ class CourseRepository extends ServiceEntityRepository
                 $qb->expr()->andX(
                     $qb->expr()->orX(
                         $qb->expr()->like('c.title', ':query'),
-                        $qb->expr()->like('c.description', ':query')
+                        $qb->expr()->like('c.description', ':query'),
                     ),
                     $qb->expr()->isNotNull('c.id')
                 )
             )
-            ->setParameter('query', '%' . $query . '%')
-        ;
+            ->setParameter('query', '%' . $query . '%');
         return $qb
             ->getQuery()
             ->getResult();
     }
-    
 
+    public function findByCategory(Category $category): array
+    {
+        return $this->createQueryBuilder('c')
+            ->innerJoin('c.categories', 'cat') 
+            ->where('cat.id = :categoryId')
+            ->setParameter('categoryId', $category->getId())
+            ->getQuery()
+            ->getResult();
+    }
+    
 //    /**
 //     * @return Course[] Returns an array of Course objects
 //     */

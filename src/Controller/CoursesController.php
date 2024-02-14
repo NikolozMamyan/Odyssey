@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Course;
 use App\Entity\Teacher;
+use App\Entity\Category;
 use App\Form\CourseType;
 use App\Form\CategoryFilterType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,16 +22,21 @@ class CoursesController extends AbstractController
     {
         $form = $this->createForm(CategoryFilterType::class);
         $form->handleRequest($request);
-
+    
+        $categories = $entityManager->getRepository(Category::class)->findAll();
+    
         $courses = $entityManager->getRepository(Course::class)->findAll();
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
-            $category = $form->get('name')->getData();
-            if ($category) {
-                $courses = $category->getCourses();
+      
+            $selectedCategory = $form->get('name')->getData();
+    
+            if ($selectedCategory) {
+             
+                $courses = $entityManager->getRepository(Course::class)->findByCategory($selectedCategory);
             }
         }
-
+    
         return $this->render('courses/index.html.twig', [
             'form' => $form->createView(),
             'courses' => $courses,
