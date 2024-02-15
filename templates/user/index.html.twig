@@ -18,24 +18,22 @@
 {% endfor %}</h5>
         </div>
       </div>
-      
+
       <div class="col-md-9 ">
         <div class="ms-3">
           <div>
             <h4 class="card-title mb-2">Information</h4>
-            <i class="d-flex justify-content-end  fa-regular fa-pen-to-square fs-3"></i>
+            <a href="{{path('app_user_edit', {id: user.id})}}"><i class="d-flex justify-content-end  fa-regular fa-pen-to-square fs-3"></i></a>
+            
             <p class="mb-0 text-muted">Nom: {{ user.firstNameUser }} </p>
             <p class="mb-0 text-muted">Prenom:  {{ user.lastNameUser }} </p>
             <p class="mb-0 text-muted">E-mail:  {{ user.email }} </p>
             <p class="mb-0 text-muted">Date d'inscription:  {{ user.dateRegisterUser | date('d/m/Y') }} </p>
           </div>
-          
+
           <ul class="nav nav-tabs nav-tabs-custom mt-5">
             <li class="btn">
-              <a class="nav-link" id="CoursesBtn">Mes Courses</a>
-            </li>
-            <li class="btn">
-              <a class="nav-link">Crée un cour</a>
+              <a class="nav-link" href="{{path('app_course_create')}}">Crée un cour</a>
             </li>
           </ul>
         </div>
@@ -43,7 +41,51 @@
     </div>
   </div>
 </div>
-<script src={{ asset('js/CoursesTeacher.js') }}></script>
+<div class="list_des_coures w-50 container mt-5">
+<h2>Mes courses</h2>
+</div>
+
+<table class="table w-50 container mt-5">
+  <thead>
+
+    <tr>
+     <th scope="col">#</th>
+      <th scope="col">Titre</th>
+      <th scope="col">Author</th>
+       <th scope="col">Actions</th> 
+    </tr>
+  </thead>
+  <tbody>
+  {% if course is defined and course|length > 0 %}
+
+    {% for c in course %}
+      
+        <tr>
+           <th scope="row"></th>
+           <td>{{ c.title }}</td>
+           <td>{{ c.author.name }}</td>
+            <td>
+            
+                <a href="{{ path('app_course_edit', {id: c.id}) }}" class="btn btn-warning">Modifier</a>
+                <a href="{{ path('app_course_delete', {id: c.id}) }}" class="btn btn-danger">Supprimer</a>
+            </td>
+        </tr>
+
+    {% else %}
+    
+        <tr>
+           <td colspan="4">Pas de cours dans la liste</td> 
+        </tr>
+    
+    {% endfor %}
+
+{% endif %}
+  
+
+  </tbody>
+</table>
+
+{# <script src={{ asset('js/Coursesuser.js') }}></script> #}
 
 
 {% endblock %}
