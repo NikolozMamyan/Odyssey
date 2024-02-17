@@ -2,8 +2,7 @@
 {% import "macros/card.macro.twig" as cards %}
 
 
-{% block title %}Courses!
-{% endblock %}
+{% block title %}Courses!{% endblock %}
 
 {% block body %}
 
@@ -26,22 +25,27 @@
 			</div>
 			{{ form_end(form) }}
 		</div>
-		
-		
+
+
 
 		<div class="row">
-		
+
 			{% for course in courses %}
-				<div class="col-md-3 mb-5">
+				<div class="col-md-3 mb-5 mt-3">
 					<a href="{{ path('app_course_show', {'id': course.id}) }}">
-						<div class="card mb-6 shadow-sm h-100">
+						<div class="card mb-6 shadow-sm">
 							<img src="https://picsum.photos/200" class="card-img-top" alt="course picture">
 
-							<div class="card-body">
+							<div class="card-body h-100">
 								<h2 class="card-title">{{ course.title }}</h2>
 								<h3 class="card-subtitle text-body-secondary">{{ course.author.name }}</h3>
 								<p class="card-text">{{ course.description }}</p>
 							</div>
+							{% if app.user %}
+								<div class="card-footer">
+									<a href="{{ path('app_course_participate', {'id': course.id}) }}" class="btn sk-btn">Commencer le cours</a>
+								</div>
+							{% endif %}
 						</div>
 					</a>
 				</div>
