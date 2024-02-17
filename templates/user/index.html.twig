@@ -60,7 +60,7 @@
         <tbody>
         {% for course in app.user.participateCourses %}
           <tr>
-            <td>{{ course.title }}</td>
+            <td><a href="{{ path('app_course_show', {'id': course.id}) }}">{{ course.title }}</a></td>
             <td>{{ course.description }}</td>
             <td>
               {% for category in course.categories %}
