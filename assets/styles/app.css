@@ -42,6 +42,10 @@
     cursor: pointer;
 }
 
+.sk-modal{
+    background-color: #725AC1;
+}
+
 /* page send mail to reset password */
 .sk-init-a-reset-password{
     text-decoration: none;

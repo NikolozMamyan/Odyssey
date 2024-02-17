@@ -72,7 +72,7 @@
               {% endfor %}
             </td>
             <td>
-              <a href="{{ path('app_course_participate_remove', {'id': course.id}) }}" class="btn btn-danger">Supprimer</a>
+              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Modal-delete" data-course-id="{{ course.id }}">Supprimer</button>
             </td>
           </tr>
         {% endfor %}
@@ -81,6 +81,6 @@
     </div>
   {% endif %}
 
-  <script src={{ asset('js/CoursesTeacher.js') }}></script>
+  {% include "component/modal-delete-user-profil.html.twig" %}
 
 {% endblock %}

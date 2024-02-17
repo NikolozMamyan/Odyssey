@@ -131,13 +131,12 @@ class CoursesController extends AbstractController
 
     // this function remove course in the collection of courses in User Entity
     #[Route('/user/{id<\d*>}/remove', name: 'app_course_participate_remove')]
-    public function RemoveParticipateCourses(int $id, EntityManagerInterface $entityManager): RedirectResponse
+    public function RemoveParticipateCourses(int $id, EntityManagerInterface $entityManager):RedirectResponse
     {
         $user = $this->getUser();
         $course = $entityManager->getRepository(Course::class)->find($id);
 
         $user->removeParticipateCourse($course);
-        $entityManager->remove($course);
         $entityManager->flush();
 
         return $this->redirectToRoute('app_user', ['user' => $user]);
