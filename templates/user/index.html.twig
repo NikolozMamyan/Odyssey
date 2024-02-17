@@ -13,7 +13,7 @@
         <div class="text-center border-end">
           <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-fluid avatar rounded-circle">
           <h4 class="text-primary font-size-20 mt-3 mb-2">{{ user.firstNameUser }} {{ user.lastNameUser }}</h4>
-          <h5 class="text-muted font-size-13 mb-0">{% for role in user.roles %}
+          <h5 class="text-muted font-size-13 mb-0">{% for role in user.roleUser %}
     <span class="badge badge-primary text-dark">{{ role }}</span>
 {% endfor %}</h5>
         </div>
@@ -25,7 +25,7 @@
             <h4 class="card-title mb-2">Information</h4>
             <i class="d-flex justify-content-end  fa-regular fa-pen-to-square fs-3"></i>
             <p class="mb-0 text-muted">Nom: {{ user.firstNameUser }} </p>
-            <p class="mb-0 text-muted">Prenom:  {{ user.lastNameUser }} </p>
+            <p class="mb-0 text-muted">Prénom:  {{ user.lastNameUser }} </p>
             <p class="mb-0 text-muted">E-mail:  {{ user.email }} </p>
             <p class="mb-0 text-muted">Date d'inscription:  {{ user.dateRegisterUser | date('d/m/Y') }} </p>
           </div>
@@ -35,7 +35,7 @@
               <a class="nav-link" id="CoursesBtn">Mes Courses</a>
             </li>
             <li class="btn">
-              <a class="nav-link">Crée un cour</a>
+              <a class="nav-link">Crée un cours</a>
             </li>
           </ul>
         </div>
@@ -43,7 +43,44 @@
     </div>
   </div>
 </div>
-<script src={{ asset('js/CoursesTeacher.js') }}></script>
 
+
+  {% if 'student' in app.user.roleUser.typeRole
+    and app.user.participateCourses is not empty  %}
+    <div class="container">
+      <table class="table table-striped mt-5">
+        <thead>
+          <tr>
+            <th scope="col">Titre</th>
+            <th scope="col">Description</th>
+            <th scope="col">Catégorie</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for course in app.user.participateCourses %}
+          <tr>
+            <td>{{ course.title }}</td>
+            <td>{{ course.description }}</td>
+            <td>
+              {% for category in course.categories %}
+                  {% if category is not empty %}
+                    {{ category.name }}
+                  {% endif %}
+                {% else %}
+                (Aucune catégorie)
+              {% endfor %}
+            </td>
+            <td>
+              <a href="{{ path('app_course_participate_remove', {'id': course.id}) }}" class="btn btn-danger">Supprimer</a>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+
+  <script src={{ asset('js/CoursesTeacher.js') }}></script>
 
 {% endblock %}
