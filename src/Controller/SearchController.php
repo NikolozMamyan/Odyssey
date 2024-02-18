@@ -53,7 +53,7 @@ class SearchController extends AbstractController
         if ($query) {
             $courses = $repo->findCourseByName($query);
         }
-    
+      
         return $this->render('search/index.html.twig', [
             'courses' => $courses
         ]);
