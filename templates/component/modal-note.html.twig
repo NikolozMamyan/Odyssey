@@ -10,8 +10,14 @@
                 <form action="{{ path('app_add_note') }}" method="POST" class="d-flex flex-column">
                     <input type="text" name="courseId" id="modalCourseId" hidden>
                     <div class="modal-body">
-                        <label for="note">Saisir votre note (1-5)</label>
-                        <input id="note" class="mt-1 mb-2 w-100 form-control" type="number" name="note"/>
+                        <label for="note">Sélectionner une note</label>
+                        <select class="form-select" name="note" aria-label="select note">
+                            <option value="1" selected>1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
                     </div>
                     <div class="modal-footer">
                         <a href="{{ path('app_user') }}" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</a>

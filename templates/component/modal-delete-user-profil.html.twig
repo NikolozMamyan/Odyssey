@@ -31,6 +31,8 @@
                 const courseId = parseInt(this.getAttribute('data-course-id'));
                 const deleteButton = document.querySelector('#delete');
 
+                console.log(courseId);
+
                 // Set the href attribute with the proper URL
                 deleteButton.href = "/user/" + courseId + "/remove";
 

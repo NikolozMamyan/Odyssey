@@ -21,15 +21,14 @@ class NoteController extends AbstractController
         $courseId = (int)$request->request->get('courseId');
         $user = $this->getUser();
 
-        // Select Course object
+        // Select Course
         $course = $entityManager->getRepository(Course::class)->find($courseId);
 
         // Check if user has already a note for this course
         $existingNote = $entityManager->getRepository(Note::class)->findOneBy(['users' => $user, 'courses' => $course]);
 
-        // If user has note, update this
-        if ($existingNote instanceof Note) {
-
+        // If user has note, update note
+        if ($existingNote) {
             $existingNote->setValue($noteValue);
 
             // display message
