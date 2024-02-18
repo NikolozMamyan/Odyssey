@@ -51,9 +51,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Course::class, inversedBy: 'participateUsers')]
     private Collection $participateCourses;
 
+    #[ORM\OneToMany(mappedBy: 'users', targetEntity: Note::class)]
+    private Collection $notes;
+
     public function __construct()
     {
         $this->participateCourses = new ArrayCollection();
+        $this->notes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -206,6 +210,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeParticipateCourse(Course $Course): static
     {
         $this->participateCourses->removeElement($Course);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Note>
+     */
+    public function getNotes(): Collection
+    {
+        return $this->notes;
+    }
+
+    public function addNote(Note $note): static
+    {
+        if (!$this->notes->contains($note)) {
+            $this->notes->add($note);
+            $note->setUsers($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNote(Note $note): static
+    {
+        if ($this->notes->removeElement($note)) {
+            // set the owning side to null (unless already changed)
+            if ($note->getUsers() === $this) {
+                $note->setUsers(null);
+            }
+        }
 
         return $this;
     }

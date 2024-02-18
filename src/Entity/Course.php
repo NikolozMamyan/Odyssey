@@ -34,10 +34,14 @@ class Course
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'participateCourses')]
     private Collection $participateUsers;
 
+    #[ORM\OneToMany(mappedBy: 'courses', targetEntity: Note::class)]
+    private Collection $notes;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
         $this->participateUsers= new ArrayCollection();
+        $this->notes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -139,6 +143,36 @@ class Course
     {
         if ($this->participateUsers->removeElement($user)) {
             $user->removeParticipateCourse($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Note>
+     */
+    public function getNotes(): Collection
+    {
+        return $this->notes;
+    }
+
+    public function addNote(Note $note): static
+    {
+        if (!$this->notes->contains($note)) {
+            $this->notes->add($note);
+            $note->setCourses($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNote(Note $note): static
+    {
+        if ($this->notes->removeElement($note)) {
+            // set the owning side to null (unless already changed)
+            if ($note->getCourses() === $this) {
+                $note->setCourses(null);
+            }
         }
 
         return $this;
