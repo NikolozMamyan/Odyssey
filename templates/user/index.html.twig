@@ -4,6 +4,15 @@
 
 {% block body %}
 
+  <!--Message-->
+  {% for category, messages in app.flashes %}
+    {% for message in messages %}
+      <div class="w-50 container-sm mt-5 alert alert-{{ category }}">
+        <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endfor %}
 
 
 <div class="card  border border-success container w-50  mt-5">
@@ -72,8 +81,12 @@
               {% endfor %}
             </td>
             <td>
-              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Modal-delete" data-course-id="{{ course.id }}">Supprimer</button>
+              <div class="d-flex">
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Modal-delete" data-course-id="{{ course.id }}">Supprimer</button>
+                <button type="button" class="btn sk-btn ms-2" data-bs-toggle="modal" data-bs-target="#Modal-note" data-course-id="{{ course.id }}">Noter</button>
+              </div>
             </td>
+
           </tr>
         {% endfor %}
         </tbody>
@@ -82,5 +95,6 @@
   {% endif %}
 
   {% include "component/modal-delete-user-profil.html.twig" %}
+  {% include "component/modal-note.html.twig" %}
 
 {% endblock %}

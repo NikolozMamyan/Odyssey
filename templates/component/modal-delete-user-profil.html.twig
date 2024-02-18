@@ -11,7 +11,7 @@
             </div>
             <div class="modal-footer">
                 <a href="{{ path('app_user') }}" class="btn btn-secondary" data-bs-dismiss="modal">annuler</a>
-                <a id="delete" href=""  class="btn btn-danger">Valider</a>
+                <a id="delete" href="#"  class="btn btn-danger">Valider</a>
             </div>
         </div>
     </div>
@@ -19,11 +19,11 @@
 
 
 <script>
-    // Update the user ID in the modal
+    // Update the course ID in the modal
     document.addEventListener('DOMContentLoaded', function () {
         const deleteModal = new bootstrap.Modal(document.querySelector('#Modal-delete'));
 
-        // Event listener for clicking on the moderation link.
+        // Event listener for clicking on the delete link.
         document.querySelectorAll('[data-bs-toggle="modal"][data-bs-target="#Modal-delete"]').forEach(function (element) {
             element.addEventListener('click', function (e) {
                 e.preventDefault();
