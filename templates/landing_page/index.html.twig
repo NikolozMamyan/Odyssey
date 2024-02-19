@@ -27,52 +27,52 @@
         </div>
     </div>
 
-	<section class='d-flex justify-content-center mt-5 container'>
-		<div class='col-md-6 col-sm-12'>
-			{{ signUpCard("Etudiant", "Rejoignez notre communauté d'apprenants passionnés.
-     Inscrivez-vous maintenant pour des cours de qualité et une expérience interactive.") }}
-		</div>
+	<section class='container mt-5'>
+        <div class="row">
+            <div class="col12 col-md-6 mb-5">
 
-		<div class='col-md-6 col-sm-12 '>
-			{{ signUpCard("Formateur",
-    " otre expertise en tant que formateur sur notre plateforme.
-    Rejoignez-nous aujourd'hui pour inspirer la prochaine génération de talents.") }}
-    </div>
-</section>
-
-<section class="mt-5 container-fluid w-100 row contact__style">
-    <div class="col-md-6 w-50">
-      <footer>
-      <div class="col-12">Notre plateforme</div>
-      <div class="col-12">A propos nos cours</div>
-      <a href={{ path('app_legals_page') }} class="col-12">Mentions légales</a>
-      </footer>
-
-            <div class="contact__img mt-5">
-                <img class="rocket__img mt-5" src={{ asset('images/rocket.jpg') }}>
+                {{ signUpCard("Etudiant", "Rejoignez notre communauté d'apprenants passionnés. Inscrivez-vous maintenant
+                pour des cours de qualité et une expérience interactive.") }}
             </div>
+
+            <div class="col12 col-md-6">
+                {{ signUpCard("Formateur", "Votre expertise en tant que formateur sur notre plateforme. Rejoignez-nous
+                aujourd'hui pour inspirer la prochaine génération de talents.") }}
+            </div>
+        </div>
+
+    </section>
+
+<section class="mt-5 container-fluid row contact__style">
+    <div class="col-md-6 w-50 d-none d-md-block">
+        <div class="contact__img mt-5">
+            <img class="rocket__img mt-5" src={{ asset('images/rocket.jpg') }}>
+        </div>
     </div>
 
-    <div class="col-md-6 w-50">
+    <div class="col-md-6">
         <div class="nm-form__container mt-5">
         <span class="fw-bold fs-3 text">Contactez nous</span>
+
             <form id="contactForm" action="{{ path('app_contact') }}" method="post">
                 <div class="form-group mt-5">
                     <label for="name">Nom</label>
                     <input class="nm-input__contact" type="text" id="name" placeholder='Votre nom' name="name" required >
                 </div>
 
-		<div class="form-group">
-			<label for="email">Email</label>
-			<input class="nm-input__contact" type="email" id="email" name="email" placeholder='Votre adresse mail' required>
-		</div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input class="nm-input__contact" type="email" id="email" name="email" placeholder='Votre adresse mail' required>
+		    </div>
 
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea class="nm-textarea nm-input__contact" id="message" name="message" placeholder='Posez vos questions, partagez vos découvertes.' rows="4" required></textarea>
-                </div>
-                
-                <button type="submit" class="nm-Button d-flex justify-content-center mt-5 w-100">Envoyer</button>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea class="nm-textarea nm-input__contact" id="message" name="message" placeholder='Posez vos questions, partagez vos découvertes.' rows="4" required></textarea>
+            </div>
+                <button type="submit" class="nm-Button d-flex justify-content-center mt-5 ms-0 w-100">Envoyer</button>
+	        </form>
 
-	</form>
-</div></div></section>{% endblock %}
+        </div>
+    </div>
+</section>
+{% endblock %}

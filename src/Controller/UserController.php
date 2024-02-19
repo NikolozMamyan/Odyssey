@@ -29,7 +29,7 @@ class UserController extends AbstractController
             'course' => $course,
         ]);
     }
-    #[Route('/user/{id}edit', name: 'app_user_edit')]
+    #[Route('/user/edit/{id}', name: 'app_user_edit')]
     public function userEdit(EntityManagerInterface $entityManager, UserRepository $userRepository, Request $request, int $id): Response
     {
         $user= $userRepository->find($id);
