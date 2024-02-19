@@ -1,0 +1,24 @@
+{% macro deleteCouse(course) %}
+
+<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Modal-delete-{{ course.id }}">Supprimer</button>
+
+<!-- Modal -->
+<div class="modal fade" id="Modal-delete-{{ course.id }}" tabindex="-1" aria-labelledby="delete-course" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header sk-modal">
+                <h3 class="modal-title fs-5 text-white">Confirmation</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Êtes-vous sûr(e) de vouloir supprimer ce cours de votre liste ?
+            </div>
+            <div class="modal-footer">
+                <a href="{{ path('app_user') }}" class="btn btn-secondary" data-bs-dismiss="modal">annuler</a>
+                <a href="{{ path('app_course_participate_remove', { id: course.id }) }}"  class="btn btn-danger">Valider</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endmacro %}

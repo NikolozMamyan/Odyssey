@@ -4,7 +4,7 @@
 
 {% block body %}
 
-<main class="w-50 mx-auto">
+<main class="w-50 mx-auto sk-main">
 
     {% for flash_error in app.flashes('reset_password_error') %}
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>

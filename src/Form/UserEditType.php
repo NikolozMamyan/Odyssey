@@ -18,7 +18,7 @@ class UserEditType extends AbstractType
         $builder
             ->add('email', TextType::class, ['label' => "Email"])
             ->add('firstNameUser', TextType::class, ['label' => "Nom"])
-            ->add('lastNameUser', TextType::class, ['label' => "Prenom"])
+            ->add('lastNameUser', TextType::class, ['label' => "Prénom"])
             // ->add('pictureUser')
 
             ->add('save', SubmitType::class, ['label' => "Enregistrer"]);

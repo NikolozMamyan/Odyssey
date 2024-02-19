@@ -32,7 +32,7 @@ class NoteController extends AbstractController
             $existingNote->setValue($noteValue);
 
             // display message
-            $this->addFlash('warning', 'Votre note à bien été modifiée');
+            $this->addFlash('warning', 'Ta note à bien été modifiée');
         } else {
 
             $note->setUsers($user);
@@ -42,7 +42,7 @@ class NoteController extends AbstractController
             $entityManager->persist($note);
 
             // display message
-            $this->addFlash('success', 'Votre note à bien été ajoutée');
+            $this->addFlash('success', 'Ta note à bien été ajoutée');
         }
 
         $entityManager->flush();

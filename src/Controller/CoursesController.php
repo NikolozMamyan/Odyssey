@@ -103,7 +103,7 @@ class CoursesController extends AbstractController
         ]);
     }
 
-    #[Route('/courses/{id<\d*>}/delete', name: 'app_course_delete')]
+    #[Route('/courses/{id<\d*>/delete}', name: 'app_course_delete')]
     public function delete($id, EntityManagerInterface $entityManager): RedirectResponse
     {
         $course = $entityManager->getRepository(Course::class)->find($id);
@@ -115,7 +115,7 @@ class CoursesController extends AbstractController
 
 
     // this function add course in the collection of courses in User Entity
-    #[Route('/courses/{id<\d*>}/participate', name: 'app_course_participate')]
+    #[Route('/courses/participate/{id<\d*>}', name: 'app_course_participate')]
     public function participateCourses(int $id, EntityManagerInterface $entityManager): RedirectResponse
     {
         $user = $this->getUser();
@@ -130,7 +130,7 @@ class CoursesController extends AbstractController
     }
 
     // this function remove course in the collection of courses in User Entity
-    #[Route('/user/{id<\d*>}/remove', name: 'app_course_participate_remove')]
+    #[Route('/user/remove/{id<\d*>}', name: 'app_course_participate_remove')]
     public function RemoveParticipateCourses(int $id, EntityManagerInterface $entityManager):RedirectResponse
     {
         $user = $this->getUser();
@@ -138,6 +138,8 @@ class CoursesController extends AbstractController
 
         $user->removeParticipateCourse($course);
         $entityManager->flush();
+
+        $this->addFlash('success', 'Le cours bien été supprimé de ta liste');
 
         return $this->redirectToRoute('app_user', ['user' => $user]);
     }

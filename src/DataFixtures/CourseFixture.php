@@ -38,10 +38,10 @@ class CourseFixture extends Fixture implements DependentFixtureInterface
             
             for ($i = 0; $i < $randCourseNumber; $i++) {
                 $course = (new Course())
-                    ->setTitle($this->faker->sentence)
-                    ->setDescription($this->faker->text)
+                    ->setTitle($this->faker->realText(10))
+                    ->setDescription($this->faker->realText(100))
                     ->setAuthor($teacher)
-                    ->setContent($this->faker->text(10000));
+                    ->setContent($this->faker->realText(1500));
                 
             $randomCategories = $this->faker->randomElements($categories, rand(1, 3));
             foreach ($randomCategories as $category) {
