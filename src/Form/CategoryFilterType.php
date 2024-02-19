@@ -26,7 +26,7 @@ class CategoryFilterType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Category::class,
+            
         ]);
     }
 }

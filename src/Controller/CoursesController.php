@@ -21,6 +21,7 @@ class CoursesController extends AbstractController
     public function index(EntityManagerInterface $entityManager, Request $request): Response
     {
         $form = $this->createForm(CategoryFilterType::class);
+        //if($_POST) dd($request);
         $form->handleRequest($request);
     
         $categories = $entityManager->getRepository(Category::class)->findAll();
@@ -29,10 +30,9 @@ class CoursesController extends AbstractController
     
         if ($form->isSubmitted() && $form->isValid()) {
       
-            $selectedCategory = $form->get('name')->getData();
-    
-            if ($selectedCategory) {
-             
+            $selectedCategory = $form->getData()['name'];
+
+            if ($selectedCategory) {             
                 $courses = $entityManager->getRepository(Course::class)->findByCategory($selectedCategory);
             }
         }
