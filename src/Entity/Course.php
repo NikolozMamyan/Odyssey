@@ -31,9 +31,17 @@ class Course
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'courses')]
     private Collection $categories;
 
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'participateCourses')]
+    private Collection $participateUsers;
+
+    #[ORM\OneToMany(mappedBy: 'courses', targetEntity: Note::class)]
+    private Collection $notes;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
+        $this->participateUsers= new ArrayCollection();
+        $this->notes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -109,6 +117,63 @@ class Course
     public function removeCategory(Category $category): static
     {
         $this->categories->removeElement($category);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getParticipateUsers(): Collection
+    {
+        return $this->participateUsers;
+    }
+
+    public function addParticipateUsers(User $user): static
+    {
+        if (!$this->participateUsers->contains($user)) {
+            $this->participateUsers->add($user);
+            $user->addParticipateCourse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipateUsers(User $user): static
+    {
+        if ($this->participateUsers->removeElement($user)) {
+            $user->removeParticipateCourse($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Note>
+     */
+    public function getNotes(): Collection
+    {
+        return $this->notes;
+    }
+
+    public function addNote(Note $note): static
+    {
+        if (!$this->notes->contains($note)) {
+            $this->notes->add($note);
+            $note->setCourses($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNote(Note $note): static
+    {
+        if ($this->notes->removeElement($note)) {
+            // set the owning side to null (unless already changed)
+            if ($note->getCourses() === $this) {
+                $note->setCourses(null);
+            }
+        }
 
         return $this;
     }

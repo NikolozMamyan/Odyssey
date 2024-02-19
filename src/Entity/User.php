@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -44,7 +46,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\ManyToOne(inversedBy: 'users')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Role $role = null;
+    private ?Role $roleUser = null;
+
+    #[ORM\ManyToMany(targetEntity: Course::class, inversedBy: 'participateUsers')]
+    private Collection $participateCourses;
+
+    #[ORM\OneToMany(mappedBy: 'users', targetEntity: Note::class)]
+    private Collection $notes;
+
+    public function __construct()
+    {
+        $this->participateCourses = new ArrayCollection();
+        $this->notes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -166,12 +180,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getRoleUser(): ?Role
     {
-        return $this->role;
+        return $this->roleUser;
     }
 
     public function setRoleUser(?Role $role): static
     {
-        $this->role = $role;
+        $this->roleUser = $role;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Course>
+     */
+    public function getParticipateCourses(): Collection
+    {
+        return $this->participateCourses;
+    }
+
+    public function addParticipateCourse(Course $Course): static
+    {
+        if (!$this->participateCourses->contains($Course)) {
+            $this->participateCourses->add($Course);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipateCourse(Course $Course): static
+    {
+        $this->participateCourses->removeElement($Course);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Note>
+     */
+    public function getNotes(): Collection
+    {
+        return $this->notes;
+    }
+
+    public function addNote(Note $note): static
+    {
+        if (!$this->notes->contains($note)) {
+            $this->notes->add($note);
+            $note->setUsers($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNote(Note $note): static
+    {
+        if ($this->notes->removeElement($note)) {
+            // set the owning side to null (unless already changed)
+            if ($note->getUsers() === $this) {
+                $note->setUsers(null);
+            }
+        }
 
         return $this;
     }

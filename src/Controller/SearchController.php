@@ -21,7 +21,7 @@ class SearchController extends AbstractController
         ]);
     }
 
-    #[Route('/search', name: 'app_search_searchBar')]
+    #[Route('/search', name: 'app_search')]
     public function searchBar()
     {
         $form = $this->createFormBuilder()
