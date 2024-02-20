@@ -2,38 +2,38 @@
 
 {% block body %}
 <div class="container-sm">
-    <div class="col-md-4">
-        {% if app.request.method == 'POST' %}
-            <div>
-                {% if courses|length == 0 %}
-                    <h4>Aucun résultat pour votre recherche.</h4>
-                {% else %}
-                    <h5 class="mt-3">Vos résultats de recherche</h5>
-                    <h3>Search Results</h3>
-                    <div class="row">
-                        {% for course in courses %}
-                            <div class="col-md-3 mb-5">
-                                <a href="{{ path('app_course_show', {'id': course.id}) }}">
-                                    <div class="card mb-6 shadow-sm h-100">
-                                        
-                                        <div class="card-body">
-                                            <h2 class="card-title">{{ course.title }}</h2>
-                                            
-                                            {
+    <div class="row">
+        <div class="col-md-12">
+            {% if app.request.method == 'POST' %}
+                <div>
+                    {% if courses|length == 0 %}
+                        <h4>Aucun résultat pour votre recherche.</h4>
+                    {% else %}
+                        <h5 class="mt-3">Vos résultats de recherche</h5>
+                        
+                        <div class="row">
+                            {% for course in courses %}
+                                <div class="col-md-3 mb-5">
+                                    <a href="{{ path('app_course_show', {'id': course.id}) }}">
+                                        <div class="card mb-6 shadow-sm h-100">
+                                            <img src="https://picsum.photos/200" class="card-img-top" alt="course picture">
+                                            <div class="card-body">
+                                                <h2 class="card-title">{{ course.title }}</h2>
                                                 <h3 class="card-subtitle text-body-secondary">{{ course.author.name }}</h3>
-                                           
-                                            <p class="card-text">{{ course.description }}</p>
+                                                <p class="card-text">{{ course.description }}</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </a>
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            </div>
-        {% endif %}
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
     </div>
 </div>
 {% endblock %}
+
 
 
