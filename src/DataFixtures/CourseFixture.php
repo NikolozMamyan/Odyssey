@@ -6,21 +6,23 @@ use App\Repository\TeacherRepository;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-
+use Faker\Factory;
+use Faker\Generator;
 
 
 class CourseFixture extends Fixture implements DependentFixtureInterface
 {
     private TeacherRepository $teacherRepository;
+    private Generator $faker;
 
     public function __construct(TeacherRepository $teacherRepository)
     {
         $this->teacherRepository = $teacherRepository;
+        $this->faker = Factory::create('fr_FR');
     }
 
     public function load(ObjectManager $manager): void
     {
-        $faker = \Faker\Factory::create();
         $categories = [
             $this->getReference('category_0'),
             $this->getReference('category_1'),
@@ -36,12 +38,12 @@ class CourseFixture extends Fixture implements DependentFixtureInterface
             
             for ($i = 0; $i < $randCourseNumber; $i++) {
                 $course = (new Course())
-                    ->setTitle($faker->sentence)
-                    ->setDescription($faker->text)
+                    ->setTitle($this->faker->realText(10))
+                    ->setDescription($this->faker->realText(100))
                     ->setAuthor($teacher)
-                    ->setContent($faker->text(10000));
+                    ->setContent($this->faker->realText(1500));
                 
-            $randomCategories = $faker->randomElements($categories, rand(1, 3));
+            $randomCategories = $this->faker->randomElements($categories, rand(1, 3));
             foreach ($randomCategories as $category) {
                 $course->addCategory($category);
             }

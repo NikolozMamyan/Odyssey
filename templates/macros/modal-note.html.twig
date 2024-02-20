@@ -1,0 +1,39 @@
+{% macro note(course) %}
+
+<button type="button" class="btn sk-btn ms-2" data-bs-toggle="modal" data-bs-target="#Modal-note-{{ course.id }}">Note</button>
+
+<!-- Modal -->
+<div class="modal fade" id="Modal-note-{{ course.id }}" tabindex="-1" aria-labelledby="delete-course" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header sk-modal">
+                <h3 class="modal-title fs-5 text-white">Ajouter une note</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ path('app_add_note') }}" method="POST" class="d-flex flex-column">
+                    <input type="text" name="courseId" value="{{ course.id }}" id="modalCourseId" hidden>
+                    <div class="modal-body">
+                        <label for="note">Sélectionner une note</label>
+                        <select class="form-select" name="note" aria-label="select note">
+                            <option value="1" selected>1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer pb-0">
+                        <a href="{{ path('app_user') }}" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</a>
+                        <button class="btn sk-btn me-2" aria-label="Envoyer" aria-pressed="false">Enregistrer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endmacro %}
