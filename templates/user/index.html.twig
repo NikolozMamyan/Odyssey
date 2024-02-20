@@ -47,7 +47,9 @@
                   <p class="text-muted"> Profil : {{ user.roleUser.typeRole }} </p>
               </div>
                 <div>
-                    <a class="btn sk-btn mb-3" href="{{path('app_course_create')}}"><i class="fa-regular fa-pen-to-square fs-3 me-2"></i>Créer un cours</a>
+                    {% if 'teacher' in app.user.roleUser.typeRole %}
+                        <a class="btn sk-btn mb-3" href="{{path('app_course_create')}}"><i class="fa-regular fa-pen-to-square fs-3 me-2"></i>Créer un cours</a>
+                    {% endif %}
                     <a class='btn sk-btn ms-5 mb-3' href="{{path('app_user_edit', {id: user.id})}}"><i class="fa-solid fa-pen fs-3 me-2"></i>Modifier mes informations</a>
                 </div>
             </div>
