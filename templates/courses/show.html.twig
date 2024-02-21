@@ -12,7 +12,7 @@
             </div>
             <div class="card-body">
                 {% if course %}
-					<li class="list-group-item mb-4"><strong>Formateur :</strong> {{ course.author.name }}</li>
+					<li class="list-group-item mb-4"><strong>Formateur :</strong> {{ course.getCreatedBy.firstNameUser }} {{ course.getCreatedBy.lastNameUser }} </li>
 					<li class="list-group-item"> {{ course.content }}</li>
                     <div class="d-flex">
                         <li class="list-group-item"><a href="{{ path('app_courses') }}" class="btn sk-btn mt-5 me-3">Retour à la liste des cours</a></li>

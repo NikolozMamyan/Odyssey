@@ -11,17 +11,14 @@ class RoleFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $roleStudent = new Role();
-        $roleTeacher = new Role();
-        $roleAdmin = new Role();
+        $rolesData = ['student', 'teacher', 'admin',];
 
-        $roleStudent->setTypeRole('student');
-        $roleTeacher->setTypeRole('teacher');
-        $roleAdmin->setTypeRole('admin');
+        foreach ($rolesData as $roleType) {
 
-        $manager->persist($roleStudent);
-        $manager->persist($roleTeacher);
-        $manager->persist($roleAdmin);
+            $role = new Role();
+            $role->setTypeRole($roleType);
+            $manager->persist($role);
+        }
 
         $manager->flush();
     }

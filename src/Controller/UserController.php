@@ -4,11 +4,8 @@ namespace App\Controller;
 
 
 use App\Entity\Course;
-use App\Entity\Teacher;
 use App\Form\UserEditType;
 use App\Repository\UserRepository;
-use App\Repository\CourseRepository;
-use App\Repository\TeacherRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,12 +15,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class UserController extends AbstractController
 {
     #[Route('/user', name: 'app_user')]
-    public function index(EntityManagerInterface $entityManager, UserRepository $userRepository, Request $request): Response
+    public function index(EntityManagerInterface $entityManager): Response
     {
-        $user= $this->getUser();
-        $course = $entityManager->getRepository(Course::class)->findAll();
-        // dd($user);
-    
+        $user = $this->getUser();
+        $course = $entityManager->getRepository(Course::class)->findBy(['createdBy' => $user]);
+
         return $this->render('user/index.html.twig', [
             'user' => $user,
             'course' => $course,
@@ -49,13 +45,4 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/courses/{id}/delete', name: 'app_course_delete')]
-    public function delete(EntityManagerInterface $entityManager,CourseRepository $courseRepository, TeacherRepository $teacherRepository, int $id) :Response
-    {
-        $course = $courseRepository->find($id);
-        $entityManager->remove($course);
-        $entityManager->flush();
-
-        return $this->redirectToRoute('app_user');
-    }
 }
