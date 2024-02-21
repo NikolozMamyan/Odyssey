@@ -18,7 +18,7 @@ class CategoryFilterType extends AbstractType
         ->add('name', EntityType::class, [
             'class' => Category::class,
             'choice_label' => 'name', 
-            'placeholder' => 'Select a category',
+            'placeholder' => 'Choisir une catégorie',
             'required' => false,
         ]);
 }

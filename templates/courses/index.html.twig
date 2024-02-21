@@ -7,27 +7,26 @@
 {% block body %}
 
 	<div class="container">
-		<h2 class="text-center">LES COURS D'ODYSSEY</h2>
-		<P class="text-center">Bienvenue sur l'ensemble des cours offerts par nos formateurs</P>
-		<div style="display: flex; justify-content: space-between;">
-		{{ render(controller(
-			'App\\Controller\\SearchController::searchBar'
-	)) }}
-		</div>
-		
+		<h1 class="text-center mt-5">LES COURS D'ODYSSEY</h1>
+		<p class="text-center mb-3">Bienvenue sur l'ensemble des cours offerts par nos formateurs</p>
+
+		<!--Search section-->
 		<div class="row align-items-center">
-			{{ form_start(form) }}
-			<div class="col-8">
-				{{ form_widget(form.name) }}
+			<div class="col">
+				{{ form_start(form) }}
+				{{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
 			</div>
 			<div class="col">
-				<button type="submit" class="btn btn-outline-secondary">Filtrer</button>
+				<button type="submit" class="btn sk-btn">Filtrer</button>
 			</div>
 			{{ form_end(form) }}
+			<div class="col">
+				{{ render(controller('App\\Controller\\SearchController::searchBar')) }}
+			</div>
 		</div>
 
 
-
+		<!--Card section-->
 		<div class="row">
 
 			{% for course in courses %}
@@ -35,17 +34,21 @@
 					<a href="{{ path('app_course_show', {'id': course.id}) }}">
 						<div class="card mb-6 shadow-sm">
 							<img src="https://picsum.photos/200" class="card-img-top" alt="course picture">
-
+							<div class="d-flex mt-1">
+								{% for category in course.categories %}
+									<span class="badge text-bg-primary mx-2 w-50">{{ category.name }}</span>
+								{% endfor %}
+							</div>
 							<div class="card-body h-100">
 								<h2 class="card-title">{{ course.title }}</h2>
 								<h3 class="card-subtitle text-body-secondary">{{ course.author.name }}</h3>
 								<p class="card-text">{{ course.description }}</p>
 							</div>
-							{% if app.user %}
-								<div class="card-footer">
+							<div class="card-footer">
+								{% if app.user %}
 									<a href="{{ path('app_course_participate', {'id': course.id}) }}" class="btn sk-btn">Commencer le cours</a>
-								</div>
-							{% endif %}
+								{% endif %}
+							</div>
 						</div>
 					</a>
 				</div>

@@ -29,7 +29,7 @@ class SearchController extends AbstractController
             ])
             ->add('recherche', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-outline-secondary'
+                    'class' => 'sk-btn mt-3'
                 ]
             ])
             ->getForm();
@@ -40,7 +40,7 @@ class SearchController extends AbstractController
     }
     
     #[Route('/handleSearch', name: 'handleSearch')]
-    public function handleSearch(Request $request, CourseRepository $repo)
+    public function handleSearch(Request $request, CourseRepository $repo): Response
     {
         
         $form = $this->createFormBuilder()
