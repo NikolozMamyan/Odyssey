@@ -82,7 +82,7 @@
                 <tr>
                    <td>{{ c.title }}</td>
                    <td>{{ c.description }}</td>
-                   <td>{{ c.author.name }}</td>
+                   <td>{{ c.getCreatedBy.firstNameUser }}</td>
                     <td>
                         <div class="d-flex">
                             <a href="{{ path('app_course_edit', {id: c.id}) }}" class="btn btn-warning">Modifier</a>

@@ -21,10 +21,6 @@ class Course
     #[ORM\Column(length: 600, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\ManyToOne(inversedBy: 'createdCourses')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Teacher $author = null;
-
     #[ORM\Column(length: 10000)]
     private ?string $content = null;
 
@@ -36,6 +32,10 @@ class Course
 
     #[ORM\OneToMany(mappedBy: 'courses', targetEntity: Note::class)]
     private Collection $notes;
+
+    #[ORM\ManyToOne(inversedBy: 'courses')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $createdBy = null;
 
     public function __construct()
     {
@@ -73,17 +73,6 @@ class Course
         return $this;
     }
 
-    public function getAuthor(): ?Teacher
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(?Teacher $author): static
-    {
-        $this->author = $author;
-
-        return $this;
-    }
 
     public function getContent(): ?string
     {
@@ -174,6 +163,18 @@ class Course
                 $note->setCourses(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreatedBy(): ?User
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(?User $createdBy): static
+    {
+        $this->createdBy = $createdBy;
 
         return $this;
     }

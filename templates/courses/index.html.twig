@@ -36,17 +36,17 @@
 							<img src="https://picsum.photos/200" class="card-img-top" alt="course picture">
 							<div class="d-flex mt-1">
 								{% for category in course.categories %}
-									<span class="badge text-bg-primary mx-2 w-50">{{ category.name }}</span>
+									<span class="badge text-bg-primary mx-2 w-25">{{ category.name }}</span>
 								{% endfor %}
 							</div>
 							<div class="card-body h-100">
 								<h2 class="card-title">{{ course.title }}</h2>
-								<h3 class="card-subtitle text-body-secondary">{{ course.author.name }}</h3>
+								<h3 class="card-subtitle text-body-secondary">{{ course.getCreatedBy.firstNameUser }}</h3>
 								<p class="card-text">{{ course.description }}</p>
 							</div>
 							<div class="card-footer">
 								{% if app.user %}
-									<a href="{{ path('app_course_participate', {'id': course.id}) }}" class="btn sk-btn">Commencer le cours</a>
+									<a href="{{ path('app_course_participate', {'id': course.id}) }}" class="btn sk-btn">Ajouter à ma watchlist</a>
 								{% endif %}
 							</div>
 						</div>

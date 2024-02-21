@@ -1,11 +1,57 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-	<h1>My new Course</h1>
+{% block title %}Création d'un cours{% endblock %}
 
-	{{ form_start(form) }}
-	{{ form_widget(form) }}
-	<input type="submit" value="Register"/>
-	{{ form_end(form) }}
+{% block body %}
+
+	{% if (app.request.get('_route')) == 'app_course_create'%}
+
+		<h1 class="text-center mt-5 text-decoration-underline">CRÉER UN COURS</h1>
+
+	{% endif %}
+
+	{% if (app.request.get('_route')) == 'app_course_edit'%}
+
+		<h1 class="text-center mt-5 text-decoration-underline">MODIFIER MON COURS</h1>
+
+	{% endif %}
+
+
+
+<main class="sk-main">
+
+	<div class="container">
+
+
+		{{ form_start(form) }}
+
+		{{ form_label(form.title, 'Titre', { 'label_attr': {'class': 'form-label m-0 fw-bold'} } ) }}
+		{{ form_widget(form.title, { 'attr': {'class': 'form-control my-2'} } ) }}
+		{{ form_errors(form.title, { 'attr': {'class': 'danger mt-2'} } ) }}
+
+		{{ form_label(form.categories, 'Catégories', { 'label_attr': {'class': 'form-label m-0 fw-bold'} } ) }}
+		{{ form_widget(form.categories, { 'attr': {'class': 'form-control my-2 d-flex justify-content-around'} } ) }}
+		{{ form_errors(form.categories, { 'attr': {'class': 'danger mt-2'} } ) }}
+
+		{{ form_label(form.description, 'Description', { 'label_attr': {'class': 'form-label m-0 fw-bold'} } ) }}
+		{{ form_widget(form.description, { 'attr': {'class': 'form-control my-2'} } ) }}
+		{{ form_errors(form.description, { 'attr': {'class': 'danger mt-2'} } ) }}
+
+		{{ form_label(form.content, 'Contenu', { 'label_attr': {'class': 'form-label m-0 fw-bold'} } ) }}
+		{{ form_widget(form.content, { 'attr': {'class': 'form-control my-2'} } ) }}
+		{{ form_errors(form.content, { 'attr': {'class': 'danger mt-2'} } ) }}
+
+
+		<div clas="d-flex">
+			<button type="submit" class="sk-btn my-5">Enregistrer</button>
+			<a href="{{ path('app_user') }}" class="btn btn-secondary">Annuler</a>
+		</div>
+
+
+		{{ form_end(form) }}
+
+	</div>
+
+</main>
 
 {% endblock %}

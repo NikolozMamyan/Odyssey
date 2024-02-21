@@ -2,7 +2,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Course;
-use App\Repository\TeacherRepository;
+use App\Repository\UserRepository;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -12,13 +12,15 @@ use Faker\Generator;
 
 class CourseFixture extends Fixture implements DependentFixtureInterface
 {
-    private TeacherRepository $teacherRepository;
-    private Generator $faker;
+    private const NUMBER_OF_COURSE = 10;
 
-    public function __construct(TeacherRepository $teacherRepository)
+    private Generator $faker;
+    private UserRepository $userRepository;
+
+    public function __construct(UserRepository $userRepository)
     {
-        $this->teacherRepository = $teacherRepository;
         $this->faker = Factory::create('fr_FR');
+        $this->userRepository = $userRepository;
     }
 
     public function load(ObjectManager $manager): void
@@ -30,31 +32,36 @@ class CourseFixture extends Fixture implements DependentFixtureInterface
             $this->getReference('category_3'),
             $this->getReference('category_4'),
         ];
-        
-        $teachers = $this->teacherRepository->findAll();
-        
-        foreach ($teachers as $teacher) {
-            $randCourseNumber = rand(0, 3);
-            
-            for ($i = 0; $i < $randCourseNumber; $i++) {
-                $course = (new Course())
-                    ->setTitle($this->faker->realText(10))
-                    ->setDescription($this->faker->realText(100))
-                    ->setAuthor($teacher)
-                    ->setContent($this->faker->realText(1500));
-                
-            $randomCategories = $this->faker->randomElements($categories, rand(1, 3));
-            foreach ($randomCategories as $category) {
-                $course->addCategory($category);
-            }
 
-                $manager->persist($course);
-                
+        $users = $this->userRepository->findAll();
+
+        foreach ($users as $user) {
+
+            $roleUser = $user->getRoleUser();
+
+            if ($roleUser->getTypeRole() === 'teacher') {
+
+                for ($i = 0; $i < self::NUMBER_OF_COURSE; $i++) {
+
+                    $course = (new Course())
+                        ->setTitle($this->faker->realText(10))
+                        ->setDescription($this->faker->realText(100))
+                        ->setContent($this->faker->realText(1500))
+                        ->setCreatedBy($user);
+
+                    $randomCategories = $this->faker->randomElements($categories, rand(1, 3));
+                    foreach ($randomCategories as $category) {
+                        $course->addCategory($category);
+                    }
+
+                    $manager->persist($course);
+                }
             }
         }
 
         $manager->flush();
     }
+
 
     public static function getGroups(): array
     {
@@ -64,7 +71,7 @@ class CourseFixture extends Fixture implements DependentFixtureInterface
     public function getDependencies(): array
     {
         return [
-            TeacherFixture::class,
+            UserFixtures::class,
             CategoryFixture::class,
         ];
     }

@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Category;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
@@ -11,25 +12,18 @@ class CategoryFixture extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $faker = \Faker\Factory::create();
+        $categories = ['HTML', 'CSS', 'JavaScript', 'PHP', 'Symfony'];
 
-      
-        for ($i = 0; $i < 5; $i++) {
+        foreach ($categories as $index => $categoryName) {
+
             $category = new Category();
-            $category->setName($faker->word); 
+            $category->setName($categoryName);
             $manager->persist($category);
 
-    
-            $this->addReference('category_' . $i, $category);
+            $this->addReference('category_' . $index, $category);
         }
-        
+
         $manager->flush();
     }
-    
-    public function getDependencies()
-    {
-        return [
-            CourseFixture::class,
-        ];
-    }
+
 }
