@@ -42,7 +42,7 @@ class LandingPageController extends AbstractController
     #[Route('/legals', name: 'app_legals_page')]
     public function showLegals(): Response
     {
-        return $this->render('legals/Legal_information.html.twig');
+        return $this->render('legals/legal_information.html.twig');
     }
 
 }
