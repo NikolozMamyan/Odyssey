@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Course;
-use App\Entity\Teacher;
 use App\Entity\Category;
 use App\Form\CourseType;
 use App\Form\CategoryFilterType;
@@ -22,7 +21,7 @@ class CoursesController extends AbstractController
     public function index(EntityManagerInterface $entityManager, Request $request): Response
     {
         $form = $this->createForm(CategoryFilterType::class);
-        //if($_POST) dd($request);
+
         $form->handleRequest($request);
     
         $categories = $entityManager->getRepository(Category::class)->findAll();
@@ -62,14 +61,21 @@ class CoursesController extends AbstractController
     #[Route('/courses/create', name: 'app_course_create')]
     public function create(EntityManagerInterface $entityManager, Request $request): Response
     {
-        //get a teacher from the database latest teacher
-        $teacher = $entityManager->getRepository(Teacher::class)->findOneBy([], ['id' => 'DESC']);
+        $categories = $entityManager->getRepository(Category::class)->findAll();
+
         $course = new Course();
-        $form = $this->createForm(CourseType::class, $course);
+
+        $form = $this->createForm(CourseType::class, $course, [
+            'categories' => $categories,
+        ]);
+
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $course->setAuthor($teacher);
+
+            $course->setCreatedBy($this->getUser());
+
             $entityManager->persist($course);
             $entityManager->flush();
 
@@ -85,11 +91,16 @@ class CoursesController extends AbstractController
         ]);
     }
 
-    #[Route('/courses/{id<\d*>}/edit', name: 'app_course_edit')]
+    #[Route('/courses/edit/{id<\d*>}', name: 'app_course_edit')]
     public function edit($id, EntityManagerInterface $entityManager, Request $request): Response
     {
         $course = $entityManager->getRepository(Course::class)->find($id);
-        $form = $this->createForm(CourseType::class, $course);
+        $categories = $entityManager->getRepository(Category::class)->findAll();
+
+        $form = $this->createForm(CourseType::class, $course, [
+            'categories' => $categories,
+        ]);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -103,14 +114,17 @@ class CoursesController extends AbstractController
         ]);
     }
 
-    #[Route('/courses/{id<\d*>/delete}', name: 'app_course_delete')]
-    public function delete($id, EntityManagerInterface $entityManager): RedirectResponse
+    #[Route('/courses/delete/{id<\d*>}', name: 'app_course_delete')]
+    public function delete(EntityManagerInterface $entityManager, int $id): RedirectResponse
     {
         $course = $entityManager->getRepository(Course::class)->find($id);
         $entityManager->remove($course);
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_courses');
+        // display message
+        $this->addFlash('danger', 'Le cours a bien été supprimé');
+
+        return $this->redirectToRoute('app_user');
     }
 
 

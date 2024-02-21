@@ -5,11 +5,12 @@ namespace App\DataFixtures;
 use App\Entity\User;
 use App\Repository\RoleRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 
-class UserFixtures extends Fixture
+class UserFixtures extends Fixture implements DependentFixtureInterface
 {
     private UserPasswordHasherInterface $passwordHasher;
     private RoleRepository $roleRepository;
@@ -22,54 +23,50 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        $user = new User();
-        $user->setEmail('student@gmail.com');
-        $user->setRoles(['ROLE_USER']);
-        $user->setFirstNameUser('studentFirstName');
-        $user->setLastNameUser('studentLastName');
-        $user->setDateRegisterUser(new \DateTime);
+        $usersData = [
+            [
+                'email' => 'stephane@gmail.com',
+                'role' => 'student',
+                'firstName' => 'Stephane',
+                'lastName' => 'Koeniguer'
+            ],
+            [
+                'email' => 'nikoloz@gmail.com',
+                'role' => 'teacher',
+                'firstName' => 'Nikoloz',
+                'lastName' => 'Mamyan'
+            ],
+            [
+                'email' => 'leo@gmail.com',
+                'role' => 'teacher',
+                'firstName' => 'Leo',
+                'lastName' => 'Kovalski'
+            ],
+            [
+                'email' => 'guoying@gmail.com',
+                'role' => 'admin',
+                'firstName' => 'Guoying',
+                'lastName' => 'adminLastName'
+            ],
+        ];
 
-        // search roles
-        $role = $this->roleRepository->findOneBy(['typeRole' => 'student']);
-        $user->setRoleUser($role);
+        foreach ($usersData as $userData) {
+            $user = new User();
+            $user->setEmail($userData['email']);
+            $user->setFirstNameUser($userData['firstName']);
+            $user->setLastNameUser($userData['lastName']);
+            $user->setDateRegisterUser(new \DateTime);
 
-        // Hash password
-        $password = $this->passwordHasher->hashPassword($user, 'azertyuioP1');
-        $user->setPassword($password);
+            // search roles
+            $role = $this->roleRepository->findOneBy(['typeRole' => $userData['role']]);
+            $user->setRoleUser($role);
 
-        $user1 = new User();
-        $user1->setEmail('teacher@gmail.com');
-        $user1->setRoles(['ROLE_TEACHER']);
-        $user1->setFirstNameUser('teacherFirstName');
-        $user1->setLastNameUser('teacherLastName');
-        $user1->setDateRegisterUser(new \DateTime);
+            // Hash password
+            $password = $this->passwordHasher->hashPassword($user, 'azertyuioP1');
+            $user->setPassword($password);
 
-        // search roles
-        $role = $this->roleRepository->findOneBy(['typeRole' => 'teacher']);
-        $user1->setRoleUser($role);
-
-        // Hash password
-        $password = $this->passwordHasher->hashPassword($user1, 'azertyuioP1');
-        $user1->setPassword($password);
-
-        $user2 = new User();
-        $user2->setEmail('admin@gmail.com');
-        $user2->setRoles(['ROLE_ADMIN']);
-        $user2->setFirstNameUser('adminFirstName');
-        $user2->setLastNameUser('adminLastName');
-        $user2->setDateRegisterUser(new \DateTime);
-
-        // search roles
-        $role = $this->roleRepository->findOneBy(['typeRole' => 'admin']);
-        $user2->setRoleUser($role);
-
-        // Hash password
-        $password = $this->passwordHasher->hashPassword($user1, 'azertyuioP1');
-        $user2->setPassword($password);
-
-        $manager->persist($user);
-        $manager->persist($user1);
-        $manager->persist($user2);
+            $manager->persist($user);
+        }
 
         $manager->flush();
     }
