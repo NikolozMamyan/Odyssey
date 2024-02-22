@@ -54,7 +54,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'users', targetEntity: Note::class)]
     private Collection $notes;
 
-    #[ORM\OneToMany(mappedBy: 'createdBy', targetEntity: Course::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'createdBy', targetEntity: Course::class, cascade: ["remove"],
+        orphanRemoval: true)]
     private Collection $courses;
 
     public function __construct()

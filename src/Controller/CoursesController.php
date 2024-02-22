@@ -24,7 +24,7 @@ class CoursesController extends AbstractController
 
         $form->handleRequest($request);
     
-        $categories = $entityManager->getRepository(Category::class)->findAll();
+        $notes = $entityManager->getRepository(Course::class)->getAverageNotes();
     
         $courses = $entityManager->getRepository(Course::class)->findAll();
     
@@ -40,6 +40,7 @@ class CoursesController extends AbstractController
         return $this->render('courses/index.html.twig', [
             'form' => $form->createView(),
             'courses' => $courses,
+            'notes' =>  $notes
         ]);
     }
 
