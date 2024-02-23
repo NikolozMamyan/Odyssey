@@ -5,7 +5,7 @@
 }
 /* register page */
 .sk-main{
-    min-height: 100vh;
+    min-height: 90vh;
 }
 
 .sk-h2{
@@ -56,6 +56,10 @@
 nav{
     background-color: #725AC1;
     height: 10vh;
+}
+
+.sk-nav{
+    background-color: #725AC1;
 }
 
 .nm-header{

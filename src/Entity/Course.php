@@ -31,7 +31,7 @@ class Course
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'participateCourses')]
     private Collection $participateUsers;
 
-    #[ORM\OneToMany(mappedBy: 'courses', targetEntity: Note::class)]
+    #[ORM\OneToMany(mappedBy: 'courses', targetEntity: Note::class, cascade: ["remove"])]
     private Collection $notes;
 
     #[ORM\ManyToOne(inversedBy: 'courses')]
