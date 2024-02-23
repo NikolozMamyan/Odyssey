@@ -30,6 +30,7 @@
 		<div class="row">
 
 			{% for course in courses %}
+
 				<div class="col-md-3 mb-5 mt-3">
 					<a href="{{ path('app_course_show', {'id': course.id}) }}">
 						<div class="card mb-6 shadow-sm">
@@ -44,15 +45,21 @@
 								<h3 class="card-subtitle text-body-secondary">{{ course.getCreatedBy.firstNameUser }}</h3>
 								<p class="card-text">{{ course.description }}</p>
 							</div>
-							<div class="card-footer">
+					</a>
+							<div class="card-footer d-flex">
 								{% if app.user %}
 									<a href="{{ path('app_course_participate', {'id': course.id}) }}" class="btn sk-btn">Ajouter à ma watchlist</a>
 								{% endif %}
+								{% for note in notes %}
+									{% if note.averageNote is not null and note.course_id == course.id %}
+										<strong class="ms-3 mt-1">&ensp;Note<br>{{ note.averageNote|round(1) }}<span class="mt-1">&ensp;/ 5</span></strong>
+									{% endif %}
+								{% endfor %}
 							</div>
 						</div>
-					</a>
 				</div>
 			{% endfor %}
 		</div>
 </div>
-	{% endblock %}
+
+{% endblock %}

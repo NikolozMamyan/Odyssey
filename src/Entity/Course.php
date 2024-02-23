@@ -6,6 +6,7 @@ use App\Repository\CourseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\Cascade;
 
 #[ORM\Entity(repositoryClass: CourseRepository::class)]
 class Course
@@ -30,11 +31,11 @@ class Course
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'participateCourses')]
     private Collection $participateUsers;
 
-    #[ORM\OneToMany(mappedBy: 'courses', targetEntity: Note::class)]
+    #[ORM\OneToMany(mappedBy: 'courses', targetEntity: Note::class, cascade: ["remove"])]
     private Collection $notes;
 
     #[ORM\ManyToOne(inversedBy: 'courses')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true, onDelete: "Cascade")]
     private ?User $createdBy = null;
 
     public function __construct()

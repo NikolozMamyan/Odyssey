@@ -45,4 +45,10 @@ class LandingPageController extends AbstractController
         return $this->render('legals/legal_information.html.twig');
     }
 
+    #[Route('/about-us', name: 'app_about_us')]
+    public function aboutUs(): Response
+    {
+        return $this->render('about_us/about_us.html.twig');
+    }
+
 }

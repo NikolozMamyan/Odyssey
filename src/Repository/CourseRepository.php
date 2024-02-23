@@ -50,6 +50,18 @@ class CourseRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+
+
+    public function getAverageNotes(): array
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c.id AS course_id, AVG(n.value) AS averageNote')
+            ->leftJoin('c.notes', 'n')
+            ->groupBy('c.id')
+            ->getQuery()
+            ->getResult();
+    }
     
 //    /**
 //     * @return Course[] Returns an array of Course objects

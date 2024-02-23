@@ -16,7 +16,7 @@ class SearchController extends AbstractController
     
 
     #[Route('/search', name: 'app_search')]
-    public function searchBar()
+    public function searchBar(): Response
     {
         $form = $this->createFormBuilder()
             ->setAction($this->generateUrl('handleSearch'))
@@ -42,6 +42,7 @@ class SearchController extends AbstractController
     #[Route('/handleSearch', name: 'handleSearch')]
     public function handleSearch(Request $request, CourseRepository $repo): Response
     {
+        $notes = $repo->getAverageNotes();
         
         $form = $this->createFormBuilder()
             ->setAction($this->generateUrl('handleSearch'))
@@ -69,7 +70,8 @@ class SearchController extends AbstractController
         }
       
         return $this->render('search/index.html.twig', [
-            'courses' => $courses
+            'courses' => $courses,
+            'notes' =>  $notes
         ]);
     }
     

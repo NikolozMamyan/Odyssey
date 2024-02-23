@@ -19,10 +19,12 @@ class UserController extends AbstractController
     {
         $user = $this->getUser();
         $course = $entityManager->getRepository(Course::class)->findBy(['createdBy' => $user]);
+        $notes = $entityManager->getRepository(Course::class)->getAverageNotes();
 
         return $this->render('user/index.html.twig', [
             'user' => $user,
             'course' => $course,
+            'notes' => $notes,
         ]);
     }
     #[Route('/user/edit/{id}', name: 'app_user_edit')]
