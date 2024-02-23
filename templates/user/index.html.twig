@@ -34,23 +34,23 @@
 
           <div class="col-md-9">
             <div class="ms-3">
-              <div>
                 <h4 class="card-title mb-4">Mes informations personnelles</h4>
-                  <div class="d-flex">
-                    <p class="text-muted me-5">Nom : {{ user.firstNameUser }} </p>
-                    <p class="text-muted">Prénom :  {{ user.lastNameUser }} </p>
+              <div class="d-flex">
+                  <div>
+                      <p class="me-5"><span class="fw-bold">Nom :</span> {{ user.firstNameUser }} </p>
+                      <p><span class="fw-bold">Profil :</span> {{ user.roleUser.typeRole }} </p>
                   </div>
-                  <div class="d-flex">
-                    <p class="text-muted me-5">E-mail :  {{ user.email }} </p>
-                    <p class="text-muted">Date d'inscription :  {{ user.dateRegisterUser | date('d/m/Y') }} </p>
+                  <div>
+                      <p><span class="fw-bold">Prénom :</span>  {{ user.lastNameUser }} </p>
+                      <p><span class="fw-bold">Date d'inscription :</span>  {{ user.dateRegisterUser | date('d/m/Y') }} </p>
                   </div>
-                  <p class="text-muted"> Profil : {{ user.roleUser.typeRole }} </p>
+                  <p><span class="fw-bold">E-mail :</span>  {{ user.email }} </p>
               </div>
                 <div>
+                    <a class='btn sk-btn mb-3' href="{{path('app_user_edit', {id: user.id})}}"><i class="fa-solid fa-pen fs-3 me-2"></i>Modifier mes informations</a>
                     {% if 'teacher' in app.user.roleUser.typeRole %}
-                        <a class="btn sk-btn mb-3" href="{{path('app_course_create')}}"><i class="fa-regular fa-pen-to-square fs-3 me-2"></i>Créer un cours</a>
+                        <a class="btn sk-btn ms-5 mb-3" href="{{path('app_course_create')}}"><i class="fa-regular fa-pen-to-square fs-3 me-2"></i>Créer un cours</a>
                     {% endif %}
-                    <a class='btn sk-btn ms-5 mb-3' href="{{path('app_user_edit', {id: user.id})}}"><i class="fa-solid fa-pen fs-3 me-2"></i>Modifier mes informations</a>
                 </div>
             </div>
           </div>
@@ -70,7 +70,7 @@
             <tr>
               <th scope="col">Titre</th>
               <th scope="col">Description</th>
-              <th scope="col">Auteur</th>
+              <th scope="col">Note</th>
                <th scope="col">Actions</th>
             </tr>
           </thead>
@@ -82,11 +82,19 @@
                 <tr>
                    <td>{{ c.title }}</td>
                    <td>{{ c.description }}</td>
-                   <td>{{ c.getCreatedBy.firstNameUser }}</td>
+                   <td>
+                       {% for note in notes %}
+                           {% if note.averageNote is not null and note.course_id == c.id %}
+                               {{ note.averageNote|round(1) }} / 5
+                           {% endif %}
+                       {% endfor %}
+
+                   </td>
                     <td>
                         <div class="d-flex">
-                            <a href="{{ path('app_course_edit', {id: c.id}) }}" class="btn btn-warning">Modifier</a>
-                            <a href="{{ path('app_course_delete', {id: c.id}) }}" class="btn btn-danger ms-2">Supprimer</a>
+                            <a href="{{ path('app_course_edit', {id: c.id}) }}" class="btn btn-warning me-2">Modifier</a>
+
+                            {{ modalDelete.deleteCourse(c) }}
                         </div>
                     </td>
                 </tr>
@@ -117,7 +125,7 @@
                 <th scope="col">Titre</th>
                 <th scope="col">Description</th>
                 <th scope="col">Catégorie</th>
-                <th scope="col">Notes</th>
+                <th scope="col">Note</th>
                 <th scope="col">Actions</th>
               </tr>
             </thead>
@@ -144,10 +152,16 @@
                   </td>
                 <td>
                   <div class="d-flex">
-                      {{ modalDelete.deleteCouse(course) }}
+                      {% if app.user.id != course.getCreatedBy.id  %}
                       {{ modalNote.note(course) }}
+                          {% else %}
+                              <span></span>
+                      {% endif %}
                   </div>
                 </td>
+                  <td>
+                      {{ modalDelete.deleteCouseWatchlist(course) }}
+                  </td>
               </tr>
             {% endfor %}
             </tbody>
@@ -161,7 +175,7 @@
        </div>
 
         <div class="container">
-            <p class="alert alert-success mt-5">Il n'y a pas de cours dans votre watchlist</p>
+            <p class="alert alert-success mt-5">Il n'y a pas de cours dans ta watchlist</p>
         </div>
     {% endif %}
 
