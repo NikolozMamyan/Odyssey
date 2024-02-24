@@ -11,6 +11,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+
+
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'Un compte existe déja avec cet e-mail')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -41,9 +43,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateRegisterUser = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $pictureUser = null;
-
     #[ORM\ManyToOne(inversedBy: 'users')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Role $roleUser = null;
@@ -57,6 +56,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'createdBy', targetEntity: Course::class, cascade: ["remove"],
         orphanRemoval: true)]
     private Collection $courses;
+
 
     public function __construct()
     {
@@ -171,18 +171,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPictureUser(): ?string
-    {
-        return $this->pictureUser;
-    }
-
-    public function setPictureUser(?string $pictureUser): static
-    {
-        $this->pictureUser = $pictureUser;
-
-        return $this;
-    }
-
     public function getRoleUser(): ?Role
     {
         return $this->roleUser;
@@ -278,4 +266,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
 }

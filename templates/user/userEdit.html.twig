@@ -14,6 +14,7 @@
      {{ form_row(userForm.email) }}
      {{ form_row(userForm.firstNameUser) }}
      {{ form_row(userForm.lastNameUser) }}
+
      <div class="d-flex">
           {{ form_widget(userForm.save, {'attr': {'class': 'btn sk-btn mt-4'}}) }}
           <a href="{{ path('app_user')}}" class="btn btn-secondary ms-2 mt-4">Annuler</a>
