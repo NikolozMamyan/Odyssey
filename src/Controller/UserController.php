@@ -30,12 +30,13 @@ class UserController extends AbstractController
     #[Route('/user/edit/{id}', name: 'app_user_edit')]
     public function userEdit(EntityManagerInterface $entityManager, UserRepository $userRepository, Request $request, int $id): Response
     {
-        $user= $userRepository->find($id);
+        $user = $userRepository->find($id);
         $form = $this->createForm(UserEditType::class, $user);
-        $form -> handleRequest($request);
+        $form->handleRequest($request);
 
-        if($form -> isSubmitted() && $form -> isValid()) {
-            $entityManager-> persist($user);
+        if($form->isSubmitted() && $form->isValid()) {
+
+            $entityManager->persist($user);
             $entityManager->flush();
 
             return $this-> redirectToRoute('app_user');

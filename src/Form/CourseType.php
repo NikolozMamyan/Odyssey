@@ -8,7 +8,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -30,11 +29,12 @@ class CourseType extends AbstractType
 
         $builder
             ->add('imageFile', VichImageType::class, [
-                'label' => 'Image du course',
+                'label' => 'Image du cours',
                 'label_attr'=> [
-                    'class' => 'form-label mt-4'
+                    'class' => 'form-label mt-4 fw-bold'
                 ],
-                'required'=> true, 
+                'required'=> true,
+                'download_uri' => false,
             ])
             ->add('title', TextType::class)
             ->add('categories', EntityType::class, [
