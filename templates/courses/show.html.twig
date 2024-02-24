@@ -8,8 +8,8 @@
     <div class="col-md-8 mb-5">
         
         <div class="card bg-light">
-            <div class="card-header text-center">
-                <div class="card-title"><strong>{{ course.imagefile }}</strong> </div>
+            <div class="course_image">
+                <img src="{{ vich_uploader_asset(course, 'imageFile') }}" style="width: 100%; height: 300px;" alt="image">
             </div>
         <div class="card bg-light">
             <div class="card-header text-center">
