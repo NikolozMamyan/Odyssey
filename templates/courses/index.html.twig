@@ -34,7 +34,7 @@
 				<div class="col-md-3 mb-5 mt-3">
 					<a href="{{ path('app_course_show', {'id': course.id}) }}">
 						<div class="card mb-6 shadow-sm">
-							<img src="https://picsum.photos/200" class="card-img-top" alt="course picture">
+							{{ course.imageFile}}
 							<div class="d-flex mt-1">
 								{% for category in course.categories %}
 									<span class="badge text-bg-primary mx-2 w-25">{{ category.name }}</span>

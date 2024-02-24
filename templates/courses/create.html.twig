@@ -24,6 +24,9 @@
 
 
 		{{ form_start(form) }}
+		
+		{{ form_row(form.imageFile) }}
+
 
 		{{ form_label(form.title, 'Titre', { 'label_attr': {'class': 'form-label m-0 fw-bold'} } ) }}
 		{{ form_widget(form.title, { 'attr': {'class': 'form-control my-2'} } ) }}
