@@ -67,18 +67,22 @@
 
         <table class="table table-striped container mt-5">
           <thead>
-            <tr>
-              <th scope="col">Titre</th>
-              <th scope="col">Description</th>
-              <th scope="col">Note</th>
-               <th scope="col">Actions</th>
-            </tr>
+              <tr>
+                  <th>{{ knp_pagination_sortable(pagination, 'Titre', 'pagination.items.title') }}</th>
+                  <th{% if pagination.isSorted('pagination.items.title') %} class="sorted"{% endif %}>
+                      {{ knp_pagination_sortable(pagination, 'Description', 'pagination.items.description') }}
+                  </th>
+                  <th scope="col" {% if pagination.isSorted(['pagination.items.notes']) %} class="sorted"{% endif %}>
+                      {{ knp_pagination_sortable(pagination, 'Note', ['pagination.items.notes']) }}
+                  </th>
+                  <th scope="col">Actions</th>
+              </tr>
           </thead>
           <tbody>
 
             {% if course is defined and course|length > 0 %}
 
-                {% for c in course %}
+                {% for c in pagination %}
                 <tr>
                    <td>{{ c.title }}</td>
                    <td>{{ c.description }}</td>
@@ -109,6 +113,11 @@
         </table>
 
         {% endif %}
+
+    <div class="pagination d-flex justify-content-center mt-5">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+
 
 
     <!-- section student  -->
