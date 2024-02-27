@@ -1,16 +1,8 @@
-/* import police */
-@font-face {
-    font-family: "Coolvetica";
-    src: url("coolvetica_compressed_hv.otf");
-}
 /* register page */
 .sk-main{
     min-height: 90vh;
 }
 
-.sk-h2{
-    font-family: "Coolvetica", sans-serif;
-}
 .sk-password{
     font-size: 0.8rem;
 }
@@ -53,13 +45,10 @@
 }
 
 /* home page */
-nav{
-    background-color: #725AC1;
-    height: 10vh;
-}
-
 .sk-nav{
     background-color: #725AC1;
+    height: 10vh;
+    line-height: 10vh;
 }
 
 .nm-header{
@@ -89,7 +78,6 @@ nav{
 .nm-Button, .nm-Button__inscription {
 position: relative;
 display: inline-block;
-margin: 15px;
 padding: 10px 15px;
 text-align: center;
 font-size: 18px;

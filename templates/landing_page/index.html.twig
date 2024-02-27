@@ -16,31 +16,31 @@
 
     <div class='nm-header'>
         <div class='container'>
-            <h1>Soyez professionnel demain en apprenant dès aujourd'hui.</h1>
-            <p>Bienvenue sur notre plateforme d'apprentissage. Acquérez de nouvelles compétences et progressez a votre rythme.</p>
-            <a href="{{ path('app_courses') }}" class="nm-Button">Consulter les cours</a>
-            {% if app.user %}
-                <a href="{{ path('app_logout') }}" class="nm-Button"> Se déconnecter</a>
-            {% else %}
-                <a href="{{ path('app_login') }}" class="nm-Button">Connexion</a>
-            {% endif %}
+            <h1 class="animate__animated animate__backInLeft">Cultivez votre savoir pour un avenir plus brillant.</h1>
+            <p>Bienvenue sur notre plateforme d'apprentissage, où vous pouvez acquérir de nouvelles compétences et évoluer à votre propre rythme.</p>
+            <div class="d-flex flex-column flex-lg-row">
+                <a href="{{ path('app_courses') }}" class="nm-Button mb-4 mb-lg-0 me-lg-4">Consulter les cours</a>
+                {% if app.user %}
+                    <a href="{{ path('app_logout') }}" class="nm-Button"> Se déconnecter</a>
+                {% else %}
+                    <a href="{{ path('app_login') }}" class="nm-Button">Connexion</a>
+                {% endif %}
+            </div>
         </div>
     </div>
 
 	<section class='container mt-5'>
         <div class="row">
             <div class="col12 col-md-6 mb-5">
-
-                {{ signUpCard("Etudiant", "Rejoignez notre communauté d'apprenants passionnés. Inscrivez-vous maintenant
-                pour des cours de qualité et une expérience interactive.") }}
+                {{ signUpCard("Étudiant(e)s", "Rejoignez notre communauté d'apprenant(e)s passionné(e)s.
+                Inscrivez-vous maintenant pour des cours de qualité et une expérience interactive.") }}
             </div>
 
             <div class="col12 col-md-6">
-                {{ signUpCard("Formateur", "Votre expertise en tant que formateur sur notre plateforme. Rejoignez-nous
-                aujourd'hui pour inspirer la prochaine génération de talents.") }}
+                {{ signUpCard("Formatrice / Formateur", "Partager votre expertise en tant que professionnel(le)
+                 sur notre plateforme. Rejoignez-nous aujourd'hui pour inspirer la prochaine génération de talents.") }}
             </div>
         </div>
-
     </section>
 
 <section class="mt-5 container-fluid row contact__style">
@@ -54,7 +54,7 @@
         <div class="nm-form__container mt-5">
         <span class="fw-bold fs-3 text">Contactez nous</span>
 
-            <form id="contactForm" action="{{ path('app_contact') }}" method="post">
+            <form id="contactForm" class="me-lg-5" action="{{ path('app_contact') }}" method="post">
                 <div class="form-group mt-5">
                     <label for="name">Nom</label>
                     <input class="nm-input__contact" type="text" id="name" placeholder='Votre nom' name="name" required >
@@ -69,7 +69,7 @@
                 <label for="message">Message</label>
                 <textarea class="nm-textarea nm-input__contact" id="message" name="message" placeholder='Posez vos questions, partagez vos découvertes.' rows="4" required></textarea>
             </div>
-                <button type="submit" class="nm-Button d-flex justify-content-center mt-5 ms-0 w-100">Envoyer</button>
+                <button type="submit" class="nm-Button d-flex justify-content-center my-5 ms-0 w-100">Envoyer</button>
 	        </form>
 
         </div>

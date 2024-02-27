@@ -8,7 +8,7 @@
 
             <form class="card px-5 mt-5 shadow bg-body-tertiary rounded" method="post">
 
-                <h1 class="sk-h2 my-3 fs-1 text-center text-decoration-underline">Bienvenue</h1>
+                <h1 class="my-3 fs-1 text-center text-decoration-underline">Bienvenue</h1>
 
                 {% if error %}
                     <div class="alert alert-danger mt-3">{{ error.messageKey|trans(error.messageData, 'security') }}</div>

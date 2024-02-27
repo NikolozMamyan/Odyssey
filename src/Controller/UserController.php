@@ -7,6 +7,7 @@ use App\Entity\Course;
 use App\Form\UserEditType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,16 +16,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class UserController extends AbstractController
 {
     #[Route('/user', name: 'app_user')]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(EntityManagerInterface $entityManager, PaginatorInterface $paginator, Request $request): Response
     {
         $user = $this->getUser();
         $course = $entityManager->getRepository(Course::class)->findBy(['createdBy' => $user]);
         $notes = $entityManager->getRepository(Course::class)->getAverageNotes();
 
+        $pagination = $paginator->paginate(
+            $course, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            6 /*limit per page*/
+        );
+
         return $this->render('user/index.html.twig', [
             'user' => $user,
             'course' => $course,
             'notes' => $notes,
+            'pagination' => $pagination
         ]);
     }
     #[Route('/user/edit/{id}', name: 'app_user_edit')]
