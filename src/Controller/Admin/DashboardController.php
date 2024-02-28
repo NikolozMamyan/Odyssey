@@ -16,24 +16,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractDashboardController
 {
-    #[Route('/admin', name: 'admin')]
+    #[Route('/admin', name: 'app_admin')]
     public function index(): Response
     {
 
-        // Option 1. You can make your dashboard redirect to some common page of your backend
-        //
-        // $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
-        // return $this->redirect($adminUrlGenerator->setController(OneOfYourCrudController::class)->generateUrl());
-
-        // Option 2. You can make your dashboard redirect to different pages depending on the user
-        //
-        // if ('jane' === $this->getUser()->getUsername()) {
-        //     return $this->redirect('...');
-        // }
-
-        // Option 3. You can render some custom template to display a proper dashboard with widgets, etc.
-        // (tip: it's easier if your template extends from @EasyAdmin/page/content.html.twig)
-        //
         return $this->render('admin/dashboard.html.twig');
     }
 
@@ -51,8 +37,9 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        //yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+
+        yield MenuItem::linkToDashboard('Accueil', 'fa fa-home');
+        yield MenuItem::linkToUrl('Site Odyssey', 'fa fa-reply-all', '/');
 
         yield MenuItem::section('Utilisateurs');
         yield MenuItem::subMenu('Utilisateurs', 'fas fa-user')->setSubItems([
@@ -64,7 +51,7 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Voir les Roles', 'fas fa-eye', Role::class),
         ]);
         yield MenuItem::section('Cours');
-        yield MenuItem::subMenu('Cours', 'fa-brands fa-discourse')->setSubItems([
+        yield MenuItem::subMenu('Cours', 'fas fa-bullhorn')->setSubItems([
             MenuItem::linkToCrud('Voir les cours', 'fas fa-eye', Course::class),
         ]);
         yield MenuItem::section('Catégories');
