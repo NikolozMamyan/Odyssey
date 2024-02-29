@@ -3,9 +3,9 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Role;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\HiddenField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class RoleCrudController extends AbstractCrudController
@@ -15,14 +15,21 @@ class RoleCrudController extends AbstractCrudController
         return Role::class;
     }
 
-    /*
+
+
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setEntityLabelInSingular('un rôle')
+            ->setEntityLabelInPlural('Rôles');
+    }
+
+
     public function configureFields(string $pageName): iterable
     {
-        return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
-        ];
+        yield HiddenField::new('id')->hideOnForm()->hideOnIndex();
+
+        yield TextField::new('typeRole')
+            ->setLabel('Roles');
     }
-    */
 }
