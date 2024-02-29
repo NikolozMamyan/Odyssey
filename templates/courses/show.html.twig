@@ -30,7 +30,7 @@
                     </div>
                     </div>
 
-					<div class="px-3"> {{ course.content }}</div>
+					<div class="px-3"> {{ course.content|raw }}</div>
                     <div class="d-flex px-3 mb-3">
                         <a href="{{ path('app_courses') }}" class="btn sk-btn mt-5 me-3">Retour à la liste des cours</a>
                         {% if app.user %}
