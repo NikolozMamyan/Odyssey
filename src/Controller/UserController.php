@@ -56,4 +56,19 @@ class UserController extends AbstractController
         ]);
     }
 
+  #[Route('/user/disable/{id}', name: 'app_user_disable')]
+
+public function disableUser(int $id, EntityManagerInterface $em) {
+
+    $user = $this->getUser();
+  
+    if ($user) {
+      $user->setIsActive(false);
+      $em->flush();
+      $this->addFlash('success', "Le compte de l'utilisateur a bien été désactivé");
+    }
+  
+    return $this->redirectToRoute('app_logout');
+  }
+
 }

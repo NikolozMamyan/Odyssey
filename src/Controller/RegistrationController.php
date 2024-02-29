@@ -38,6 +38,7 @@ class RegistrationController extends AbstractController
             );
 
             $user->setDateRegisterUser(new \DateTime);
+            $user->setIsActive(true);
 
             // check roles (student ou teacher)
             $isStudent = $form->get('student')->getData();
