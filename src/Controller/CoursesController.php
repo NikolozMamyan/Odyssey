@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 
 class CoursesController extends AbstractController
@@ -60,7 +62,7 @@ class CoursesController extends AbstractController
     }
 
     #[Route('/courses/create', name: 'app_course_create')]
-    public function create(EntityManagerInterface $entityManager, Request $request): Response
+    public function create(EntityManagerInterface $entityManager, Request $request, MailerInterface $mailer ): Response
     {
         $categories = $entityManager->getRepository(Category::class)->findAll();
 
@@ -79,6 +81,9 @@ class CoursesController extends AbstractController
 
             $entityManager->persist($course);
             $entityManager->flush();
+            
+            //send an email after the course have been created
+            $this->sendCourseCreatedEmail($course, $mailer);
 
             //this is the return when we have the course page
             // return $this->redirectToRoute('app_courses_show', ['id' => $course->getId()]);
@@ -91,6 +96,17 @@ class CoursesController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    private function sendCourseCreatedEmail(Course $course, MailerInterface $mailer)
+        {
+        $email = (new Email())
+            ->from('admin@example.com')
+            ->to('Odyssey@gmail.com')
+            ->subject('Nouveau cours créé')
+            ->html('<p>Un nouveau cours a été créé : ' . $course->getTitle() . '</p>');
+
+        $mailer->send($email);
+        }
 
     #[Route('/courses/edit/{id<\d*>}', name: 'app_course_edit')]
     public function edit($id, EntityManagerInterface $entityManager, Request $request): Response
