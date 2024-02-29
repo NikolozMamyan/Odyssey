@@ -57,6 +57,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         orphanRemoval: true)]
     private Collection $courses;
 
+    #[ORM\Column]
+    private ?bool $isActive = null;
+
 
     public function __construct()
     {
@@ -263,6 +266,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $course->setCreatedBy(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): static
+    {
+        $this->isActive = $isActive;
 
         return $this;
     }

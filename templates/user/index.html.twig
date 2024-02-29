@@ -54,6 +54,7 @@
                                     <a class="btn sk-btn mb-3" href="{{ path('app_course_create') }}"><i
                                                 class="fa-regular fa-pen-to-square fs-3 me-2"></i>Créer un cours</a>
                                 {% endif %}
+                                <a href="{{ path('app_user_disable', {'id': user.id}) }}" class="btn btn-danger">Désactiver le compte</a>
                             </div>
                         </div>
                     </div>
