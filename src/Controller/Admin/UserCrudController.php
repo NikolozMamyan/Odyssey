@@ -33,7 +33,7 @@ class UserCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInSingular('Utilisateur')
+            ->setEntityLabelInSingular('un utilisateur')
             ->setEntityLabelInPlural('Utilisateurs');
     }
 
@@ -54,6 +54,7 @@ class UserCrudController extends AbstractCrudController
             ->setLabel('Password')
             ->setFormType(PasswordType::class)
             ->hideOnIndex();
+
         yield DateField::new('dateRegisterUser')
             ->setLabel('Membre depuis');
         yield AssociationField::new('roleUser')
