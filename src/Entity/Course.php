@@ -26,7 +26,6 @@ class Course
     #[ORM\Column(type:"datetime_immutable", nullable:true)]
     private $updatedAt;
 
-
        
     #[Vich\UploadableField(mapping: 'courses', fileNameProperty: 'imageName')]
     private ?File $imageFile = null;

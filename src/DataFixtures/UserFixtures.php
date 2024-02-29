@@ -56,6 +56,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user->setFirstNameUser($userData['firstName']);
             $user->setLastNameUser($userData['lastName']);
             $user->setDateRegisterUser(new \DateTime);
+            $user->setIsActive(true);
 
             // search roles
             $role = $this->roleRepository->findOneBy(['typeRole' => $userData['role']]);

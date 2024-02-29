@@ -1,0 +1,7 @@
+.text-left {
+    text-align: left;
+}
+
+th[data-column="categories"] {
+    text-align: left !important;
+}
