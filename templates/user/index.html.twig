@@ -7,187 +7,187 @@
 
 {% block body %}
 
-
-<!--Message-->
-<div class="toast-container position-absolute bottom-0 end-0 p-5">
-    {% for type, messages in app.flashes %}
-        {% for message in messages %}
-            {{ modalToast.toast(type, message) }}
+    <!--Message-->
+    <div id="toast-container" class="toast-container position-absolute bottom-0 end-0 p-5">
+        {% for type, messages in app.flashes %}
+            {% for message in messages %}
+                {{ modalToast.toast(type, message) }}
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
-</div>
-
-<main class="sk-main">
-    <!-- section information -->
-    <div class="card border border-success container mt-5">
-      <div class="card-body pb-0">
-        <div class="row align-items-center">
-          <div class="col-md-3">
-            <div class="text-center border-end">
-              <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-fluid avatar w-50 rounded-circle">
-              <h5 class="text-muted font-size-13 mb-0">
-                  {% for role in user.getroleUser %}
-                    <span class="badge badge-primary text-dark">{{ role }}</span>
-                  {% endfor %}</h5>
-            </div>
-          </div>
-
-          <div class="col-md-9">
-            <div class="ms-3">
-                <h4 class="card-title mb-4">Mes informations personnelles</h4>
-              <div class="d-flex">
-                  <div>
-                      <p class="me-5"><span class="fw-bold">Nom :</span> {{ user.firstNameUser }} </p>
-                      <p><span class="fw-bold">Profil :</span> {{ user.roleUser.typeRole }} </p>
-                  </div>
-                  <div>
-                      <p><span class="fw-bold">Prénom :</span>  {{ user.lastNameUser }} </p>
-                      <p><span class="fw-bold">Date d'inscription :</span>  {{ user.dateRegisterUser | date('d/m/Y') }} </p>
-                  </div>
-                  <p><span class="fw-bold">E-mail :</span>  {{ user.email }} </p>
-              </div>
-                <div>
-                    <a class='btn sk-btn mb-3' href="{{path('app_user_edit', {id: user.id})}}"><i class="fa-solid fa-pen fs-3 me-2"></i>Modifier mes informations</a>
-                    {% if 'teacher' in app.user.roleUser.typeRole %}
-                        <a class="btn sk-btn ms-5 mb-3" href="{{path('app_course_create')}}"><i class="fa-regular fa-pen-to-square fs-3 me-2"></i>Créer un cours</a>
-                    {% endif %}
-                </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
 
-    <!-- section teacher  -->
-    {% if 'teacher' in app.user.roleUser.typeRole %}
+    <main class="sk-main">
+        <!-- section information -->
+        <div class="card border border-success container mt-5">
+            <div class="card-body pb-0">
+                <div class="row align-items-center">
+                    <div class="col-md-3">
+                        <div class="text-center border-end">
+                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                                 class="img-fluid avatar w-50 rounded-circle">
+                            <h5 class="text-muted font-size-13 mb-0">
+                                {% for role in user.getroleUser %}
+                                    <span class="badge badge-primary text-dark">{{ role }}</span>
+                                {% endfor %}
+                            </h5>
+                        </div>
+                    </div>
 
-        <div class="container mt-5">
-            <h2>Mes cours</h2>
+                    <div class="col-md-9">
+                        <div class="ms-3">
+                            <h4 class="card-title mb-4">Mes informations personnelles</h4>
+                            <div class="d-flex">
+                                <div>
+                                    <p class="me-5"><span class="fw-bold">Nom :</span> {{ user.firstNameUser }} </p>
+                                    <p><span class="fw-bold">Profil :</span> {{ user.roleUser.typeRole }} </p>
+                                </div>
+                                <div>
+                                    <p><span class="fw-bold">Prénom :</span> {{ user.lastNameUser }} </p>
+                                    <p><span class="fw-bold">Date d'inscription :</span> {{ user.dateRegisterUser | date('d/m/Y') }}</p>
+                                </div>
+                                <p><span class="fw-bold">E-mail :</span> {{ user.email }}</p>
+                            </div>
+                            <div>
+                                <a class='btn sk-btn mb-3' href="{{ path('app_user_edit', {id: user.id}) }}"><i
+                                            class="fa-solid fa-pen fs-3"></i>Modifier mes informations</a>
+                                {% if 'teacher' in app.user.roleUser.typeRole %}
+                                    <a class="btn sk-btn mb-3" href="{{ path('app_course_create') }}"><i
+                                                class="fa-regular fa-pen-to-square fs-3 me-2"></i>Créer un cours</a>
+                                {% endif %}
+                                <a href="{{ path('app_user_disable', {'id': user.id}) }}" class="btn btn-danger mb-3">Désactiver le compte</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <table class="table table-striped container mt-5">
-          <thead>
-              <tr>
-                  <th>{{ knp_pagination_sortable(pagination, 'Titre', 'pagination.items.title') }}</th>
-                  <th{% if pagination.isSorted('pagination.items.title') %} class="sorted"{% endif %}>
-                      {{ knp_pagination_sortable(pagination, 'Description', 'pagination.items.description') }}
-                  </th>
-                  <th scope="col" {% if pagination.isSorted(['pagination.items.notes']) %} class="sorted"{% endif %}>
-                      {{ knp_pagination_sortable(pagination, 'Note', ['pagination.items.notes']) }}
-                  </th>
-                  <th scope="col">Actions</th>
-              </tr>
-          </thead>
-          <tbody>
+        <!-- section teacher  -->
+        {% if 'teacher' in app.user.roleUser.typeRole %}
+
+            <div class="container mt-5">
+                <h2>Mes cours</h2>
+            </div>
 
             {% if course is defined and course|length > 0 %}
 
-                {% for c in pagination %}
-                <tr>
-                   <td>{{ c.title }}</td>
-                   <td>{{ c.description }}</td>
-                   <td>
-                       {% for note in notes %}
-                           {% if note.averageNote is not null and note.course_id == c.id %}
-                               {{ note.averageNote|round(1) }} / 5
-                           {% endif %}
-                       {% endfor %}
-
-                   </td>
-                    <td>
-                        <div class="d-flex">
-                            <a href="{{ path('app_course_edit', {id: c.id}) }}" class="btn btn-warning me-2">Modifier</a>
-
-                            {{ modalDelete.deleteCourse(c) }}
-                        </div>
-                    </td>
-                </tr>
-                {% else %}
+                <table class="table table-striped container mt-5">
+                    <thead>
                     <tr>
-                       <td colspan="4">Pas de cours dans la liste</td>
+                        <th>{{ knp_pagination_sortable(pagination, 'Titre', 'pagination.items.title') }}</th>
+                        <th{% if pagination.isSorted('pagination.items.title') %} class="sorted"{% endif %}>
+                            {{ knp_pagination_sortable(pagination, 'Description', 'pagination.items.description') }}
+                        </th>
+                        <th scope="col" {% if pagination.isSorted(['pagination.items.notes']) %} class="sorted"{% endif %}>
+                            {{ knp_pagination_sortable(pagination, 'Note', ['pagination.items.notes']) }}
+                        </th>
+                        <th scope="col">Actions</th>
                     </tr>
-                {% endfor %}
-
+                    </thead>
+                    <tbody>
+                        {% for c in pagination %}
+                            <tr>
+                                <td>{{ c.title }}</td>
+                                <td>{{ c.description }}</td>
+                                <td>
+                                    {% for note in notes %}
+                                        {% if note.averageNote is not null and note.course_id == c.id %}
+                                            {{ note.averageNote|round(1) }} / 5
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+                                <td>
+                                    <div class="d-flex">
+                                        <a href="{{ path('app_course_edit', {id: c.id}) }}" class="btn btn-warning me-2">Modifier</a>
+                                        {{ modalDelete.deleteCourse(c) }}
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="container">
+                    <p class="alert alert-info mt-5">Pas de cours disponible</p>
+                </div>
             {% endif %}
-          </tbody>
-        </table>
 
         {% endif %}
 
-    <div class="pagination d-flex justify-content-center mt-5">
-        {{ knp_pagination_render(pagination) }}
-    </div>
-
-
-
-    <!-- section student  -->
-      {% if app.user.participateCourses is not empty  %}
-
-          <div class="container mt-5">
-              <h2>Cours suivis</h2>
-          </div>
-
-        <div class="container">
-          <table class="table table-striped mt-5">
-            <thead>
-              <tr>
-                <th scope="col">Titre</th>
-                <th scope="col">Description</th>
-                <th scope="col">Catégorie</th>
-                <th scope="col">Note</th>
-                <th scope="col">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-            {% for course in app.user.participateCourses %}
-              <tr>
-                <td><a href="{{ path('app_course_show', {'id': course.id}) }}">{{ course.title }}</a></td>
-                <td>{{ course.description }}</td>
-                <td>
-                  {% for category in course.categories %}
-                      {% if category is not empty %}
-                        {{ category.name }}
-                      {% endif %}
-                    {% else %}
-                    (Aucune catégorie)
-                  {% endfor %}
-                </td>
-                  <td>
-                      {% for note in course.notes %}
-                          {% if note.users == app.user %}
-                              {{ note.Value }} / 5
-                          {% endif %}
-                      {% endfor %}
-                  </td>
-                <td>
-                  <div class="d-flex">
-                      {% if app.user.id != course.getCreatedBy.id  %}
-                      {{ modalNote.note(course) }}
-                          {% else %}
-                              <span></span>
-                      {% endif %}
-                  </div>
-                </td>
-                  <td>
-                      {{ modalDelete.deleteCouseWatchlist(course) }}
-                  </td>
-              </tr>
-            {% endfor %}
-            </tbody>
-          </table>
+        <div class="pagination d-flex justify-content-center mt-5">
+            {{ knp_pagination_render(pagination) }}
         </div>
-      {% endif %}
 
-   {% if app.user.participateCourses is empty %}
-       <div class="container mt-5">
-           <h2>Cours suivis</h2>
-       </div>
+        <!-- section student  -->
+        {% if app.user.participateCourses is not empty %}
 
-        <div class="container">
-            <p class="alert alert-success mt-5">Il n'y a pas de cours dans ta watchlist</p>
-        </div>
-    {% endif %}
+            <div class="container mt-5">
+                <h2>Cours suivis</h2>
+            </div>
 
-</main>
+            <div class="container">
+                <table class="table table-striped mt-5">
+                    <thead>
+                    <tr>
+                        <th scope="col">Titre</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Catégorie</th>
+                        <th scope="col">Note</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for course in app.user.participateCourses %}
+                        <tr>
+                            <td><a href="{{ path('app_course_show', {'id': course.id}) }}">{{ course.title }}</a></td>
+                            <td>{{ course.description }}</td>
+                            <td>
+                                {% for category in course.categories %}
+                                    {% if category is not empty %}
+                                        {{ category.name }}
+                                    {% endif %}
+                                {% else %}
+                                    (Aucune catégorie)
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% for note in course.notes %}
+                                    {% if note.users == app.user %}
+                                        {{ note.Value }} / 5
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td>
+                                <div class="d-flex">
+                                    {% if app.user.id != course.getCreatedBy.id %}
+                                        {{ modalNote.note(course) }}
+                                    {% else %}
+                                        <span></span>
+                                    {% endif %}
+                                </div>
+                            </td>
+                            <td>
+                                {{ modalDelete.deleteCouseWatchlist(course) }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+
+        {% if app.user.participateCourses is empty %}
+            <div class="container mt-5">
+                <h2>Cours suivis</h2>
+            </div>
+
+            <div class="container">
+                <p class="alert alert-success mt-5">Il n'y a pas de cours dans ta watchlist</p>
+            </div>
+        {% endif %}
+
+    </main>
+
+    <script src="{{ asset('js/user.js') }}"></script>
 
 {% endblock %}

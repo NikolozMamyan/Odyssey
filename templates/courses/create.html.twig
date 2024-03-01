@@ -41,7 +41,7 @@
 		{{ form_errors(form.description, { 'attr': {'class': 'danger mt-2'} } ) }}
 
 		{{ form_label(form.content, 'Contenu', { 'label_attr': {'class': 'form-label m-0 fw-bold'} } ) }}
-		{{ form_widget(form.content, { 'attr': {'class': 'form-control my-2'} } ) }}
+		{{ form_widget(form.content|raw, { 'attr': {'class': 'form-control my-2'} } ) }}
 		{{ form_errors(form.content, { 'attr': {'class': 'danger mt-2'} } ) }}
 
 

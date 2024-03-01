@@ -1,0 +1,18 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+
+{% block content %}
+
+    <h2 class="mt-5 text-center"> 🎉 Bienvenue  {{ app.user.firstNameUser }} {{ app.user.lastNameUser}} !</h2><br>
+
+    <div class="container mt-5">
+        <div>
+            <h3> 📉 Statistiques du site</h3><br>
+
+            <p>Nombre total d'utilisateurs :</p>
+            <p>Nombre total de cours disponible :</p>
+            <p>Les cours les mieux notés</p>
+        </div>
+    </div>
+
+{% endblock %}

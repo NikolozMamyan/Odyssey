@@ -61,12 +61,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     )]
     private Collection $courses;
 
+    #[ORM\Column]
+    private ?bool $isActive = null;
+
 
     public function __construct()
     {
         $this->participateCourses = new ArrayCollection();
         $this->notes = new ArrayCollection();
         $this->courses = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->firstNameUser . ' ' . $this->lastNameUser;
     }
 
     public function getId(): ?int
@@ -267,6 +275,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $course->setCreatedBy(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): static
+    {
+        $this->isActive = $isActive;
 
         return $this;
     }
