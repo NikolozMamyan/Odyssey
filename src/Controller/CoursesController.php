@@ -16,27 +16,27 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CoursesController extends AbstractController
 {
-   
+
     #[Route('/courses', name: 'app_courses')]
     public function index(EntityManagerInterface $entityManager, Request $request): Response
     {
         $form = $this->createForm(CategoryFilterType::class);
 
         $form->handleRequest($request);
-    
+
         $notes = $entityManager->getRepository(Course::class)->getAverageNotes();
-    
+
         $courses = $entityManager->getRepository(Course::class)->findAll();
-    
+
         if ($form->isSubmitted() && $form->isValid()) {
-      
+
             $selectedCategory = $form->getData()['name'];
 
-            if ($selectedCategory) {             
+            if ($selectedCategory) {
                 $courses = $entityManager->getRepository(Course::class)->findByCategory($selectedCategory);
             }
         }
-    
+
         return $this->render('courses/index.html.twig', [
             'form' => $form->createView(),
             'courses' => $courses,
@@ -146,7 +146,7 @@ class CoursesController extends AbstractController
 
     // this function remove course in the collection of courses in User Entity
     #[Route('/user/remove/{id<\d*>}', name: 'app_course_participate_remove')]
-    public function RemoveParticipateCourses(int $id, EntityManagerInterface $entityManager):RedirectResponse
+    public function RemoveParticipateCourses(int $id, EntityManagerInterface $entityManager): RedirectResponse
     {
         $user = $this->getUser();
         $course = $entityManager->getRepository(Course::class)->find($id);

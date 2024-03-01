@@ -53,8 +53,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'users', targetEntity: Note::class)]
     private Collection $notes;
 
-    #[ORM\OneToMany(mappedBy: 'createdBy', targetEntity: Course::class, cascade: ["remove"],
-        orphanRemoval: true)]
+    #[ORM\OneToMany(
+        mappedBy: 'createdBy',
+        targetEntity: Course::class,
+        cascade: ["remove"],
+        orphanRemoval: true
+    )]
     private Collection $courses;
 
 
@@ -266,5 +270,4 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
 }
