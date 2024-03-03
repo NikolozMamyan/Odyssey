@@ -6,14 +6,13 @@ use App\Entity\Course;
 use App\Entity\Category;
 use App\Form\CourseType;
 use App\Form\CategoryFilterType;
+use App\Service\MailerService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
 
 
 class CoursesController extends AbstractController
@@ -62,7 +61,7 @@ class CoursesController extends AbstractController
     }
 
     #[Route('/courses/create', name: 'app_course_create')]
-    public function create(EntityManagerInterface $entityManager, Request $request, MailerInterface $mailer): Response
+    public function create(EntityManagerInterface $entityManager, Request $request, MailerService $mailer): Response
     {
         $categories = $entityManager->getRepository(Category::class)->findAll();
 
@@ -82,12 +81,16 @@ class CoursesController extends AbstractController
 
             $entityManager->persist($course);
             $entityManager->flush();
-            
+
             //send an email after the course have been created
-            $this->sendCourseCreatedEmail($course, $mailer);
+            $message = $mailer->sendCourseCreatedEmail($course, $this->getUser());
 
             // display message
-            $this->addFlash('warning', 'Votre cours est en attente de validation');
+            if ($message === MailerService::SUCCESS_MESSAGE) {
+                $this->addFlash('warning', $message);
+            } else {
+                $this->addFlash('danger', $message);
+            }
 
             //for now, we will return to the courses list
             return $this->redirectToRoute('app_user');
@@ -97,17 +100,6 @@ class CoursesController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
-    private function sendCourseCreatedEmail(Course $course, MailerInterface $mailer): void
-        {
-        $email = (new Email())
-            ->from('admin@example.com')
-            ->to('Odyssey@gmail.com')
-            ->subject('Nouveau cours créé')
-            ->html('<p>Un nouveau cours a été créé : ' . $course->getTitle() . '</p>');
-
-        $mailer->send($email);
-        }
 
     #[Route('/courses/edit/{id<\d*>}', name: 'app_course_edit')]
     public function edit($id, EntityManagerInterface $entityManager, Request $request): Response

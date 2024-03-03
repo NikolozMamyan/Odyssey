@@ -29,7 +29,8 @@ class LandingPageController extends AbstractController
         // Call the mailer service
         $message = $mailerService->sendMail($data);
 
-        if ($message === 'Votre message a bien été envoyé' ) {
+        // display message
+        if ($message === MailerService::SUCCESS_MESSAGE) {
             $this->addFlash('success', $message);
         } else {
             $this->addFlash('danger', $message);
