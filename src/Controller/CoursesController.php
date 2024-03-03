@@ -62,7 +62,7 @@ class CoursesController extends AbstractController
     }
 
     #[Route('/courses/create', name: 'app_course_create')]
-    public function create(EntityManagerInterface $entityManager, Request $request, MailerInterface $mailer ): Response
+    public function create(EntityManagerInterface $entityManager, Request $request, MailerInterface $mailer): Response
     {
         $categories = $entityManager->getRepository(Category::class)->findAll();
 
@@ -78,6 +78,7 @@ class CoursesController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $course->setCreatedBy($this->getUser());
+            $course->setStatus("en attente");
 
             $entityManager->persist($course);
             $entityManager->flush();
@@ -85,11 +86,11 @@ class CoursesController extends AbstractController
             //send an email after the course have been created
             $this->sendCourseCreatedEmail($course, $mailer);
 
-            //this is the return when we have the course page
-            // return $this->redirectToRoute('app_courses_show', ['id' => $course->getId()]);
+            // display message
+            $this->addFlash('warning', 'Votre cours est en attente de validation');
 
-            //for now we will return to the courses list
-            return $this->redirectToRoute('app_courses');
+            //for now, we will return to the courses list
+            return $this->redirectToRoute('app_user');
         }
 
         return $this->render('courses/create.html.twig', [
@@ -97,7 +98,7 @@ class CoursesController extends AbstractController
         ]);
     }
 
-    private function sendCourseCreatedEmail(Course $course, MailerInterface $mailer)
+    private function sendCourseCreatedEmail(Course $course, MailerInterface $mailer): void
         {
         $email = (new Email())
             ->from('admin@example.com')

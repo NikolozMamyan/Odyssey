@@ -47,7 +47,8 @@ class CourseFixture extends Fixture implements DependentFixtureInterface
                         ->setTitle($this->faker->realText(10))
                         ->setDescription($this->faker->realText(100))
                         ->setContent($this->faker->realText(1500))
-                        ->setCreatedBy($user);
+                        ->setCreatedBy($user)
+                        ->setStatus('Validé');
 
                     $randomCategories = $this->faker->randomElements($categories, rand(1, 3));
                     foreach ($randomCategories as $category) {

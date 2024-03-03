@@ -30,34 +30,35 @@
 		<div class="row">
 
 			{% for course in courses %}
-
-				<div class="col-md-3 mb-5 mt-3">
-					<a href="{{ path('app_course_show', {'id': course.id}) }}">
-						<div class="card mb-6 shadow-sm">
-							<img src="{{ vich_uploader_asset(course, 'imageFile') }}" class="card-img-top" style="width: 100%; height: 200px;" alt="image">
-							<div class="d-flex mt-1">
-								{% for category in course.categories %}
-									<span class="badge text-bg-primary mx-2 w-25">{{ category.name }}</span>
-								{% endfor %}
-							</div>
-							<div class="card-body h-100">
-								<h2 class="card-title">{{ course.title }}</h2>
-								<h3 class="card-subtitle text-body-secondary">{{ course.getCreatedBy.firstNameUser }}</h3>
-								<p class="card-text">{{ course.description }}</p>
-							</div>
-					</a>
-							<div class="card-footer d-flex">
-								{% if app.user %}
-									<a href="{{ path('app_course_participate', {'id': course.id}) }}" class="btn sk-btn">Ajouter à ma watchlist</a>
-								{% endif %}
-								{% for note in notes %}
-									{% if note.averageNote is not null and note.course_id == course.id %}
-										<strong class="ms-3 mt-1">&ensp;Note<br>{{ note.averageNote|round(1) }}<span class="mt-1">&ensp;/ 5</span></strong>
+				{% if course.status == "Validé" %}
+					<div class="col-md-3 mb-5 mt-3">
+						<a href="{{ path('app_course_show', {'id': course.id}) }}">
+							<div class="card mb-6 shadow-sm">
+								<img src="{{ vich_uploader_asset(course, 'imageFile') }}" class="card-img-top" style="width: 100%; height: 200px;" alt="image">
+								<div class="d-flex mt-1">
+									{% for category in course.categories %}
+										<span class="badge text-bg-primary mx-2 w-25">{{ category.name }}</span>
+									{% endfor %}
+								</div>
+								<div class="card-body h-100">
+									<h2 class="card-title">{{ course.title }}</h2>
+									<h3 class="card-subtitle text-body-secondary">{{ course.getCreatedBy.firstNameUser }}</h3>
+									<p class="card-text">{{ course.description }}</p>
+								</div>
+						</a>
+								<div class="card-footer d-flex">
+									{% if app.user %}
+										<a href="{{ path('app_course_participate', {'id': course.id}) }}" class="btn sk-btn">Ajouter à ma watchlist</a>
 									{% endif %}
-								{% endfor %}
+									{% for note in notes %}
+										{% if note.averageNote is not null and note.course_id == course.id %}
+											<strong class="ms-3 mt-1">&ensp;Note<br>{{ note.averageNote|round(1) }}<span class="mt-1">&ensp;/ 5</span></strong>
+										{% endif %}
+									{% endfor %}
+								</div>
 							</div>
-						</div>
-				</div>
+					</div>
+				{% endif %}
 			{% endfor %}
 		</div>
 </div>

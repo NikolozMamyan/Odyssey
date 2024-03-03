@@ -6,7 +6,6 @@ use App\Repository\CourseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints\Cascade;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
@@ -53,11 +52,17 @@ class Course
     #[ORM\JoinColumn(nullable: true, onDelete: "Cascade")]
     private ?User $createdBy = null;
 
-    public function __construct()
+    #[ORM\Column(length: 255)]
+    private ?string $status = null;
+
+    private CourseRepository $courseRepository;
+
+    public function __construct(CourseRepository $courseRepository)
     {
         $this->categories = new ArrayCollection();
         $this->participateUsers= new ArrayCollection();
         $this->notes = new ArrayCollection();
+        $this->courseReposiroty = $courseRepository;
     }
 
     public function getId(): ?int
@@ -229,4 +234,22 @@ class Course
 
         return $this;
     }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): static
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getNoteAverage(): string
+    {
+        return $this->courseRepository->getAverageNotes();
+    }
+
 }
