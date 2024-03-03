@@ -43,7 +43,7 @@ class UserCrudController extends AbstractCrudController
 
 
         yield TextField::new('email')
-            ->setLabel('Email');
+            ->setLabel('email');
         yield TextField::new('firstNameUser')
             ->setLabel('Nom');
         yield TextField::new('lastNameUser')

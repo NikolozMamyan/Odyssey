@@ -1,0 +1,20 @@
+{% extends "base_email.html.twig" %}
+
+{% block tille %} Confirmation de la création de votre compte {% endblock %}
+
+{% block body %}
+
+    <h2>Cher(e) {{ user.firstNameUser }} {{ user.lastNameUser}}</h2>
+
+    <p>Nous sommes ravis de vous accueillir chez Odyssey !</p>
+    <p>Votre inscription a bien été enregistrée.</p>
+    <p>Si vous avez des questions ou des préoccupations, n'hésitez pas à nous contacter à l'adresse</p>
+    <strong>{{ email }}</strong>.
+    <p>Nous vous remercions de votre confiance et nous sommes impatients de vous offrir une expérience exceptionnelle.</p>
+    <p>Bienvenue parmi nous !</p><br>
+    Cordialement,<br>
+
+    <p>L'équipe d'Odyssey</p>
+
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base_email.html.twig" %}
+
+{% block tille %} Demande de validation d'un cours  {% endblock %}
+
+{% block body %}
+
+    <h2>Demande de validation de cours</h2>
+
+    <p>Bonjour</p>
+
+    <p>Un formateur a demandé la validation d'un cours avant sa mise en ligne :</p>
+    <strong>Titre du cours :</strong> {{ course.title }}<br>
+    <strong>Catégories :</strong><br>
+    {% for category in course.categories %}
+         {{ category.name }} /
+    {% endfor %}
+    <br><strong>Formateur :</strong> {{ user.firstNameUser }} {{ user.lastNameUser }}<br>
+    <strong>Email du formateur :</strong> {{ user.email }}<br>
+    <strong>Description :</strong> {{ course.description }}<br>
+
+    <p>Veuillez prendre les mesures nécessaires pour examiner ce cours et le valider s'il répond aux critères établis.</p>
+
+    <p>En cas de questions ou de besoins supplémentaires, n'hésitez pas à contacter le formateur à l'adresse :</p>
+    <strong>{{ user.email }}</strong><br>
+
+    <p>Merci pour votre attention et votre engagement envers la qualité de notre plateforme.</p>
+
+    Cordialement,<br>
+
+    L'équipe d'Odyssey
+
+
+{% endblock %}
