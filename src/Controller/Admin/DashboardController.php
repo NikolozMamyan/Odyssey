@@ -21,6 +21,10 @@ class DashboardController extends AbstractDashboardController
     public function index(): Response
     {
 
+        if ($this->getUser()->getRoles() != "ROLE_ADMIN") {
+            return $this->redirectToRoute('app_landing_page');
+        }
+
         return $this->render('admin/dashboard.html.twig');
     }
 
@@ -65,10 +69,6 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Créer une catégorie', 'fas fa-plus', Category::class)->setAction(Crud::PAGE_NEW),
         ]);
 
-        yield MenuItem::section('Notes');
-        yield MenuItem::subMenu('Notes', 'fas fa-user')->setSubItems([
-            MenuItem::linkToCrud('Voir les notes', 'fas fa-eye', Note::class),
-        ]);
 
     }
 }
