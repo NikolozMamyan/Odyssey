@@ -1,0 +1,15 @@
+{% extends "base_email.html.twig" %}
+
+{% block tille %} Formulaire de contact  {% endblock %}
+
+{% block body %}
+
+    <h2>Nouveau message</h2>
+
+    <p>Nom : {{ data.name }}</p>
+    <p>Email : {{ data.email }}</p>
+    <p>Message :</p>
+    <p>{{ data.message }}</p>
+
+
+{% endblock %}

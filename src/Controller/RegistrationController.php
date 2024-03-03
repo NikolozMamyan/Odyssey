@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Role;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Service\MailerService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +18,8 @@ class RegistrationController extends AbstractController
     #[Route('/register', name: 'app_register')]
     public function register(Request $request,
                              UserPasswordHasherInterface $userPasswordHasher,
-                             EntityManagerInterface $entityManager): Response
+                             EntityManagerInterface $entityManager,
+                             MailerService $mailer): Response
     {
 
         if ($this->getUser()) {
@@ -57,8 +59,15 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // display message
-            $this->addFlash('success', 'Votre compte a bien été crée.');
+            // send mail to confirm create account
+            $message = $mailer->createAccount($user);
+
+            // display message when user create an account
+            if ($message != MailerService::ERROR_MESSAGE) {
+                $this->addFlash('success', $message);
+            } else {
+                $this->addFlash('danger', $message);
+            }
 
             return $this->redirectToRoute('app_landing_page');
         }
