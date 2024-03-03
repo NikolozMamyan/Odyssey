@@ -28,26 +28,31 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                 'email' => 'stephane@gmail.com',
                 'role' => 'student',
                 'firstName' => 'Stephane',
-                'lastName' => 'Koeniguer'
+                'lastName' => 'Koeniguer',
+                'roleSymfony' => ['ROLE_USER']
             ],
             [
                 'email' => 'nikoloz@gmail.com',
                 'role' => 'teacher',
                 'firstName' => 'Nikoloz',
-                'lastName' => 'Mamyan'
+                'lastName' => 'Mamyan',
+                'roleSymfony' => ['ROLE_USER']
             ],
             [
                 'email' => 'leo@gmail.com',
                 'role' => 'teacher',
                 'firstName' => 'Leo',
-                'lastName' => 'Kovalski'
+                'lastName' => 'Kovalski',
+                'roleSymfony' => ['ROLE_USER']
             ],
             [
                 'email' => 'guoying@gmail.com',
                 'role' => 'admin',
                 'firstName' => 'Guoying',
-                'lastName' => 'adminLastName'
+                'lastName' => 'adminLastName',
+                'roleSymfony' => ['ROLE_ADMIN']
             ],
+
         ];
 
         foreach ($usersData as $userData) {
@@ -61,6 +66,8 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             // search roles
             $role = $this->roleRepository->findOneBy(['typeRole' => $userData['role']]);
             $user->setRoleUser($role);
+            $user->setRoles($userData['roleSymfony']);
+
 
             // Hash password
             $password = $this->passwordHasher->hashPassword($user, 'azertyuioP1');

@@ -48,3 +48,28 @@
     </div>
 
 {% endmacro %}
+
+{% macro disableAccount(user) %}
+
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Modal-delete-{{ user.id }}">Désactiver mon compte</button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="Modal-delete-{{ user.id }}" tabindex="-1" aria-labelledby="delete-course" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-danger">
+                    <h3 class="modal-title fs-5 text-white">Confirmation désactivation du compte</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Êtes-vous sûr(e) de vouloir désactiver votre compte ?
+                </div>
+                <div class="modal-footer">
+                    <a href="{{ path('app_user') }}" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</a>
+                    <a href="{{ path('app_user_disable', {'id': user.id}) }}"  class="btn btn-danger">Désactiver</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endmacro %}
