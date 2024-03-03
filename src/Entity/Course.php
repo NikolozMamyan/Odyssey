@@ -55,14 +55,12 @@ class Course
     #[ORM\Column(length: 255)]
     private ?string $status = null;
 
-    private CourseRepository $courseRepository;
 
-    public function __construct(CourseRepository $courseRepository)
+    public function __construct()
     {
         $this->categories = new ArrayCollection();
         $this->participateUsers= new ArrayCollection();
         $this->notes = new ArrayCollection();
-        $this->courseReposiroty = $courseRepository;
     }
 
     public function getId(): ?int
@@ -245,11 +243,6 @@ class Course
         $this->status = $status;
 
         return $this;
-    }
-
-    public function getNoteAverage(): string
-    {
-        return $this->courseRepository->getAverageNotes();
     }
 
 }

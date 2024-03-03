@@ -20,7 +20,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class UserController extends AbstractController
 {
 
-    const MAIL_ADRESSE = "Odyssey@gmail.com";
+    public const MAIL_ADRESSE = "Odyssey@gmail.com";
 
     private MailerInterface $mailer;
 
@@ -35,6 +35,16 @@ class UserController extends AbstractController
     public function index(EntityManagerInterface $entityManager, PaginatorInterface $paginator, Request $request): Response
     {
         $user = $this->getUser();
+
+        // Allows to reactivate the account
+        if(!$user->isIsActive()) {
+            $user->setIsActive(true);
+
+            $entityManager->flush();
+
+            $this->addFlash('warning', "Vous venez de réactiver votre compte");
+        }
+
         $course = $entityManager->getRepository(Course::class)->findBy(['createdBy' => $user],['id' => 'DESC']);
         $notes = $entityManager->getRepository(Course::class)->getAverageNotes();
 
@@ -51,6 +61,8 @@ class UserController extends AbstractController
             'pagination' => $pagination
         ]);
     }
+
+
     #[Route('/user/edit/{id}', name: 'app_user_edit')]
     public function userEdit(EntityManagerInterface $entityManager, UserRepository $userRepository, Request $request, int $id): Response
     {

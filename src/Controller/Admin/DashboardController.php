@@ -21,6 +21,10 @@ class DashboardController extends AbstractDashboardController
     public function index(): Response
     {
 
+        if ($this->getUser()->getRoles() != "ROLE_ADMIN") {
+            return $this->redirectToRoute('app_landing_page');
+        }
+
         return $this->render('admin/dashboard.html.twig');
     }
 
