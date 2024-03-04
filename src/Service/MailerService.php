@@ -110,7 +110,6 @@ class MailerService
     public function sendCourseCreatedEmail(Course $course, User $user): string
     {
         try {
-
             $email = (new Email())
                 ->from($user->getEmail())
                 ->to(self::MAIL_ADRESSE)
@@ -128,6 +127,64 @@ class MailerService
 
             return self::ERROR_MESSAGE;
         }
+    }
+
+    // send mail to teacher to inform the status of the course
+    public function sendValidationCourse(Course $course, User $user): string
+    {
+        try {
+            $email = (new Email())
+                ->from(self::MAIL_ADRESSE)
+                ->to($user->getEmail());
+
+                if($course->getStatus() == 'Validé') {
+
+                    $email->subject('Validation de votre cours')
+                          ->html($this->twig->render('email/valid_course.html.twig', [
+                            'course' => $course,
+                            'user' => $user])
+                          );
+                } else {
+
+                    $email->subject('Refus de votre cours')
+                        ->html($this->twig->render('email/refuse_course.html.twig', [
+                            'course' => $course,
+                            'user' => $user])
+                        );
+                }
+
+            $this->mailerInterface->send($email);
+
+            return self::SUCCESS_MESSAGE;
+
+        } catch (\Exception $e) {
+
+            return self::ERROR_MESSAGE;
+        }
+    }
+
+    // send mail to teacher to inform delete course
+    public function sendDeleteCourse(Course $course, User $user): string
+    {
+        try {
+            $email = (new Email())
+                ->from(self::MAIL_ADRESSE)
+                ->to($user->getEmail())
+                ->subject('Suppression de vote cours')
+                ->html($this->twig->render('email/delete_course.html.twig', [
+                    'course' => $course,
+                    'user' => $user])
+                );
+
+            $this->mailerInterface->send($email);
+
+            return self::SUCCESS_MESSAGE;
+
+        } catch (\Exception $e) {
+
+            return self::ERROR_MESSAGE;
+        }
+
     }
 
 }

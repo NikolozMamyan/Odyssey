@@ -8,7 +8,7 @@
 
 	<div class="container">
 		<h1 class="text-center mt-5">LES COURS D'ODYSSEY</h1>
-		<p class="text-center mb-3">Bienvenue sur l'ensemble des cours offerts par nos formateurs</p>
+		<p class="text-center mb-3">Bienvenue sur l'ensemble des cours offerts par nos formateurs et formatrices</p>
 
 		<!--Search section-->
 		<div class="row align-items-center">
@@ -35,9 +35,9 @@
 						<a href="{{ path('app_course_show', {'id': course.id}) }}">
 							<div class="card mb-6 shadow-sm">
 								<img src="{{ vich_uploader_asset(course, 'imageFile') }}" class="card-img-top" style="width: 100%; height: 200px;" alt="image">
-								<div class="d-flex mt-1">
+								<div class="d-flex flex-wrap mt-1">
 									{% for category in course.categories %}
-										<span class="badge text-bg-primary mx-2 w-25">{{ category.name }}</span>
+										<span class="badge text-bg-primary mx-2 mb-2 w-25">{{ category.name }}</span>
 									{% endfor %}
 								</div>
 								<div class="card-body h-100">
