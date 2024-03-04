@@ -39,7 +39,7 @@ class CourseFixture extends Fixture implements DependentFixtureInterface
 
             $roleUser = $user->getRoleUser();
 
-            if ($roleUser->getTypeRole() === 'teacher') {
+            if ($roleUser->getTypeRole() === 'formateur') {
 
                 for ($i = 0; $i < self::NUMBER_OF_COURSE; $i++) {
 

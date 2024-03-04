@@ -47,12 +47,12 @@ class RegistrationController extends AbstractController
 
             if ($isStudent) {
                 $user->setRoles(['ROLE_USER']);
-                $role = $entityManager->getRepository(Role::class)->findOneBy(['typeRole' => 'student']);
+                $role = $entityManager->getRepository(Role::class)->findOneBy(['typeRole' => 'etudiant']);
 
             } else {
 
                 $user->setRoles(['ROLE_TEACHER']);
-                $role = $entityManager->getRepository(Role::class)->findOneBy(['typeRole' => 'teacher']);
+                $role = $entityManager->getRepository(Role::class)->findOneBy(['typeRole' => 'formateur']);
             }
             $user->setRoleUser($role);
 
