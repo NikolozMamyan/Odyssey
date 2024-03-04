@@ -1,0 +1,34 @@
+{% extends "base_email.html.twig" %}
+
+{% block title %} Suppression du cours {% endblock %}
+
+{% block body %}
+
+    <h2>Votre cours a été supprimé</h2>
+
+    <p>Bonjour {{ user.firstNameUser }} {{ user.lastNameUser }},</p>
+
+    <p>Nous vous informons malheureusement que votre cours "{{ course.title }}" a été supprimé de notre plateforme.</p>
+
+    <p>Voici quelques détails sur votre cours :</p>
+    <strong>Titre du cours :</strong> {{ course.title }}<br>
+    <strong>Catégories :</strong><br>
+    {% for category in course.categories %}
+        {{ category.name }} /
+    {% endfor %}
+    <br>
+    <strong>Description :</strong> {{ course.description }}<br>
+
+    <p>La suppression de votre cours peut être due à différentes raisons, notamment des problèmes de contenu, de qualité ou de non-respect de nos directives éditoriales.</p>
+
+    <p>Nous vous encourageons à prendre en compte les raisons de la suppression de votre cours et à envisager de le retravailler pour qu'il puisse être réinscrit sur notre plateforme.</p>
+
+    <p>N'hésitez pas à nous contacter si vous avez des questions ou des préoccupations concernant cette décision.</p>
+
+    <p>Nous vous remercions pour votre compréhension et votre engagement envers la qualité de notre plateforme.</p>
+
+    Cordialement,<br>
+
+    L'équipe d'Odyssey
+
+{% endblock %}
