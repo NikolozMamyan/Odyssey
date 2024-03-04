@@ -26,24 +26,24 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $usersData = [
             [
                 'email' => 'stephane@gmail.com',
-                'role' => 'student',
+                'role' => 'etudiant',
                 'firstName' => 'Stephane',
                 'lastName' => 'Koeniguer',
                 'roleSymfony' => ['ROLE_USER']
             ],
             [
                 'email' => 'nikoloz@gmail.com',
-                'role' => 'teacher',
+                'role' => 'formateur',
                 'firstName' => 'Nikoloz',
                 'lastName' => 'Mamyan',
-                'roleSymfony' => ['ROLE_USER']
+                'roleSymfony' => ['ROLE_TEACHER']
             ],
             [
                 'email' => 'leo@gmail.com',
-                'role' => 'teacher',
+                'role' => 'formateur',
                 'firstName' => 'Leo',
                 'lastName' => 'Kovalski',
-                'roleSymfony' => ['ROLE_USER']
+                'roleSymfony' => ['ROLE_TEACHER']
             ],
             [
                 'email' => 'guoying@gmail.com',

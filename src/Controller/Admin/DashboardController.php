@@ -21,10 +21,6 @@ class DashboardController extends AbstractDashboardController
     public function index(): Response
     {
 
-        if ($this->getUser()->getRoles() != "ROLE_ADMIN") {
-            return $this->redirectToRoute('app_landing_page');
-        }
-
         return $this->render('admin/dashboard.html.twig');
     }
 
@@ -53,18 +49,17 @@ class DashboardController extends AbstractDashboardController
         ]);
 
         yield MenuItem::section('Roles');
-        yield MenuItem::subMenu('Rôles', 'fas fa-user')->setSubItems([
+        yield MenuItem::subMenu('Rôles', 'fas fa-bullhorn')->setSubItems([
             MenuItem::linkToCrud('Voir les Rôles', 'fas fa-eye', Role::class),
             MenuItem::linkToCrud('Créer un rôle', 'fas fa-plus', Role::class)->setAction(Crud::PAGE_NEW),
         ]);
 
         yield MenuItem::section('Cours');
-        yield MenuItem::subMenu('Cours', 'fas fa-bullhorn')->setSubItems([
+        yield MenuItem::subMenu('Cours', 'fas fa-file')->setSubItems([
             MenuItem::linkToCrud('Voir les cours', 'fas fa-eye', Course::class),
-            MenuItem::linkToCrud('Créer un cours', 'fas fa-plus', Course::class)->setAction(Crud::PAGE_NEW),
         ]);
         yield MenuItem::section('Catégories');
-        yield MenuItem::subMenu('Catégories', 'fas fa-user')->setSubItems([
+        yield MenuItem::subMenu('Catégories', 'fas fa-circle-info')->setSubItems([
             MenuItem::linkToCrud('Voir les catégories', 'fas fa-eye', Category::class),
             MenuItem::linkToCrud('Créer une catégorie', 'fas fa-plus', Category::class)->setAction(Crud::PAGE_NEW),
         ]);
