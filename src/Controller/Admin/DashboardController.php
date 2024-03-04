@@ -4,9 +4,10 @@ namespace App\Controller\Admin;
 
 use App\Entity\Category;
 use App\Entity\Course;
-use App\Entity\Note;
 use App\Entity\Role;
 use App\Entity\User;
+use App\Repository\CourseRepository;
+use App\Repository\UserRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -17,17 +18,32 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractDashboardController
 {
+    private UserRepository $userRepository;
+    private CourseRepository $courseRepository;
+
+    public function __construct(UserRepository $userRepository, CourseRepository $courseRepository)
+    {
+        $this->userRepository = $userRepository;
+        $this->courseRepository = $courseRepository;
+    }
+
     #[Route('/admin', name: 'app_admin')]
     public function index(): Response
     {
+        $totalUsers = $this->userRepository->getTotalUsersCount();
+        $totalCourses = $this->courseRepository->getTotalCoursesCount();
 
-        return $this->render('admin/dashboard.html.twig');
+        return $this->render('admin/dashboard.html.twig', [
+            'users' => $totalUsers,
+            'courses' => $totalCourses
+        ]);
     }
 
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Odyssey');
+            ->setTitle('Odyssey')
+            ->disableDarkMode();
     }
 
     public function configureAssets(): Assets
