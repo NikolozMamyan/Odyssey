@@ -4,9 +4,10 @@ namespace App\Controller\Admin;
 
 use App\Entity\Category;
 use App\Entity\Course;
-use App\Entity\Note;
 use App\Entity\Role;
 use App\Entity\User;
+use App\Repository\CourseRepository;
+use App\Repository\UserRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -17,21 +18,32 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractDashboardController
 {
+    private UserRepository $userRepository;
+    private CourseRepository $courseRepository;
+
+    public function __construct(UserRepository $userRepository, CourseRepository $courseRepository)
+    {
+        $this->userRepository = $userRepository;
+        $this->courseRepository = $courseRepository;
+    }
+
     #[Route('/admin', name: 'app_admin')]
     public function index(): Response
     {
+        $totalUsers = $this->userRepository->getTotalUsersCount();
+        $totalCourses = $this->courseRepository->getTotalCoursesCount();
 
-        if ($this->getUser()->getRoles() != "ROLE_ADMIN") {
-            return $this->redirectToRoute('app_landing_page');
-        }
-
-        return $this->render('admin/dashboard.html.twig');
+        return $this->render('admin/dashboard.html.twig', [
+            'users' => $totalUsers,
+            'courses' => $totalCourses
+        ]);
     }
 
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Odyssey');
+            ->setTitle('Odyssey')
+            ->disableDarkMode();
     }
 
     public function configureAssets(): Assets
@@ -53,18 +65,17 @@ class DashboardController extends AbstractDashboardController
         ]);
 
         yield MenuItem::section('Roles');
-        yield MenuItem::subMenu('Rôles', 'fas fa-user')->setSubItems([
+        yield MenuItem::subMenu('Rôles', 'fas fa-bullhorn')->setSubItems([
             MenuItem::linkToCrud('Voir les Rôles', 'fas fa-eye', Role::class),
             MenuItem::linkToCrud('Créer un rôle', 'fas fa-plus', Role::class)->setAction(Crud::PAGE_NEW),
         ]);
 
         yield MenuItem::section('Cours');
-        yield MenuItem::subMenu('Cours', 'fas fa-bullhorn')->setSubItems([
+        yield MenuItem::subMenu('Cours', 'fas fa-file')->setSubItems([
             MenuItem::linkToCrud('Voir les cours', 'fas fa-eye', Course::class),
-            MenuItem::linkToCrud('Créer un cours', 'fas fa-plus', Course::class)->setAction(Crud::PAGE_NEW),
         ]);
         yield MenuItem::section('Catégories');
-        yield MenuItem::subMenu('Catégories', 'fas fa-user')->setSubItems([
+        yield MenuItem::subMenu('Catégories', 'fas fa-circle-info')->setSubItems([
             MenuItem::linkToCrud('Voir les catégories', 'fas fa-eye', Category::class),
             MenuItem::linkToCrud('Créer une catégorie', 'fas fa-plus', Category::class)->setAction(Crud::PAGE_NEW),
         ]);

@@ -1,6 +1,6 @@
 {% macro deleteCouseWatchlist(course) %}
 
-<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#Modal-delete-watchlist-{{ course.id }}">Ne plus suivre</button>
+<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#Modal-delete-watchlist-{{ course.id }}">Désabonner</button>
 
 <!-- Modal -->
 <div class="modal fade" id="Modal-delete-watchlist-{{ course.id }}" tabindex="-1" aria-labelledby="delete-course" aria-hidden="true">
@@ -51,7 +51,7 @@
 
 {% macro disableAccount(user) %}
 
-    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Modal-delete-{{ user.id }}">Désactiver mon compte</button>
+    <button type="button" class="btn-nm-red btn btn-danger" data-bs-toggle="modal" data-bs-target="#Modal-delete-{{ user.id }}">Désactiver mon compte</button>
 
     <!-- Modal -->
     <div class="modal fade" id="Modal-delete-{{ user.id }}" tabindex="-1" aria-labelledby="delete-course" aria-hidden="true">

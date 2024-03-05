@@ -1,7 +1,189 @@
+:root {
+    --couleur-fonce: #725AC1;
+    --couleur-claire: #e2dad4;
+    --couleur-tierce: #89043D;
+    --button-secondary-bg: var(--couleur-fonce);
+    --datalist-border-color: var(--couleur-fonce);
+    --gray-200: var(--couleur-fonce);
+}
+
+/* ----------------------------------- navbar de gauche ------------------------------- */
+
+.ts-dropdown-content .active {
+    background-color: var(--couleur-tierce) !important;
+    color: white !important;
+}
+
+/* couleur navbar */
+.sidebar {
+    background-color: var(--couleur-claire);
+}
+
+/* couleur du haut en mobile */
+.responsive-header {
+    background-color: var(--couleur-claire);
+}
+
+/* couleur label & icon actif navbar */
+.active a span,
+.active a .menu-icon {
+    color: var(--couleur-claire) !important;
+}
+
+.submenu .active {
+    background-color: var(--couleur-fonce) !important;
+}
+
+.menu-icon,
+.submenu-toggle-icon {
+    color: var(--couleur-fonce) !important;
+}
+
+.menu-header-contents {
+    color: var(--couleur-tierce);
+}
+
+/* -------------------------------- Le body ------------------------------ */
+/* autour barre de recherche */
+.content-top {
+    background-color: var(--couleur-fonce);
+}
+
+/* couleur de toutes les données de la table */
+
+h1{
+    color: var(--couleur-claire) !important;
+}
+
+/* gère couleur bouton précédent, suivant, numéro de page en bas */
+/* gère la couleur des label des questions */
+/* gère couleur du label image */
+.page-item .page-link,
+.form-group label,
+.form-group legend {
+    color: var(--couleur-claire) !important;
+}
+
+/* couleur du contour du numéro de page en bas */
+.page-item.active .page-link,
+.page-item.active .page-link:hover {
+    background: var(--couleur-tierce);
+    border-color: var(--couleur-tierce);
+}
+
+
+.page-actions a {
+    background-color: var(--couleur-fonce);
+}
+
+
+.list-pagination-counter, .list-pagination-counter strong {
+    color: var(--couleur-tierce);
+}
+
+
+
+
+.content-wrapper {
+    background-color: var(--couleur-fonce);
+    min-height: 100vh;
+    min-width: calc(100vw - 230px);
+}
+
+.content-header,
+.action-saveAndReturn,
+.action-saveAndAddAnother {
+    background-color: var(--couleur-fonce);
+}
+
+.btn-primary,
+.btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):active,
+.btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):active:focus,
+.btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):focus,
+.btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):hover,
+.btn:hover {
+    background-color: var(--couleur-tierce) !important;
+}
+
+.badge-secondary {
+    background-color: var(--couleur-tierce) !important;
+    color: var(--couleur-claire) !important;
+}
+
+.ts-wrapper.form-control:not(.disabled) .ts-control,
+.ts-wrapper.form-control:not(.disabled).single.input-active .ts-control,
+.ts-wrapper.form-select:not(.disabled) .ts-control,
+.ts-wrapper.form-select:not(.disabled).single.input-active .ts-control {
+    background: var(--couleur-claire) !important;
+    border-color: var(--couleur-claire);
+}
+
+.has-error .CodeMirror,
+.has-error .btn.input-file-container,
+.has-error .ea-fileupload .input-group,
+.has-error .ea-text-editor-wrapper,
+.has-error .form-widget .form-select,
+.has-error .form-widget input.form-control,
+.has-error .form-widget textarea.form-control {
+    box-shadow: var(--couleur-tierce);
+}
+
+
+.input-group-text {
+    padding-left: 0 !important;
+}
+
+.datagrid tbody {
+    box-shadow: 0 1px 0 var(--table-cell-border-color);
+}
+
+/* couleur boutton supprimer quand tu selectionne plusieurs elements */
+.action-batchDelete {
+    background-color: var(--couleur-tierce) !important;
+    color: var(--couleur-claire) !important;
+}
+
+.action-saveAndContinue {
+    background-color: var(--couleur-fonce) !important;
+    color: var(--couleur-claire) !important;
+}
+
+
+.form-check-input {
+    background-color: var(--couleur-tierce) !important;
+    border-color: var(--couleur-claire) !important;
+}
+
+.action-saveAndAddAnother {
+    background-color: var(--couleur-fonce) !important;
+}
+
+.form-control {
+    border-color: var(--couleur-claire) !important;
+}
+
+h2{
+    color:var(--couleur-fonce);
+    margin: 4% 1% 3%;
+    background-color: var(--couleur-claire);
+    padding: 5%;
+    box-shadow: 2px 2px 4px #000000;
+    border-radius: 10px;
+}
+
+p{
+    color: white;
+    font-size: 1.5rem;
+}
+
 .text-left {
     text-align: left;
 }
 
 th[data-column="categories"] {
     text-align: left !important;
+}
+
+.user-name, .user-menu-wrapper span.user-avatar .user-avatar-icon-foreground, .content-top .content-search .content-search-icon{
+    color: white;
 }
