@@ -32,7 +32,7 @@
 			{% for course in courses %}
 				{% if course.status == "Validé" %}
 					<div class="col-md-3 mb-5 mt-3">
-						<a href="{{ path('app_course_show', {'id': course.id}) }}">
+						<a href="{{ path('app_course_show', {'slug': course.slug}) }}">
 							<div class="card mb-6 shadow-sm">
 								<img src="{{ vich_uploader_asset(course, 'imageFile') }}" class="card-img-top" style="width: 100%; height: 200px;" alt="image">
 								<div class="d-flex flex-wrap mt-1">
@@ -48,7 +48,7 @@
 						</a>
 								<div class="card-footer d-flex">
 									{% if app.user %}
-										<a href="{{ path('app_course_participate', {'id': course.id}) }}" class="btn sk-btn">Ajouter à ma watchlist</a>
+										<a href="{{ path('app_course_participate', {'slug': course.slug}) }}" class="btn sk-btn">Ajouter à ma watchlist</a>
 									{% endif %}
 									{% for note in notes %}
 										{% if note.averageNote is not null and note.course_id == course.id %}

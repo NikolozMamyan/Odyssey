@@ -13,12 +13,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 
 class CoursesController extends AbstractController
 {
     /**
-     * Display the course list and search
+     * Display the course list and form search
      *
      * @param EntityManagerInterface $entityManager
      * @param Request $request
@@ -51,14 +52,19 @@ class CoursesController extends AbstractController
         ]);
     }
 
-
-    #[Route('/courses/{id<\d*>}', name: 'app_course_show')]
-    public function show($id, EntityManagerInterface $entityManager): Response
+    /**
+     * Show détails of a course
+     * @param string $slug
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
+    #[Route('/courses/{slug}', name: 'app_course_show')]
+    public function show(string $slug, EntityManagerInterface $entityManager): Response
     {
-        $course = $entityManager->getRepository(Course::class)->find($id);
+        $course = $entityManager->getRepository(Course::class)->findOneBy(['slug' => $slug]);
 
         if (!$course) {
-            throw $this->createNotFoundException('No course found for id ' . $id);
+            throw $this->createNotFoundException('No course found for this slug');
         }
 
         return $this->render('courses/show.html.twig', [
@@ -66,8 +72,19 @@ class CoursesController extends AbstractController
         ]);
     }
 
+    /**
+     * Create a new Course
+     * @param EntityManagerInterface $entityManager
+     * @param Request $request
+     * @param MailerService $mailer
+     * @param SluggerInterface $slugger
+     * @return Response
+     */
     #[Route('/courses/create', name: 'app_course_create')]
-    public function create(EntityManagerInterface $entityManager, Request $request, MailerService $mailer): Response
+    public function create(EntityManagerInterface $entityManager,
+                           Request $request,
+                           MailerService $mailer,
+                           SluggerInterface $slugger): Response
     {
         $categories = $entityManager->getRepository(Category::class)->findAll();
 
@@ -85,6 +102,9 @@ class CoursesController extends AbstractController
             $course->setCreatedBy($this->getUser());
             $course->setStatus("en attente");
 
+            $slug = $slugger->slug($course->getTitle());
+            $course->setSlug($slug);
+
             $entityManager->persist($course);
             $entityManager->flush();
 
@@ -98,7 +118,6 @@ class CoursesController extends AbstractController
                 $this->addFlash('danger', $message);
             }
 
-            //for now, we will return to the courses list
             return $this->redirectToRoute('app_user');
         }
 
@@ -107,10 +126,21 @@ class CoursesController extends AbstractController
         ]);
     }
 
-    #[Route('/courses/edit/{id<\d*>}', name: 'app_course_edit')]
-    public function edit($id, EntityManagerInterface $entityManager, Request $request): Response
+    /**
+     * Update a course
+     * @param string $slug
+     * @param EntityManagerInterface $entityManager
+     * @param Request $request
+     * @param SluggerInterface $slugger
+     * @return Response
+     */
+    #[Route('/courses/edit/{slug}', name: 'app_course_edit')]
+    public function edit(string $slug,
+                         EntityManagerInterface $entityManager,
+                         Request $request,
+                         SluggerInterface $slugger): Response
     {
-        $course = $entityManager->getRepository(Course::class)->find($id);
+        $course = $entityManager->getRepository(Course::class)->findOneBy(['slug' => $slug]);
         $categories = $entityManager->getRepository(Category::class)->findAll();
 
         $form = $this->createForm(CourseType::class, $course, [
@@ -120,9 +150,12 @@ class CoursesController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $course->setSlug($slugger->slug($course->getTitle()));
+
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_course_show', ['id' => $course->getId()]);
+            return $this->redirectToRoute('app_course_show', ['slug' => $course->getSlug()]);
         }
 
         return $this->render('courses/create.html.twig', [
@@ -130,6 +163,12 @@ class CoursesController extends AbstractController
         ]);
     }
 
+    /**
+     * Delete a course
+     * @param EntityManagerInterface $entityManager
+     * @param int $id
+     * @return RedirectResponse
+     */
     #[Route('/courses/delete/{id<\d*>}', name: 'app_course_delete')]
     public function delete(EntityManagerInterface $entityManager, int $id): RedirectResponse
     {
@@ -144,22 +183,33 @@ class CoursesController extends AbstractController
     }
 
 
-    // this function add course in the collection of courses in User Entity
-    #[Route('/courses/participate/{id<\d*>}', name: 'app_course_participate')]
-    public function participateCourses(int $id, EntityManagerInterface $entityManager): RedirectResponse
+    /**
+     * Add course in the collection of courses in User Entity (add watchlist)
+     * @param string $slug
+     * @param EntityManagerInterface $entityManager
+     * @return RedirectResponse
+     */
+    #[Route('/courses/participate/{slug}', name: 'app_course_participate')]
+    public function participateCourses(string $slug, EntityManagerInterface $entityManager): RedirectResponse
     {
         $user = $this->getUser();
-        $course = $entityManager->getRepository(Course::class)->find($id);
+        $course = $entityManager->getRepository(Course::class)->findOneBy(['slug' => $slug]);
 
         $user->addParticipateCourse($course);
 
         $entityManager->persist($user);
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_course_show', ['id' => $course->getId()]);
+        return $this->redirectToRoute('app_course_show', ['slug' => $course->getSlug()]);
     }
 
-    // this function remove course in the collection of courses in User Entity
+
+    /**
+     * Remove course in the collection of courses in User Entity (remove watchlist)
+     * @param int $id
+     * @param EntityManagerInterface $entityManager
+     * @return RedirectResponse
+     */
     #[Route('/user/remove/{id<\d*>}', name: 'app_course_participate_remove')]
     public function RemoveParticipateCourses(int $id, EntityManagerInterface $entityManager): RedirectResponse
     {
