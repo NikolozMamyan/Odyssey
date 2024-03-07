@@ -17,7 +17,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CoursesController extends AbstractController
 {
-
+    /**
+     * Display the course list and search
+     *
+     * @param EntityManagerInterface $entityManager
+     * @param Request $request
+     * @return Response
+     */
     #[Route('/courses', name: 'app_courses')]
     public function index(EntityManagerInterface $entityManager, Request $request): Response
     {
