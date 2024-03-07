@@ -22,6 +22,7 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('email', EmailType::class)
             ->add('agreeTerms', CheckboxType::class, [
+                'label' => false,
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
@@ -41,7 +42,6 @@ class RegistrationFormType extends AbstractType
                     new Length([
                         'min' => 8,
                         'minMessage' => 'votre mot de passe doit faire au moins {{ limit }} charactères',
-                        // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
                 ],
@@ -55,8 +55,7 @@ class RegistrationFormType extends AbstractType
             ->add('teacher', CheckboxType::class, [
                 'label' => 'Formateur',
                 'mapped' => false,
-                'required' => false])
-        ;
+                'required' => false]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

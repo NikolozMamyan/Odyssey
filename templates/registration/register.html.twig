@@ -38,19 +38,16 @@
 
                         <p class=" sk-password">Doit contenir au moins 8 caractères, dont au moins 1 lettre majuscule<br> et 1 chiffre</p>
 
-                            <div>
-                                {{ form_widget(registrationForm.student, { 'attr': {'class': 'form-check-input'} } ) }}
-                                {{ form_label(registrationForm.student, 'Etudiant', { 'label_attr': {'class': 'form-check-label me-5'} }) }}
-
-                                {{ form_widget(registrationForm.teacher, { 'attr': {'class': 'form-check-input'} } ) }}
-                                {{ form_label(registrationForm.teacher, 'Formateur', { 'label_attr': {'class': 'form-check-label'} }) }}
-                            </div>
-
                     </div>
 
-                    <div class="my-3">
+                    <div class="d-flex">
+                        {{ form_widget(registrationForm.student, { 'attr': {'class': 'form-check-input'} } ) }}
+                        {{ form_widget(registrationForm.teacher, { 'attr': {'class': 'form-check-input mx-2'} } ) }}
+                    </div>
+
+                    <div class="d-flex my-3">
                         {{ form_widget(registrationForm.agreeTerms, { 'attr': {'class': 'form-check-input'} } ) }}
-                        <a href="{{ path('app_legals_page') }}">{{ form_label(registrationForm.agreeTerms, 'Conditions d\'utilisation', { 'label_attr': {'class': 'form-check-label sk-link'} }) }}</a>
+                        <a href="{{ path('app_legals_page') }}">Conditions d'utilisation</a>
                     </div>
 
                     <button type="submit" class="sk-btn w-100 mb-5">S'inscrire</button>

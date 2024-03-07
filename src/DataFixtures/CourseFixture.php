@@ -8,6 +8,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Faker\Factory;
 use Faker\Generator;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 
 class CourseFixture extends Fixture implements DependentFixtureInterface
@@ -16,11 +17,13 @@ class CourseFixture extends Fixture implements DependentFixtureInterface
 
     private Generator $faker;
     private UserRepository $userRepository;
+    private SluggerInterface $slugger;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepository $userRepository, SluggerInterface $slugger)
     {
         $this->faker = Factory::create('fr_FR');
         $this->userRepository = $userRepository;
+        $this->slugger = $slugger;
     }
 
     public function load(ObjectManager $manager): void
@@ -49,6 +52,10 @@ class CourseFixture extends Fixture implements DependentFixtureInterface
                         ->setContent($this->faker->realText(1500))
                         ->setCreatedBy($user)
                         ->setStatus('Validé');
+
+                    $slug = $this->slugger->slug($course->getTitle());
+
+                    $course->setSlug($slug);
 
                     $randomCategories = $this->faker->randomElements($categories, rand(1, 3));
                     foreach ($randomCategories as $category) {

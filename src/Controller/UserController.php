@@ -25,6 +25,13 @@ class UserController extends AbstractController
         $this->mailer = $mailer;
     }
 
+    /**
+     * Display profile information about user (watchlist, own courses)
+     * @param EntityManagerInterface $entityManager
+     * @param PaginatorInterface $paginator
+     * @param Request $request
+     * @return Response
+     */
     #[Route('/user', name: 'app_user')]
     public function index(EntityManagerInterface $entityManager, PaginatorInterface $paginator, Request $request): Response
     {
@@ -66,6 +73,14 @@ class UserController extends AbstractController
     }
 
 
+    /**
+     * Display & process form to update your own courses
+     * @param EntityManagerInterface $entityManager
+     * @param UserRepository $userRepository
+     * @param Request $request
+     * @param int $id
+     * @return Response
+     */
     #[Route('/user/edit/{id}', name: 'app_user_edit')]
     public function userEdit(EntityManagerInterface $entityManager, UserRepository $userRepository, Request $request, int $id): Response
     {
@@ -87,6 +102,12 @@ class UserController extends AbstractController
         ]);
     }
 
+    /**
+     * feature to disable account
+     * @param int $id
+     * @param EntityManagerInterface $em
+     * @return RedirectResponse
+     */
     #[Route('/user/disable/{id}', name: 'app_user_disable')]
     public function disableUser(int $id, EntityManagerInterface $em): RedirectResponse
       {

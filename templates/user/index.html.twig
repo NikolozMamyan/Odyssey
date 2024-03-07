@@ -105,7 +105,7 @@
                                 <td>{{ c.status }}</td>
                                 <td>
                                     <div class="d-flex">
-                                        <a href="{{ path('app_course_edit', {id: c.id}) }}" class="btn btn-warning me-2">Modifier</a>
+                                        <a href="{{ path('app_course_edit', { slug: c.slug }) }}" class="btn btn-warning me-2">Modifier</a>
                                         {{ modalDelete.deleteCourse(c) }}
                                     </div>
                                 </td>
@@ -146,7 +146,7 @@
                     <tbody>
                     {% for course in app.user.participateCourses %}
                         <tr>
-                            <td><a href="{{ path('app_course_show', {'id': course.id}) }}">{{ course.title }}</a></td>
+                            <td><a href="{{ path('app_course_show', {'slug': course.slug}) }}">{{ course.title }}</a></td>
                             <td>{{ course.description }}</td>
                             <td>
                                 {% for category in course.categories %}
