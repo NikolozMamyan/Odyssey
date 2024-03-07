@@ -12,6 +12,13 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class NoteController extends AbstractController
 {
+    /**
+     * Add a note to a course
+     * @param Request $request
+     * @param Note $note
+     * @param EntityManagerInterface $entityManager
+     * @return RedirectResponse
+     */
     #[Route('/add_note', name: 'app_add_note')]
     public function addNote(Request $request, Note $note, EntityManagerInterface $entityManager): RedirectResponse
     {

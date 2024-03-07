@@ -1,3 +1,39 @@
+/* login page */
+label .password-icon {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 38%;
+    right: 60px;
+    transform: translateY(-55%);
+    width: 20px;
+    transition: all 0.2s;
+}
+
+label .password-icon:hover {
+    cursor: pointer;
+    color: #ff4754;
+}
+
+label .password-icon .feather-eye-off {
+    display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* register page */
 .sk-main{
     min-height: 90vh;
