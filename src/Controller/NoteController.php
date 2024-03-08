@@ -14,6 +14,7 @@ class NoteController extends AbstractController
 {
     /**
      * Add a note to a course
+     *
      * @param Request $request
      * @param Note $note
      * @param EntityManagerInterface $entityManager

@@ -11,6 +11,7 @@ class SecurityController extends AbstractController
 {
     /**
      * Display & process form to login
+     *
      * @param AuthenticationUtils $authenticationUtils
      * @return Response
      */
@@ -34,6 +35,7 @@ class SecurityController extends AbstractController
 
     /**
      * Logout features
+     *
      * @return void
      */
     #[Route(path: '/logout', name: 'app_logout')]

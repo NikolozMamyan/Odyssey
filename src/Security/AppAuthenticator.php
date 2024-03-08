@@ -27,6 +27,11 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
     {
     }
 
+    /**
+     * Manage authentification process
+     * @param Request $request
+     * @return Passport
+     */
     public function authenticate(Request $request): Passport
     {
 
@@ -44,6 +49,13 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
         );
     }
 
+    /**
+     * Manage authentication success
+     * @param Request $request
+     * @param TokenInterface $token
+     * @param string $firewallName
+     * @return Response|null
+     */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
@@ -53,6 +65,11 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
         return new RedirectResponse($this->urlGenerator->generate('app_user'));
     }
 
+    /**
+     * Generate login url
+     * @param Request $request
+     * @return string
+     */
     protected function getLoginUrl(Request $request): string
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);

@@ -20,6 +20,11 @@ class UserController extends AbstractController
 
     private MailerService $mailer;
 
+    /**
+     * initializes the mailer service
+     *
+     * @param MailerService $mailer
+     */
     public function __construct(MailerService $mailer)
     {
         $this->mailer = $mailer;
@@ -27,6 +32,7 @@ class UserController extends AbstractController
 
     /**
      * Display profile information about user (watchlist, own courses)
+     *
      * @param EntityManagerInterface $entityManager
      * @param PaginatorInterface $paginator
      * @param Request $request
@@ -75,6 +81,7 @@ class UserController extends AbstractController
 
     /**
      * Display & process form to update your own courses
+     *
      * @param EntityManagerInterface $entityManager
      * @param UserRepository $userRepository
      * @param Request $request
@@ -104,6 +111,7 @@ class UserController extends AbstractController
 
     /**
      * feature to disable account
+     *
      * @param int $id
      * @param EntityManagerInterface $em
      * @return RedirectResponse

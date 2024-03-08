@@ -21,12 +21,25 @@ class EasyAdminEvent implements EventSubscriberInterface
     private MailerService $mailerService;
     private UserPasswordHasherInterface $passwordHasher;
 
+
+    /**
+     * initializes mailer service and password hasher
+     *
+     * @param MailerService $mailerService
+     * @param UserPasswordHasherInterface $passwordHasher
+     */
     public function __construct(MailerService $mailerService, UserPasswordHasherInterface $passwordHasher)
     {
         $this->mailerService = $mailerService;
         $this->passwordHasher = $passwordHasher;
     }
 
+
+    /**
+     * Manage events easyAdmin bundle
+     *
+     * @return array[]
+     */
     public static function getSubscribedEvents(): array
     {
         return [
@@ -36,6 +49,12 @@ class EasyAdminEvent implements EventSubscriberInterface
         ];
     }
 
+    /**
+     *  Send email after update success status course in dashboard
+     *
+     * @param AfterEntityUpdatedEvent $event
+     * @return void
+     */
     public function updateEntity(AfterEntityUpdatedEvent $event): void
     {
         $entity = $event->getEntityInstance();
@@ -49,6 +68,12 @@ class EasyAdminEvent implements EventSubscriberInterface
         }
     }
 
+    /**
+     * Send email after update refuse status course in dashboard
+     *
+     * @param AfterEntityDeletedEvent $event
+     * @return void
+     */
     public function deleteEntity(AfterEntityDeletedEvent $event): void
     {
         $entity = $event->getEntityInstance();
@@ -62,6 +87,12 @@ class EasyAdminEvent implements EventSubscriberInterface
         }
     }
 
+    /**
+     * Hash password when created a new user in dashboard
+     *
+     * @param BeforeEntityPersistedEvent $event
+     * @return void
+     */
     public function hashPassword(BeforeEntityPersistedEvent $event): void
     {
         $entity = $event->getEntityInstance();

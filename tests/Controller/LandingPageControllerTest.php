@@ -8,30 +8,35 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class LandingPageControllerTest extends WebTestCase
 {
 
+    /**
+     * Tests accessing the course page and verifies that there is at least one course present.
+     *
+     * @return void
+     */
     public function testIndex(): void
     {
-        // permet de simuler un navigateur
+        // Enables simulating a browser.
         $client = static::createClient();
 
-        // retourne une instance de Crawler
+        // Returns an instance of Crawler.
         $crawler = $client->request('GET','/');
 
-        // test qu'il y a 1 balise html grâce au sélecteur
+        // Tests that there is 1 HTML tag using the selector.
         $this->assertCount(1, $crawler->filter('h1'));
 
-        // permet de simuler un click sur un lien
+        // Enables simulating a click on a link.
         $client->clickLink('Consulter les cours');
 
-        // vérifie le status de la réponse
+        // Verifies the response status
         $this->assertResponseIsSuccessful();
 
-        // vérifie le titre de la page
+        // Verifies the title of the page.
         $this->assertPageTitleContains('Liste des cours !');
 
-        // vérifie le contenu de la balise h1
+        // Verifies the content of the h1 tag
         $this->assertSelectorTextContains('h1', "LES COURS D'ODYSSEY");
 
-        // permet de vérifier qu'il y a un cours sur la page
+        // Verifies that there is a course on the page.
         $course = new Course();
         $this->assertSelectorExists('div:contains("' . $course->getTitle() . '")');
 

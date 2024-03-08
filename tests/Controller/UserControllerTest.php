@@ -6,12 +6,17 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class UserControllerTest extends WebTestCase
 {
+    /**
+     * Tests login and user can modify his information
+     *
+     * @return void
+     */
     public function testUserEdit(): void
     {
-        // permet de simuler un navigateur
+        // Enables simulating a browser.
         $client = static::createClient();
 
-        // Simuler l'authentification de l'utilisateur
+        // Simulating user authentication.
         $crawler = $client->request('GET', '/login');
 
         $form = $crawler->selectButton('Valider')->form([
@@ -22,13 +27,13 @@ class UserControllerTest extends WebTestCase
         $client->submit($form);
 
 
-        // Crée une requête HTTP GET pour accéder à la page d'édition d'utilisateur
+        // Creates an HTTP GET request to access the user editing page
         $client->request('GET', '/user/edit/1');
 
-        // Vérifie que la réponse est un succès après la redirection
+        // Verifies that the response is successful after redirection.
         $this->assertResponseIsSuccessful('La redirection vers la page de modification de profil à fonctionné.');
 
-        // Insertion des données dans le formulaire
+        // Inserts data into the form
         $client->submitForm('user_edit_save', [
                             'user_edit[firstNameUser]' => 'Fabien',
                             'user_edit[lastNameUser]' => 'Potencier']);
@@ -36,10 +41,10 @@ class UserControllerTest extends WebTestCase
 
         $client->followRedirect();
 
-        // Vérifie que la page de destination après la modification est affichée
+        // Verifies that the destination page after modification is displayed.
         $this->assertResponseIsSuccessful();
 
-        // permet de vérifier que la modification est présente sur la page
+        // Enables verifying that the modification is present on the page.
         $this->assertSelectorExists('p:contains("Potencier")');
 
     }

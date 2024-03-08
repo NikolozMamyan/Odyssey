@@ -7,12 +7,17 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class CourseControllerTest extends WebTestCase
 {
 
+    /**
+     * Tests login and create a new course
+     *
+     * @return void
+     */
     public function testCourse(): void
     {
-        // permet de simuler un navigateur
+        // Allows to simulate a browser
         $client = static::createClient();
 
-        // Simuler l'authentification de l'utilisateur
+        // To simulate user authentication
         $crawler = $client->request('GET', '/login');
 
         $form = $crawler->selectButton('Valider')->form([
@@ -22,13 +27,13 @@ class CourseControllerTest extends WebTestCase
 
         $client->submit($form);
 
-        // Crée une requête HTTP GET pour accéder à la page d'édition d'utilisateur
+        // Creates an HTTP GET request to access the user editing page
         $client->request('GET', '/courses/create');
 
-        // Vérifie que la réponse est un succès après la redirection
+        // Verifies that the response is a success after redirection.
         $this->assertResponseIsSuccessful('La redirection vers la page de création d\'un cours à fonctionné.');
 
-        // Insertion des données dans le formulaire
+        // Inserting data into the form.
         $client->submitForm('Enregistrer', [
             'course[title]' => 'Cours sur le framework Symfony',
             'course[categories]' => [1, 2, 3, 4, 5],
@@ -36,16 +41,16 @@ class CourseControllerTest extends WebTestCase
             'course[content]' => 'Symfony, est un framework français écrit en php ....']);
 
 
-        // Vérifie que la redirection vers la page de profil est correcte
+        // Verifies that the redirection to the profile page is correct.
         $this->assertResponseRedirects('/user');
 
-        // Suivre la redirection vers la page de profil
+        // Follow the redirection to the profile page.
         $client->followRedirect();
 
-        // Vérifie que la réponse après la redirection est un succès
+        // Verifies that the response after redirection is successful
         $this->assertResponseIsSuccessful('Je suis sur la page de profil');
 
-        // permet de vérifier que la modification est présente sur la page
+        // Allows to verify that the modification is present on the page
         $this->assertSelectorExists('td:contains("Symfony, quand la magie opère")');
     }
 

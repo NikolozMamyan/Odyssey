@@ -13,8 +13,12 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class SearchController extends AbstractController
 {
-    
 
+    /**
+     * Create a form to search in the Course index page
+     *
+     * @return Response
+     */
     #[Route('/search', name: 'app_search')]
     public function searchBar(): Response
     {
@@ -38,7 +42,14 @@ class SearchController extends AbstractController
             'form' => $form->createView()
         ]);
     }
-    
+
+    /**
+     * Manage the search
+     *
+     * @param Request $request
+     * @param CourseRepository $repo
+     * @return Response
+     */
     #[Route('/handleSearch', name: 'handleSearch')]
     public function handleSearch(Request $request, CourseRepository $repo): Response
     {
