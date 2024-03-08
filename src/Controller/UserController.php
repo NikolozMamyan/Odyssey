@@ -3,16 +3,17 @@
 namespace App\Controller;
 
 
+use App\Entity\User;
 use App\Entity\Course;
 use App\Form\UserEditType;
-use App\Repository\UserRepository;
 use App\Service\MailerService;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UserController extends AbstractController
@@ -35,10 +36,11 @@ class UserController extends AbstractController
     #[Route('/user', name: 'app_user')]
     public function index(EntityManagerInterface $entityManager, PaginatorInterface $paginator, Request $request): Response
     {
+        /** @var User $user */
         $user = $this->getUser();
 
         // Allows to reactivate the account
-        if(!$user->isIsActive()) {
+        if (!$user->isIsActive()) {
             $user->setIsActive(true);
 
             $entityManager->flush();
@@ -52,10 +54,9 @@ class UserController extends AbstractController
             } else {
                 $this->addFlash('danger', $message);
             }
-
         }
 
-        $course = $entityManager->getRepository(Course::class)->findBy(['createdBy' => $user],['id' => 'DESC']);
+        $course = $entityManager->getRepository(Course::class)->findBy(['createdBy' => $user], ['id' => 'DESC']);
         $notes = $entityManager->getRepository(Course::class)->getAverageNotes();
 
         $pagination = $paginator->paginate(
@@ -88,16 +89,16 @@ class UserController extends AbstractController
         $form = $this->createForm(UserEditType::class, $user);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this-> redirectToRoute('app_user');
+            return $this->redirectToRoute('app_user');
         }
-    
+
         return $this->render('user/userEdit.html.twig', [
-            'userForm' =>$form,
+            'userForm' => $form,
             'user' => $user,
         ]);
     }
@@ -110,27 +111,25 @@ class UserController extends AbstractController
      */
     #[Route('/user/disable/{id}', name: 'app_user_disable')]
     public function disableUser(int $id, EntityManagerInterface $em): RedirectResponse
-      {
-
+    {
+        /** @var User $user */
         $user = $this->getUser();
 
         if ($user) {
-          $user->setIsActive(false);
-          $em->flush();
+            $user->setIsActive(false);
+            $em->flush();
 
-          //send mail to confirm disable account user
-          $message = $this->mailer->AccountMail($user);
+            //send mail to confirm disable account user
+            $message = $this->mailer->AccountMail($user);
 
-          // display message when user reactivate her account
-          if ($message != MailerService::ERROR_MESSAGE) {
-            $this->addFlash('warning', $message);
-          } else {
-            $this->addFlash('danger', $message);
-          }
-
+            // display message when user reactivate her account
+            if ($message != MailerService::ERROR_MESSAGE) {
+                $this->addFlash('warning', $message);
+            } else {
+                $this->addFlash('danger', $message);
+            }
         }
 
         return $this->redirectToRoute('app_logout');
-      }
-
+    }
 }
