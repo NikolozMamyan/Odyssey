@@ -52,25 +52,6 @@ class CoursesController extends AbstractController
         ]);
     }
 
-    /**
-     * Show détails of a course
-     * @param string $slug
-     * @param EntityManagerInterface $entityManager
-     * @return Response
-     */
-    #[Route('/courses/{slug}', name: 'app_course_show')]
-    public function show(string $slug, EntityManagerInterface $entityManager): Response
-    {
-        $course = $entityManager->getRepository(Course::class)->findOneBy(['slug' => $slug]);
-
-        if (!$course) {
-            throw $this->createNotFoundException('No course found for this slug');
-        }
-
-        return $this->render('courses/show.html.twig', [
-            'course' => $course,
-        ]);
-    }
 
     /**
      * Create a new Course
@@ -123,6 +104,26 @@ class CoursesController extends AbstractController
 
         return $this->render('courses/create.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * Show détails of a course
+     * @param string $slug
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
+    #[Route('/courses/{slug}', name: 'app_course_show')]
+    public function show(string $slug, EntityManagerInterface $entityManager): Response
+    {
+        $course = $entityManager->getRepository(Course::class)->findOneBy(['slug' => $slug]);
+
+        if (!$course) {
+            throw $this->createNotFoundException('No course found for this slug');
+        }
+
+        return $this->render('courses/show.html.twig', [
+            'course' => $course,
         ]);
     }
 
