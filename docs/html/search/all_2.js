@@ -1,4 +1,16 @@
 var searchData=
 [
-  ['odyssey_20_3awave_3a_0',['Odyssey :wave:',['../md__r_e_a_d_m_e.html',1,'']]]
+  ['categorycrudcontroller_0',['CategoryCrudController',['../class_app_1_1_controller_1_1_admin_1_1_category_crud_controller.html',1,'App::Controller::Admin']]],
+  ['checkemail_1',['checkEmail',['../class_app_1_1_controller_1_1_reset_password_controller.html#a5c42bf11dcc8160ffd8ef8244ce30250',1,'App::Controller::ResetPasswordController']]],
+  ['configureactions_2',['configureActions',['../class_app_1_1_controller_1_1_admin_1_1_course_crud_controller.html#a39cae5a733da2424d36b814368827939',1,'App::Controller::Admin::CourseCrudController']]],
+  ['configureassets_3',['configureAssets',['../class_app_1_1_controller_1_1_admin_1_1_dashboard_controller.html#ad73b391ef4eb925736acf9e66b316034',1,'App::Controller::Admin::DashboardController']]],
+  ['configurecrud_4',['configureCrud',['../class_app_1_1_controller_1_1_admin_1_1_category_crud_controller.html#a1afbc6d2b0fc23865695650c35a02b2c',1,'App\Controller\Admin\CategoryCrudController\configureCrud()'],['../class_app_1_1_controller_1_1_admin_1_1_course_crud_controller.html#a1afbc6d2b0fc23865695650c35a02b2c',1,'App\Controller\Admin\CourseCrudController\configureCrud()'],['../class_app_1_1_controller_1_1_admin_1_1_role_crud_controller.html#a1afbc6d2b0fc23865695650c35a02b2c',1,'App\Controller\Admin\RoleCrudController\configureCrud()'],['../class_app_1_1_controller_1_1_admin_1_1_user_crud_controller.html#a1afbc6d2b0fc23865695650c35a02b2c',1,'App\Controller\Admin\UserCrudController\configureCrud()']]],
+  ['configuredashboard_5',['configureDashboard',['../class_app_1_1_controller_1_1_admin_1_1_dashboard_controller.html#a7ab34721716df0029aa2c40eeeae34f3',1,'App::Controller::Admin::DashboardController']]],
+  ['configurefields_6',['configureFields',['../class_app_1_1_controller_1_1_admin_1_1_category_crud_controller.html#a1281ee6ee18e2ba8c6fbf6db98178595',1,'App\Controller\Admin\CategoryCrudController\configureFields()'],['../class_app_1_1_controller_1_1_admin_1_1_course_crud_controller.html#a1281ee6ee18e2ba8c6fbf6db98178595',1,'App\Controller\Admin\CourseCrudController\configureFields()'],['../class_app_1_1_controller_1_1_admin_1_1_role_crud_controller.html#a1281ee6ee18e2ba8c6fbf6db98178595',1,'App\Controller\Admin\RoleCrudController\configureFields()'],['../class_app_1_1_controller_1_1_admin_1_1_user_crud_controller.html#a1281ee6ee18e2ba8c6fbf6db98178595',1,'App\Controller\Admin\UserCrudController\configureFields()']]],
+  ['configuremenuitems_7',['configureMenuItems',['../class_app_1_1_controller_1_1_admin_1_1_dashboard_controller.html#a115a61812ffb85965eab66933b2a72b8',1,'App::Controller::Admin::DashboardController']]],
+  ['contact_8',['contact',['../class_app_1_1_controller_1_1_landing_page_controller.html#acb796d94f0788c79b5a7e206334cbbdf',1,'App::Controller::LandingPageController']]],
+  ['coursecrudcontroller_9',['CourseCrudController',['../class_app_1_1_controller_1_1_admin_1_1_course_crud_controller.html',1,'App::Controller::Admin']]],
+  ['coursescontroller_10',['CoursesController',['../class_app_1_1_controller_1_1_courses_controller.html',1,'App::Controller']]],
+  ['create_11',['create',['../class_app_1_1_controller_1_1_courses_controller.html#a15c4c4d86c0c4d1e4b6bd7f06c08a52f',1,'App::Controller::CoursesController']]],
+  ['createaccount_12',['createAccount',['../class_app_1_1_service_1_1_mailer_service.html#adcc7ec86d81c1755d2f09cfc2c13477f',1,'App::Service::MailerService']]]
 ];

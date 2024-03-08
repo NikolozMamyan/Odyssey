@@ -16,12 +16,22 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 class UserCrudController extends AbstractCrudController
 {
 
+    /**
+     * Returns the class for displaying in the view
+     *
+     * @return string
+     */
     public static function getEntityFqcn(): string
     {
         return User::class;
     }
 
-
+    /**
+     * Configure options display view
+     *
+     * @param Crud $crud
+     * @return Crud
+     */
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
@@ -29,11 +39,16 @@ class UserCrudController extends AbstractCrudController
             ->setEntityLabelInPlural('Utilisateurs');
     }
 
+
+    /**
+     * Configures the fields to display in index view and form
+     *
+     * @param string $pageName
+     * @return iterable
+     */
     public function configureFields(string $pageName): iterable
     {
         yield HiddenField::new('id')->hideOnForm()->hideOnIndex();
-
-
         yield TextField::new('email')
             ->setLabel('email');
         yield TextField::new('firstNameUser')

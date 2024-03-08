@@ -10,11 +10,24 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class CategoryCrudController extends AbstractCrudController
 {
+
+
+    /**
+     * Returns the class for displaying in the view
+     *
+     * @return string
+     */
     public static function getEntityFqcn(): string
     {
         return Category::class;
     }
 
+    /**
+     * Configure options display view
+     *
+     * @param Crud $crud
+     * @return Crud
+     */
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
@@ -23,6 +36,12 @@ class CategoryCrudController extends AbstractCrudController
     }
 
 
+    /**
+     * Configures the fields to display in index view and form
+     *
+     * @param string $pageName
+     * @return iterable
+     */
     public function configureFields(string $pageName): iterable
     {
         yield HiddenField::new('id')->hideOnForm()->hideOnIndex();
