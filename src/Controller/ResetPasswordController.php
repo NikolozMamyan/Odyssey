@@ -129,6 +129,9 @@ class ResetPasswordController extends AbstractController
         ]);
     }
 
+    /**
+     * Send mail user to reset password
+     */
     private function processSendingPasswordResetEmail(string $emailFormData, MailerInterface $mailer, TranslatorInterface $translator): RedirectResponse
     {
         $user = $this->entityManager->getRepository(User::class)->findOneBy([
@@ -159,7 +162,7 @@ class ResetPasswordController extends AbstractController
         $email = (new TemplatedEmail())
             ->from(new Address('Odyssey@gmail.com', 'Odyssey'))
             ->to($user->getEmail())
-            ->subject('Your password reset request')
+            ->subject('Modification de votre mot de passe')
             ->htmlTemplate('reset_password/email.html.twig')
             ->context([
                 'resetToken' => $resetToken,

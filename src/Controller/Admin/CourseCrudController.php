@@ -19,19 +19,34 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 class CourseCrudController extends AbstractCrudController
 {
 
+    /**
+     * Returns the class for displaying in the view
+     *
+     * @return string
+     */
     public static function getEntityFqcn(): string
     {
         return Course::class;
     }
 
-
+    /**
+     * Configure actions available
+     *
+     * @param Actions $actions
+     * @return Actions
+     */
     public function configureActions(Actions $actions): Actions
     {
         return $actions
             ->disable(Action::NEW);
     }
 
-
+    /**
+     * Configure options display view
+     *
+     * @param Crud $crud
+     * @return Crud
+     */
     public function configureCrud(Crud $crud): Crud
     {
 
@@ -40,6 +55,12 @@ class CourseCrudController extends AbstractCrudController
             ->setEntityLabelInPlural('Cours');
     }
 
+    /**
+     * Configures the fields to display in index view and form
+     *
+     * @param string $pageName
+     * @return iterable
+     */
     public function configureFields(string $pageName): iterable
     {
         yield HiddenField::new('id')->hideOnForm()->hideOnIndex();

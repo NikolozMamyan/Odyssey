@@ -6,6 +6,7 @@ use App\Service\MailerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -14,6 +15,7 @@ class LandingPageController extends AbstractController
 
     /**
      * Display home page of website
+     *
      * @return Response
      */
     #[Route('/', name: 'app_landing_page')]
@@ -24,6 +26,7 @@ class LandingPageController extends AbstractController
 
     /**
      * Send a mail to admin from contact form
+     *
      * @param MailerService $mailerService
      * @param Request $request
      * @param ValidatorInterface $validator
@@ -53,6 +56,7 @@ class LandingPageController extends AbstractController
 
     /**
      * Display legals information
+     *
      * @return Response
      */
     #[Route('/legals', name: 'app_legals_page')]
@@ -63,6 +67,7 @@ class LandingPageController extends AbstractController
 
     /**
      * Display information about us
+     *
      * @return Response
      */
     #[Route('/about-us', name: 'app_about_us')]

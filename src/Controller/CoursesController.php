@@ -52,28 +52,10 @@ class CoursesController extends AbstractController
         ]);
     }
 
-    /**
-     * Show détails of a course
-     * @param string $slug
-     * @param EntityManagerInterface $entityManager
-     * @return Response
-     */
-    #[Route('/courses/{slug}', name: 'app_course_show')]
-    public function show(string $slug, EntityManagerInterface $entityManager): Response
-    {
-        $course = $entityManager->getRepository(Course::class)->findOneBy(['slug' => $slug]);
-
-        if (!$course) {
-            throw $this->createNotFoundException('No course found for this slug');
-        }
-
-        return $this->render('courses/show.html.twig', [
-            'course' => $course,
-        ]);
-    }
 
     /**
      * Create a new Course
+     *
      * @param EntityManagerInterface $entityManager
      * @param Request $request
      * @param MailerService $mailer
@@ -127,7 +109,29 @@ class CoursesController extends AbstractController
     }
 
     /**
+     * Show détails of a course
+     *
+     * @param string $slug
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
+    #[Route('/courses/{slug}', name: 'app_course_show')]
+    public function show(string $slug, EntityManagerInterface $entityManager): Response
+    {
+        $course = $entityManager->getRepository(Course::class)->findOneBy(['slug' => $slug]);
+
+        if (!$course) {
+            throw $this->createNotFoundException('No course found for this slug');
+        }
+
+        return $this->render('courses/show.html.twig', [
+            'course' => $course,
+        ]);
+    }
+
+    /**
      * Update a course
+     *
      * @param string $slug
      * @param EntityManagerInterface $entityManager
      * @param Request $request
@@ -165,6 +169,7 @@ class CoursesController extends AbstractController
 
     /**
      * Delete a course
+     *
      * @param EntityManagerInterface $entityManager
      * @param int $id
      * @return RedirectResponse
@@ -185,6 +190,7 @@ class CoursesController extends AbstractController
 
     /**
      * Add course in the collection of courses in User Entity (add watchlist)
+     *
      * @param string $slug
      * @param EntityManagerInterface $entityManager
      * @return RedirectResponse
@@ -206,6 +212,7 @@ class CoursesController extends AbstractController
 
     /**
      * Remove course in the collection of courses in User Entity (remove watchlist)
+     *
      * @param int $id
      * @param EntityManagerInterface $entityManager
      * @return RedirectResponse

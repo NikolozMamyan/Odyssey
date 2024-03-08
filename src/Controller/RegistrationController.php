@@ -18,6 +18,7 @@ class RegistrationController extends AbstractController
 
     /**
      * Register a new account
+     *
      * @param Request $request
      * @param UserPasswordHasherInterface $userPasswordHasher
      * @param EntityManagerInterface $entityManager

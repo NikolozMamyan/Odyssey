@@ -21,12 +21,23 @@ class DashboardController extends AbstractDashboardController
     private UserRepository $userRepository;
     private CourseRepository $courseRepository;
 
+
+    /**
+     * Initializes a new instance of the userRepository class and CourseRepository class
+     * @param UserRepository $userRepository
+     * @param CourseRepository $courseRepository
+     */
     public function __construct(UserRepository $userRepository, CourseRepository $courseRepository)
     {
         $this->userRepository = $userRepository;
         $this->courseRepository = $courseRepository;
     }
 
+    /**
+     * Manage display view dashboard
+     *
+     * @return Response
+     */
     #[Route('/admin', name: 'app_admin')]
     public function index(): Response
     {
@@ -39,6 +50,11 @@ class DashboardController extends AbstractDashboardController
         ]);
     }
 
+    /**
+     * Configure options dashboard (title and dark mode)
+     *
+     * @return Dashboard
+     */
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
@@ -46,11 +62,21 @@ class DashboardController extends AbstractDashboardController
             ->disableDarkMode();
     }
 
+    /**
+     * Configure css file options
+     *
+     * @return Assets
+     */
     public function configureAssets(): Assets
     {
         return Assets::new()->addCssFile('css/admin.css');
     }
 
+    /**
+     * Manage configuration options menu
+     *
+     * @return iterable
+     */
     public function configureMenuItems(): iterable
     {
 
