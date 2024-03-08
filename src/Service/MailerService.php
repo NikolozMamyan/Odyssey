@@ -18,13 +18,26 @@ class MailerService
     private MailerInterface $mailerInterface;
     private Environment $twig;
 
+    /**
+     * initializes of MailerInterface instance and twig instance
+     * @param MailerInterface $mailerInterface
+     * @param Environment $twig
+     */
     public function __construct(MailerInterface $mailerInterface, Environment $twig)
     {
         $this->mailerInterface = $mailerInterface;
         $this->twig = $twig;
     }
 
-    // send email from contact form home page
+
+    /**
+     *
+     * Send email from contact form home page
+     *
+     * @param array $data
+     * @return string
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
+     */
     public function sendMail(array $data): string
     {
         try {
@@ -46,7 +59,13 @@ class MailerService
         }
     }
 
-    // send email when user create a account
+    /**
+     * Send email when user create a new account
+     *
+     * @param User $user
+     * @return string
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
+     */
     public function createAccount(User $user): string
     {
         try {
@@ -69,7 +88,14 @@ class MailerService
         }
     }
 
-    // send mail when user enable/disable her account
+    /**
+     * Send mail when user enable/disable account
+     *
+     * @param User $user
+     * @param bool $disable
+     * @return string
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
+     */
     public function AccountMail(User $user, bool $disable = true): string
     {
         try {
@@ -106,7 +132,14 @@ class MailerService
         }
     }
 
-    // send mail to admin when teacher create a course
+    /**
+     * Send mail to admin when teacher create a course
+     *
+     * @param Course $course
+     * @param User $user
+     * @return string
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
+     */
     public function sendCourseCreatedEmail(Course $course, User $user): string
     {
         try {
@@ -129,7 +162,14 @@ class MailerService
         }
     }
 
-    // send mail to teacher to inform the status of the course
+    /**
+     * Send mail to teacher to inform the status of the course
+     *
+     * @param Course $course
+     * @param User $user
+     * @return string
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
+     */
     public function sendValidationCourse(Course $course, User $user): string
     {
         try {
@@ -163,7 +203,14 @@ class MailerService
         }
     }
 
-    // send mail to teacher to inform delete course
+    /**
+     * Send mail to teacher to inform delete course
+     *
+     * @param Course $course
+     * @param User $user
+     * @return string
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
+     */
     public function sendDeleteCourse(Course $course, User $user): string
     {
         try {

@@ -1,13 +1,19 @@
 /* login page */
 label .password-icon {
-    display: flex;
-    align-items: center;
-    position: absolute;
+    position: relative;
+    /* align-items: center;
+    position: relative;
     top: 38%;
-    right: 60px;
+    right: 60px; */
     transform: translateY(-55%);
-    width: 20px;
     transition: all 0.2s;
+}
+
+.ii{
+    position: absolute;
+    top: -40px;
+    right: 5px;
+
 }
 
 label .password-icon:hover {
@@ -172,7 +178,6 @@ box-shadow: inset 160px 0 0 0 #725AC1;
 .form-group {
     margin-bottom: 25px;
 }
-
 
 .nm-input__contact[type="text"],
 .nm-input__contact[type="email"],
