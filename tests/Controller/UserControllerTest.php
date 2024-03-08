@@ -20,15 +20,17 @@ class UserControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/login');
 
         $form = $crawler->selectButton('Valider')->form([
-            'username' => 'Fabien@symfony.com',
-            'password' => 'azertyuioP1',
+            'username' => 'test@test.com',
+            'password' => 'azertyP1',
         ]);
 
         $client->submit($form);
 
 
-        // Creates an HTTP GET request to access the user editing page
-        $client->request('GET', '/user/edit/1');
+
+        // Crée une requête HTTP GET pour accéder à la page d'édition d'utilisateur
+        $client->request('GET', '/user/edit/5');
+
 
         // Verifies that the response is successful after redirection.
         $this->assertResponseIsSuccessful('La redirection vers la page de modification de profil à fonctionné.');
@@ -46,6 +48,7 @@ class UserControllerTest extends WebTestCase
 
         // Enables verifying that the modification is present on the page.
         $this->assertSelectorExists('p:contains("Potencier")');
+
 
     }
 }
