@@ -1,10 +1,6 @@
 /* login page */
 label .password-icon {
     position: relative;
-    /* align-items: center;
-    position: relative;
-    top: 38%;
-    right: 60px; */
     transform: translateY(-55%);
     transition: all 0.2s;
 }
@@ -24,21 +20,6 @@ label .password-icon:hover {
 label .password-icon .feather-eye-off {
     display: none;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* register page */
 .sk-main{
@@ -167,7 +148,7 @@ box-shadow: inset 160px 0 0 0 #725AC1;
 
 .contact__style{
     background-color:#EDEBD7 ;
-    margin: 0px;
+
 }
 .nm-form-container {
     padding: 20px;
