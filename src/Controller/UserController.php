@@ -66,7 +66,7 @@ class UserController extends AbstractController
         $notes = $entityManager->getRepository(Course::class)->getAverageNotes();
 
         $pagination = $paginator->paginate(
-            $course, /* query NOT result */
+            $course,
             $request->query->getInt('page', 1), /*page number*/
             6 /*limit per page*/
         );

@@ -8,6 +8,7 @@ use App\Form\CourseType;
 use App\Form\CategoryFilterType;
 use App\Service\MailerService;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,7 +27,7 @@ class CoursesController extends AbstractController
      * @return Response
      */
     #[Route('/courses', name: 'app_courses')]
-    public function index(EntityManagerInterface $entityManager, Request $request): Response
+    public function index(EntityManagerInterface $entityManager, Request $request, PaginatorInterface $paginator): Response
     {
         $form = $this->createForm(CategoryFilterType::class);
 
@@ -45,10 +46,17 @@ class CoursesController extends AbstractController
             }
         }
 
+        $pagination = $paginator->paginate(
+            $courses,
+            $request->query->getInt('page', 1), /*page number*/
+            12 /*limit per page*/
+        );
+
         return $this->render('courses/index.html.twig', [
             'form' => $form->createView(),
             'courses' => $courses,
-            'notes' =>  $notes
+            'notes' =>  $notes,
+            'pagination' => $pagination
         ]);
     }
 
