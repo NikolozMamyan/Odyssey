@@ -64,6 +64,12 @@ height: 45px;
     background-color: #725AC1;
 }
 
+
+.sk-error-message {
+    color: red;
+    font-size: 10px;
+}
+
 /* page send mail to reset password */
 .sk-init-a-reset-password{
     text-decoration: none;

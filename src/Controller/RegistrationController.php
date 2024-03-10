@@ -52,18 +52,17 @@ class RegistrationController extends AbstractController
             $user->setDateRegisterUser(new \DateTime);
             $user->setIsActive(true);
 
-            // check roles (student ou teacher)
-            $isStudent = $form->get('student')->getData();
+            // check choice roles (student ou teacher)
+            $isTeacher = $form->get('teacher')->getData();
 
-            if ($isStudent) {
-                $user->setRoles(['ROLE_USER']);
-                $role = $entityManager->getRepository(Role::class)->findOneBy(['typeRole' => 'etudiant']);
-
-            } else {
-
+            if ($isTeacher) {
                 $user->setRoles(['ROLE_TEACHER']);
                 $role = $entityManager->getRepository(Role::class)->findOneBy(['typeRole' => 'formateur']);
+            } else {
+                $user->setRoles(['ROLE_USER']);
+                $role = $entityManager->getRepository(Role::class)->findOneBy(['typeRole' => 'etudiant']);
             }
+
             $user->setRoleUser($role);
 
             $entityManager->persist($user);

@@ -1,17 +1,21 @@
-const eye = document.querySelector(".feather-eye");
-const eyeoff = document.querySelector(".feather-eye-off");
-const passwordField = document.querySelector("input[type=password]");
+if (!window.form) {
 
-eye.addEventListener("click", () => {
-    eye.style.display = "none";
-    eyeoff.style.display = "block";
+    const eye = document.querySelector(".feather-eye");
+    const eyeoff = document.querySelector(".feather-eye-off");
+    const passwordField = document.querySelector("input[type=password]");
 
-    passwordField.type = "text";
-});
+    eye.addEventListener("click", () => {
+        eye.style.display = "none";
+        eyeoff.style.display = "block";
 
-eyeoff.addEventListener("click", () => {
-    eyeoff.style.display = "none";
-    eye.style.display = "block";
+        passwordField.type = "text";
+    });
 
-    passwordField.type = "password";
-});
+    eyeoff.addEventListener("click", () => {
+        eyeoff.style.display = "none";
+        eye.style.display = "block";
+
+        passwordField.type = "password";
+    });
+
+}
