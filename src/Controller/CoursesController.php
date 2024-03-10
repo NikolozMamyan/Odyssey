@@ -189,6 +189,7 @@ class CoursesController extends AbstractController
     public function delete(EntityManagerInterface $entityManager, int $id): RedirectResponse
     {
         $course = $entityManager->getRepository(Course::class)->find($id);
+
         $entityManager->remove($course);
         $entityManager->flush();
 

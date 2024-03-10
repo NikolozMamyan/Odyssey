@@ -19,25 +19,30 @@
                 <div class="d-flex flex-column">
                     {{ form_label(registrationForm.firstNameUser, 'Nom', { 'label_attr': {'class': 'form-label m-0'} } ) }}
                     {{ form_widget(registrationForm.firstNameUser, { 'attr': {'class': 'form-control mb-2'} } ) }}
+                    <div id="firstNameErrorMessage" class="sk-error-message"></div>
                     {{ form_errors(registrationForm.firstNameUser, { 'attr': {'class': 'danger mt-2'} } ) }}
 
                     {{ form_label(registrationForm.lastNameUser, 'Prénom', { 'label_attr': {'class': 'form-label m-0'} }) }}
                     {{ form_widget(registrationForm.lastNameUser, { 'attr': {'class': 'form-control mb-2'} } ) }}
+                    <div id="lastNameErrorMessage" class="sk-error-message"></div>
                     {{ form_errors(registrationForm.lastNameUser, { 'attr': {'class': 'danger mt-2'} } ) }}
 
                     {{ form_label(registrationForm.email, 'E-mail', { 'label_attr': {'class': 'form-label m-0'} }) }}
                     {{ form_widget(registrationForm.email, { 'attr': {'class': 'form-control mb-2'} } ) }}
+                    <div id="emailErrorMessage" class="sk-error-message"></div>
                     {{ form_errors(registrationForm.email, { 'attr': {'class': 'danger mt-2'} } ) }}
 
                     {{ form_label(registrationForm.plainPassword.first, 'Mot de passe', { 'label_attr': {'class': 'form-label m-0'} }) }}
                     {{ form_widget(registrationForm.plainPassword.first, { 'attr': {'class': 'form-control mb-2'} } ) }}
+                    <div id="firstPasswordErrorMessage" class="sk-error-message"></div>
                     {{ form_errors(registrationForm.plainPassword.first, { 'attr': {'class': 'danger mt-2'} } ) }}
 
                     {{ form_label(registrationForm.plainPassword.second, 'Resaisir votre mot de passe', { 'label_attr': {'class': 'form-label m-0'} }) }}
                     {{ form_widget(registrationForm.plainPassword.second, { 'attr': {'class': 'form-control mb-2'} } ) }}
+                    <div id="secondPasswordErrorMessage" class="sk-error-message"></div>
                     {{ form_errors(registrationForm.plainPassword.second, { 'attr': {'class': 'danger mt-2'} } ) }}
 
-                    <p class=" sk-password">Doit contenir au moins 8 caractères, dont au moins 1 lettre majuscule<br> et
+                    <p class="sk-password">Doit contenir au moins 8 caractères, dont au moins 1 lettre majuscule et
                         1 chiffre</p>
 
                 </div>
