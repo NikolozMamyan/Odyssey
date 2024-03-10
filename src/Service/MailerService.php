@@ -74,15 +74,15 @@ class MailerService
                 ->to($user->getEmail())
                 ->subject('Confirmation de la création de votre compte')
                 ->html($this->twig->render('email/create_account.html.twig', [
-                        'user' => $user,
-                        'email' => self::MAIL_ADRESSE])
+                    'user' => $user,
+                    'email' => self::MAIL_ADRESSE])
                 );
 
             $this->mailerInterface->send($email);
 
             return 'Votre compte a bien été crée';
 
-        }  catch (\Exception $e) {
+        } catch (\Exception $e) {
 
             return self::ERROR_MESSAGE;
         }
@@ -103,28 +103,28 @@ class MailerService
                 ->from(self::MAIL_ADRESSE)
                 ->to($user->getEmail());
 
-                if($disable) {
-                    $email->subject('Confirmation de désactivation de votre compte')
-                          ->html($this->twig->render('email/disable_account.html.twig', [
-                            'user' => $user,
-                            'email' => self::MAIL_ADRESSE])
-                          );
+            if ($disable) {
+                $email->subject('Confirmation de désactivation de votre compte')
+                    ->html($this->twig->render('email/disable_account.html.twig', [
+                        'user' => $user,
+                        'email' => self::MAIL_ADRESSE])
+                    );
 
-                    $message = 'Votre compte a bien été désactivé';
+                $message = 'Votre compte a bien été désactivé';
 
-                } else {
-                    $email->subject('Confirmation de réactivation de votre compte')
-                        ->html($this->twig->render('email/enable_account.html.twig', [
-                            'user' => $user,
-                            'email' => self::MAIL_ADRESSE])
-                        );
+            } else {
+                $email->subject('Confirmation de réactivation de votre compte')
+                    ->html($this->twig->render('email/enable_account.html.twig', [
+                        'user' => $user,
+                        'email' => self::MAIL_ADRESSE])
+                    );
 
-                    $message = 'Vous venez de réactiver votre compte';
-                }
+                $message = 'Vous venez de réactiver votre compte';
+            }
 
-                $this->mailerInterface->send($email);
+            $this->mailerInterface->send($email);
 
-                return $message;
+            return $message;
 
         } catch (\Exception $e) {
 
@@ -177,21 +177,21 @@ class MailerService
                 ->from(self::MAIL_ADRESSE)
                 ->to($user->getEmail());
 
-                if($course->getStatus() == 'Validé') {
+            if ($course->getStatus() == 'Validé') {
 
-                    $email->subject('Validation de votre cours')
-                          ->html($this->twig->render('email/valid_course.html.twig', [
-                            'course' => $course,
-                            'user' => $user])
-                          );
-                } else {
+                $email->subject('Validation de votre cours')
+                    ->html($this->twig->render('email/valid_course.html.twig', [
+                        'course' => $course,
+                        'user' => $user])
+                    );
+            } else {
 
-                    $email->subject('Refus de votre cours')
-                        ->html($this->twig->render('email/refuse_course.html.twig', [
-                            'course' => $course,
-                            'user' => $user])
-                        );
-                }
+                $email->subject('Refus de votre cours')
+                    ->html($this->twig->render('email/refuse_course.html.twig', [
+                        'course' => $course,
+                        'user' => $user])
+                    );
+            }
 
             $this->mailerInterface->send($email);
 

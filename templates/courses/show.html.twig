@@ -4,48 +4,51 @@
 
 {% block body %}
 
-<div class="row justify-content-center mt-4">
-    <div class="col-md-8 mb-5">
-        
-        <div class="card bg-light">
-            <div class="course_image">
-                <img src="{{ vich_uploader_asset(course, 'imageFile') }}" style="width: 100%; height: 300px;" alt="image">
-            </div>
-        <div class="card bg-light">
-            <div class="card-header text-center">
-                <h2 class="card-title"><strong>{{ course.title }}</strong> </h2>
-            </div>
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8 mb-5">
 
-            <div class="card-body">
-                {% if course %}
-                    <div class="row">
-                    <div class="col-6">
-                        <div class="mb-4"><strong>Formateur :</strong> {{ course.getCreatedBy.firstNameUser }} {{ course.getCreatedBy.lastNameUser }} </div>
+            <div class="card bg-light">
+                <div class="course_image">
+                    <img src="{{ vich_uploader_asset(course, 'imageFile') }}" style="width: 100%; height: 300px;"
+                         alt="image">
+                </div>
+                <div class="card bg-light">
+                    <div class="card-header text-center">
+                        <h2 class="card-title"><strong>{{ course.title }}</strong></h2>
                     </div>
-                        <div class="col-6">
-                        {% for category in course.categories %}
-                            <span class="badge text-bg-primary mx-2 w-25">{{ category.name }}</span>
-                        {% endfor %}
+
+                    <div class="card-body">
+                        {% if course %}
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-4"><strong>Formateur
+                                        :</strong> {{ course.getCreatedBy.firstNameUser }} {{ course.getCreatedBy.lastNameUser }}
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                {% for category in course.categories %}
+                                    <span class="badge text-bg-primary mx-2 w-25">{{ category.name }}</span>
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
-                    </div>
 
-					<div class="px-3"> {{ course.content|raw }}</div>
+                    <div class="px-3"> {{ course.content|raw }}</div>
                     <div class="d-flex px-3 mb-3">
                         <a href="{{ path('app_courses') }}" class="btn sk-btn mt-5 me-3">Retour à la liste des cours</a>
                         {% if app.user %}
                             <a href="{{ path('app_user') }}" class="btn btn-secondary mt-5">Mon profil</a>
                         {% endif %}
                     </div>
-                {% else %}
-                    <p>Le cours demandé n'existe pas.</p>
-                {% endif %}
+                    {% else %}
+                        <p>Le cours demandé n'existe pas.</p>
+                    {% endif %}
+                </div>
+
             </div>
 
         </div>
-
     </div>
-</div>
 
 
 {% endblock %}

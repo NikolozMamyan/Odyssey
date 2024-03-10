@@ -27,7 +27,6 @@ class UserControllerTest extends WebTestCase
         $client->submit($form);
 
 
-
         // Crée une requête HTTP GET pour accéder à la page d'édition d'utilisateur
         $client->request('GET', '/user/edit/5');
 
@@ -37,8 +36,8 @@ class UserControllerTest extends WebTestCase
 
         // Inserts data into the form
         $client->submitForm('user_edit_save', [
-                            'user_edit[firstNameUser]' => 'Fabien',
-                            'user_edit[lastNameUser]' => 'Potencier']);
+            'user_edit[firstNameUser]' => 'Fabien',
+            'user_edit[lastNameUser]' => 'Potencier']);
 
 
         $client->followRedirect();

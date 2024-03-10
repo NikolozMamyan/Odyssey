@@ -26,10 +26,10 @@ class RegistrationController extends AbstractController
      * @return Response
      */
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request,
+    public function register(Request                     $request,
                              UserPasswordHasherInterface $userPasswordHasher,
-                             EntityManagerInterface $entityManager,
-                             MailerService $mailer): Response
+                             EntityManagerInterface      $entityManager,
+                             MailerService               $mailer): Response
     {
 
         if ($this->getUser()) {

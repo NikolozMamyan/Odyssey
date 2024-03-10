@@ -32,7 +32,7 @@ class LandingPageController extends AbstractController
      * @param ValidatorInterface $validator
      * @return Response
      */
-    #[Route('/contact', name: 'app_contact', methods:['POST'])]
+    #[Route('/contact', name: 'app_contact', methods: ['POST'])]
     public function contact(MailerService $mailerService, Request $request, ValidatorInterface $validator): Response
     {
         // recover data from form

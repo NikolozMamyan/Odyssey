@@ -54,7 +54,7 @@ class SearchController extends AbstractController
     public function handleSearch(Request $request, CourseRepository $repo): Response
     {
         $notes = $repo->getAverageNotes();
-        
+
         $form = $this->createFormBuilder()
             ->setAction($this->generateUrl('handleSearch'))
             ->add('query', TextType::class, [
@@ -68,22 +68,22 @@ class SearchController extends AbstractController
                 'attr' => [
                     'class' => 'btn btn-outline-secondary'
                 ]
-                ])->getForm();
+            ])->getForm();
 
         $form->handleRequest($request);
 
         $query = $form->getData()['query']; //$request->request->get('form')['query'] ?? '';
 
         $courses = [];
-    
+
         if ($query) {
             $courses = $repo->findCourseByName($query);
         }
-      
+
         return $this->render('search/index.html.twig', [
             'courses' => $courses,
-            'notes' =>  $notes
+            'notes' => $notes
         ]);
     }
-    
+
 }

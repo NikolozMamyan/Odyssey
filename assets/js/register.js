@@ -1,4 +1,3 @@
-
 if (!window.form) {
 
     const form = document.querySelector('form[name="registration_form"]');

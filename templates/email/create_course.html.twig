@@ -12,13 +12,14 @@
     <strong>Titre du cours :</strong> {{ course.title }}<br>
     <strong>Catégories :</strong><br>
     {% for category in course.categories %}
-         {{ category.name }} /
+        {{ category.name }} /
     {% endfor %}
     <br><strong>Formateur :</strong> {{ user.firstNameUser }} {{ user.lastNameUser }}<br>
     <strong>Email du formateur :</strong> {{ user.email }}<br>
     <strong>Description :</strong> {{ course.description }}<br>
 
-    <p>Veuillez prendre les mesures nécessaires pour examiner ce cours et le valider s'il répond aux critères établis.</p>
+    <p>Veuillez prendre les mesures nécessaires pour examiner ce cours et le valider s'il répond aux critères
+        établis.</p>
 
     <p>En cas de questions ou de besoins supplémentaires, n'hésitez pas à contacter le formateur à l'adresse :</p>
     <strong>{{ user.email }}</strong><br>
