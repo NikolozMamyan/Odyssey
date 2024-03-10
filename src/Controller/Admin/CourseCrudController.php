@@ -80,7 +80,7 @@ class CourseCrudController extends AbstractCrudController
                     $categoryNames[] = $category->getName();
                 }
                 return implode(', ', $categoryNames);
-                })
+            })
             ->setCssClass('text-left');
         yield AssociationField::new('createdBy')
             ->setLabel('Créer par');
@@ -91,7 +91,6 @@ class CourseCrudController extends AbstractCrudController
                 'Refuser' => 'Refusé',
                 'En attente de validation' => 'en attente',
             ]);
-
 
 
     }

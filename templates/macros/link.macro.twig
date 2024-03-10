@@ -1,7 +1,7 @@
 {% macro isActiveNavLink(name, route) %}
-	<a class="nav-link
+    <a class="nav-link
 				{% if app.request.attributes.get('_route') == route %}
 					 active
 				{% endif %}" aria-current="page" href="{{ path(route) }}">{{ name }}
-	</a>
+    </a>
 {% endmacro %}

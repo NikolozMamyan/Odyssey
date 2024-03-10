@@ -5,25 +5,25 @@
 
 {% block body %}
 
-<main class="w-50 mx-auto sk-main">
+    <main class="w-50 mx-auto sk-main">
 
-    <div class="card px-5 shadow bg-body-tertiary rounded mt-5">
+        <div class="card px-5 shadow bg-body-tertiary rounded mt-5">
 
-        <h1 class="sk-h2 mt-3 text-center text-decoration-underline">Réinitialiser votre mot de passe</h1>
+            <h1 class="sk-h2 mt-3 text-center text-decoration-underline">Réinitialiser votre mot de passe</h1>
 
-    {{ form_start(resetForm) }}
+            {{ form_start(resetForm) }}
 
 
-        {{ form_label(resetForm.plainPassword.first, 'Nouveau mot de passe', { 'label_attr': {'class': 'form-label m-0'} } ) }}
-        {{ form_widget(resetForm.plainPassword.first, { 'attr': {'class': 'form-control mb-2'} } ) }}
+            {{ form_label(resetForm.plainPassword.first, 'Nouveau mot de passe', { 'label_attr': {'class': 'form-label m-0'} } ) }}
+            {{ form_widget(resetForm.plainPassword.first, { 'attr': {'class': 'form-control mb-2'} } ) }}
 
-        {{ form_label(resetForm.plainPassword.second, 'Resaisir vote mot de passe', { 'label_attr': {'class': 'form-label m-0'} } ) }}
-        {{ form_widget(resetForm.plainPassword.second, { 'attr': {'class': 'form-control mb-2'} } ) }}
+            {{ form_label(resetForm.plainPassword.second, 'Resaisir vote mot de passe', { 'label_attr': {'class': 'form-label m-0'} } ) }}
+            {{ form_widget(resetForm.plainPassword.second, { 'attr': {'class': 'form-control mb-2'} } ) }}
 
-        <button type="submit" class="sk-btn w-100 my-4" >Valider</button>
-    {{ form_end(resetForm) }}
+            <button type="submit" class="sk-btn w-100 my-4">Valider</button>
+            {{ form_end(resetForm) }}
 
-    </div>
+        </div>
 
-</main>
+    </main>
 {% endblock %}

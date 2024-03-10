@@ -19,7 +19,7 @@ class LandingPageControllerTest extends WebTestCase
         $client = static::createClient();
 
         // Returns an instance of Crawler.
-        $crawler = $client->request('GET','/');
+        $crawler = $client->request('GET', '/');
 
         // Tests that there is 1 HTML tag using the selector.
         $this->assertCount(1, $crawler->filter('h1'));

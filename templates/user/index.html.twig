@@ -38,7 +38,7 @@
                         <div class="ms-3">
                             <div class="d-flex justify-content-between">
                                 <h4 class="card-title mb-4">Mes informations personnelles</h4>
-                                
+
                             </div>
                             <div class="d-flex">
                                 <div>
@@ -47,12 +47,15 @@
                                 </div>
                                 <div>
                                     <p><span class="fw-bold">Prénom :</span> {{ user.lastNameUser }} </p>
-                                    <p><span class="fw-bold">Date d'inscription :</span> {{ user.dateRegisterUser | date('d/m/Y') }}</p>
+                                    <p>
+                                        <span class="fw-bold">Date d'inscription :</span> {{ user.dateRegisterUser | date('d/m/Y') }}
+                                    </p>
                                 </div>
                                 <p><span class="fw-bold">E-mail :</span> {{ user.email }}</p>
                             </div>
-                            <div class ="btns__nm mt-5">
-                                <a href="{{ path('app_logout') }}" class='btn btn-secondary mb-3 py-2'> Se déconnecter</a>
+                            <div class="btns__nm mt-5">
+                                <a href="{{ path('app_logout') }}" class='btn btn-secondary mb-3 py-2'> Se
+                                    déconnecter</a>
                                 <a class='btn sk-btn mb-3' href="{{ path('app_user_edit', {id: user.id}) }}"><i
                                             class="fa-solid fa-pen fs-3"></i>Modifier mes informations</a>
                                 {% if 'formateur' in app.user.roleUser.typeRole %}
@@ -91,26 +94,27 @@
                     </tr>
                     </thead>
                     <tbody>
-                        {% for c in pagination %}
-                            <tr>
-                                <td>{{ c.title }}</td>
-                                <td>{{ c.description }}</td>
-                                <td>
-                                    {% for note in notes %}
-                                        {% if note.averageNote is not null and note.course_id == c.id %}
-                                            {{ note.averageNote|round(1) }} / 5
-                                        {% endif %}
-                                    {% endfor %}
-                                </td>
-                                <td>{{ c.status }}</td>
-                                <td>
-                                    <div class="d-flex">
-                                        <a href="{{ path('app_course_edit', { slug: c.slug }) }}" class="btn btn-warning me-2">Modifier</a>
-                                        {{ modalDelete.deleteCourse(c) }}
-                                    </div>
-                                </td>
-                            </tr>
-                        {% endfor %}
+                    {% for c in pagination %}
+                        <tr>
+                            <td><a href="{{ path('app_course_show', {'slug': c.slug}) }}">{{ c.title }}</a></td>
+                            <td>{{ c.description }}</td>
+                            <td>
+                                {% for note in notes %}
+                                    {% if note.averageNote is not null and note.course_id == c.id %}
+                                        {{ note.averageNote|round(1) }} / 5
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td>{{ c.status }}</td>
+                            <td>
+                                <div class="d-flex">
+                                    <a href="{{ path('app_course_edit', { slug: c.slug }) }}"
+                                       class="btn btn-warning me-2">Modifier</a>
+                                    {{ modalDelete.deleteCourse(c) }}
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             {% else %}
@@ -146,7 +150,8 @@
                     <tbody>
                     {% for course in app.user.participateCourses %}
                         <tr>
-                            <td><a href="{{ path('app_course_show', {'slug': course.slug}) }}">{{ course.title }}</a></td>
+                            <td><a href="{{ path('app_course_show', {'slug': course.slug}) }}">{{ course.title }}</a>
+                            </td>
                             <td>{{ course.description }}</td>
                             <td>
                                 {% for category in course.categories %}

@@ -6,6 +6,7 @@ use App\Entity\Course;
 use App\Entity\Category;
 use App\Form\CourseType;
 use App\Form\CategoryFilterType;
+use App\Security\Voter\CoursesVoter;
 use App\Service\MailerService;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -14,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 
@@ -55,7 +57,7 @@ class CoursesController extends AbstractController
         return $this->render('courses/index.html.twig', [
             'form' => $form->createView(),
             'courses' => $courses,
-            'notes' =>  $notes,
+            'notes' => $notes,
             'pagination' => $pagination
         ]);
     }
@@ -72,9 +74,9 @@ class CoursesController extends AbstractController
      */
     #[Route('/courses/create', name: 'app_course_create')]
     public function create(EntityManagerInterface $entityManager,
-                           Request $request,
-                           MailerService $mailer,
-                           SluggerInterface $slugger): Response
+                           Request                $request,
+                           MailerService          $mailer,
+                           SluggerInterface       $slugger): Response
     {
         $categories = $entityManager->getRepository(Category::class)->findAll();
 
@@ -147,12 +149,13 @@ class CoursesController extends AbstractController
      * @return Response
      */
     #[Route('/courses/edit/{slug}', name: 'app_course_edit')]
-    public function edit(string $slug,
+    #[isGranted(CoursesVoter::EDIT, 'course')]
+    public function edit(Course                 $course,
                          EntityManagerInterface $entityManager,
-                         Request $request,
-                         SluggerInterface $slugger): Response
+                         Request                $request,
+                         SluggerInterface       $slugger): Response
     {
-        $course = $entityManager->getRepository(Course::class)->findOneBy(['slug' => $slug]);
+
         $categories = $entityManager->getRepository(Category::class)->findAll();
 
         $form = $this->createForm(CourseType::class, $course, [

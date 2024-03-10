@@ -5,23 +5,23 @@
 {% block body %}
 
 
-<div class="container sk-main">
+    <div class="container sk-main">
 
-     <h2 class="my-5">Modifier mon profil</h2>
+        <h2 class="my-5">Modifier mon profil</h2>
 
-     {{ form_start(userForm) }}
+        {{ form_start(userForm) }}
 
-     {{ form_row(userForm.email) }}
-     {{ form_row(userForm.firstNameUser) }}
-     {{ form_row(userForm.lastNameUser) }}
+        {{ form_row(userForm.email) }}
+        {{ form_row(userForm.firstNameUser) }}
+        {{ form_row(userForm.lastNameUser) }}
 
-     <div class="d-flex">
-          {{ form_widget(userForm.save, {'attr': {'class': 'btn sk-btn mt-4'}}) }}
-          <a href="{{ path('app_user')}}" class="btn btn-secondary ms-2 mt-4">Annuler</a>
-     </div>
+        <div class="d-flex">
+            {{ form_widget(userForm.save, {'attr': {'class': 'btn sk-btn mt-4'}}) }}
+            <a href="{{ path('app_user') }}" class="btn btn-secondary ms-2 mt-4">Annuler</a>
+        </div>
 
-     {{ form_end(userForm) }}
-</div>
+        {{ form_end(userForm) }}
+    </div>
 
 
 {% endblock %}
